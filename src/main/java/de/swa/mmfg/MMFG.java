@@ -46,10 +46,10 @@ public class MMFG {
 		for (Node n : nodes) {
 			if (n.getName().equals(term)) {
 				result.add(n);
-				Vector<TechnicalAttribute> ta = n.getTechnicalAttributes();
-				for (TechnicalAttribute t : ta) {
-					System.out.println("TA: " + t.getWidth());
-				}
+				//Vector<TechnicalAttribute> ta = n.getTechnicalAttributes();
+				//for (TechnicalAttribute t : ta) {
+				//	System.out.println("TA: " + t.getWidth());
+				//}
 			}
 			for (Node ni : n.getChildNodes()) {
 				if (ni.getName().equals(term) && !result.contains(ni)) result.add(ni);
@@ -110,7 +110,7 @@ public class MMFG {
 		return nodes;
 	}
 
-	/** returns the complete lost of nodes **/
+	/** returns the complete list of nodes **/
 	public Vector<Node> getAllNodes() {
 		return allNodes;
 	}

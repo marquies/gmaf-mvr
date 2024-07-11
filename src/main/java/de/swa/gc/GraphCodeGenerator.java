@@ -58,7 +58,7 @@ public class GraphCodeGenerator  {
 					gc.setValueForTerms(n.getName(), child.getName(), CHILD_RELATIONSHIP);
 				}
 				catch (Exception x) {
-//					x.printStackTrace();
+					//x.printStackTrace();
 				}
 			}
 			// Composition Relationships

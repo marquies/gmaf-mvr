@@ -56,8 +56,11 @@ public class PluginChain {
 		fv.setGeneralMetadata(gm);
 
 		for (GMAF_Plugin fvp : plugins) {
-			if (fvp.isGeneralPlugin())
-				fvp.process(url, f, bytes, fv);
+
+			if (fvp.canProcess(extension)) {
+				if (fvp.isGeneralPlugin())
+					fvp.process(url, f, bytes, fv);
+			}
 		}
 
 		try {
@@ -142,7 +145,7 @@ public class PluginChain {
 		}
 
 		// calculate spacial relationships based on the bounding boxes
-		SpacialFeatureFusion sff = new SpacialFeatureFusion();
-		sff.optimize(fv, null);
+//		SpacialFeatureFusion sff = new SpacialFeatureFusion();
+//		sff.optimize(fv, null);
 	}
 }

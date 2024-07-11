@@ -7,9 +7,7 @@ import java.util.Vector;
 
 public class Timerange {
 	private Date begin, end;
-
-	@JsonIgnore
-	private Vector<Node> nodes;
+	private Vector<Node> nodes = new Vector<Node>();
 	private boolean isUniversalTime = true;
 	private boolean isRelativeTime = false;
 	
@@ -80,8 +78,11 @@ public class Timerange {
 
 
 	public boolean isInside(Timerange toCompare) {
+		if (toCompare == null) return false;
 		Date otherStart = toCompare.begin;
 		Date otherEnd = toCompare.end;
+
+		if (otherStart == null || otherEnd == null) return false;
 
 		return begin.before(otherStart) && end.after(otherEnd);
 	}
