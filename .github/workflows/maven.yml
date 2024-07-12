@@ -52,9 +52,9 @@ jobs:
           java-version: 17
 
       - name: Publish SNAPSHOT version to GitHub Packages (we can skip tests since we only deploy if the build workflow succeeded)
-        run: mvn --batch-mode deploy -DskipTests
+        run: mvn -B --no-transfer-progress deploy -DskipTests
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.PAT }}
 
 
     # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
