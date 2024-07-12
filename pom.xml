@@ -18,7 +18,7 @@
 		</repository>
 		<snapshotRepository>
 			<id>github</id>
-			<name>GitHub Packages</name>
+    			<name>GitHub marquies Apache Maven Packages</name>
 			<url>https://maven.pkg.github.com/marquies/gmaf-mvr</url>
 		</snapshotRepository>
 	</distributionManagement>
