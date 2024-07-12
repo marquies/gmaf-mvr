@@ -13,14 +13,10 @@
 
 	<distributionManagement>
 		<repository>
-			<id>oss.sonatype.org</id>
-			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-		</repository>
-		<snapshotRepository>
 			<id>github</id>
     			<name>GitHub marquies Apache Maven Packages</name>
 			<url>https://maven.pkg.github.com/marquies/gmaf-mvr</url>
-		</snapshotRepository>
+		</repository>
 	</distributionManagement>
 
 	<dependencies>
