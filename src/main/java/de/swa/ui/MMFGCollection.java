@@ -32,18 +32,29 @@ import org.apache.jena.rdf.model.Model;
  * Created by Patrick Steinert on 27.12.23.
  */
 public class MMFGCollection {
+	public static boolean isQuery = false;
+	/**
+	 * singleton pattern access
+	 **/
+	private static MMFGCollection instance;
+	/**
+	 * session facade pattern access
+	 **/
+	private static Hashtable<String, MMFGCollection> sessions = new Hashtable<String, MMFGCollection>();
+	private static boolean inited = false;
 	private Vector<MMFG> collection = new Vector<MMFG>();
 	private Hashtable<File, MMFG> fileMap = new Hashtable<File, MMFG>();
 	private String name = "";
 	private Model model = ModelFactory.createDefaultModel();
 	private Hashtable<MMFG, GraphCode> graphCodeCache = new Hashtable<MMFG, GraphCode>();
+	private Hashtable<UUID, MMFG> idMap = new Hashtable<UUID, MMFG>();
+	private Vector<ProgressListener> progressListeners = new Vector<ProgressListener>();
+	private Vector<RefreshListener> refreshListeners = new Vector<RefreshListener>();
+	private GraphCode currentQuery;
 
 	/**
 	 * singleton pattern access
 	 **/
-	private static MMFGCollection instance;
-
-	/** singleton pattern access **/
 /*	protected static synchronized MMFGCollection getInstance() {
 		if (instance == null) {
 			instance = new MMFGCollection();
@@ -53,10 +64,9 @@ public class MMFGCollection {
 		return instance;
 	}
   */
-	/**
-	 * session facade pattern access
-	 **/
-	private static Hashtable<String, MMFGCollection> sessions = new Hashtable<String, MMFGCollection>();
+
+	protected MMFGCollection() {
+	}
 
 	/**
 	 * singleton pattern access
@@ -69,7 +79,6 @@ public class MMFGCollection {
 		//instance.init();
 		return instance;
 	}
-
 
 	public static synchronized MMFGCollection getInstance(String session_id) {
 		if (sessions.get(session_id) != null)
@@ -85,26 +94,8 @@ public class MMFGCollection {
 		}
 	}
 
-	private static boolean inited = false;
-
-	protected MMFGCollection() {
-	}
-
-	private Hashtable<UUID, MMFG> idMap = new Hashtable<UUID, MMFG>();
-	private Vector<ProgressListener> progressListeners = new Vector<ProgressListener>();
-
 	public void addProgressListener(ProgressListener pl) {
 		progressListeners.add(pl);
-	}
-
-	private Vector<RefreshListener> refreshListeners = new Vector<RefreshListener>();
-
-	public void addRefreshListener(RefreshListener re) {
-		refreshListeners.add(re);
-	}
-
-	public void refresh() {
-		for (RefreshListener re : refreshListeners) re.refresh();
 	}
 
 //	protected static synchronized MvMMFGCollection getInstance(String session_id) {
@@ -121,6 +112,13 @@ public class MMFGCollection {
 //		}
 //	}
 
+	public void addRefreshListener(RefreshListener re) {
+		refreshListeners.add(re);
+	}
+
+	public void refresh() {
+		for (RefreshListener re : refreshListeners) re.refresh();
+	}
 
 	/**
 	 * initializes the collection and the configuration
@@ -293,8 +291,6 @@ public class MMFGCollection {
 		return null;
 	}
 
-	private GraphCode currentQuery;
-
 	public GraphCode getCurrentQuery() {
 		return currentQuery;
 	}
@@ -328,7 +324,6 @@ public class MMFGCollection {
 	public int getIndexForAsset(MMFG m) {
 		return collection.indexOf(m);
 	}
-
 
 	public Vector<MMFG> processQuery(GraphCode gcQuery, int type) {
 		CollectionProcessor cp = new DefaultCollectionProcessor();
@@ -383,8 +378,6 @@ public class MMFGCollection {
 		collection = tempCollection;
 		return tempCollection;
 	}
-
-	public static boolean isQuery = false;
 
 	/**
 	 * returns recommended assets based on a Graph Code query
