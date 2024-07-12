@@ -49,10 +49,10 @@ jobs:
       - name: Set up settings.xml for GitHub Packages
         uses: actions/setup-java@v1
         with:
-          java-version: 8
+          java-version: 17
 
       - name: Publish SNAPSHOT version to GitHub Packages (we can skip tests since we only deploy if the build workflow succeeded)
-        run: mvn -B --no-transfer-progress deploy -DskipTests --projects gmaf-mvr
+        run: mvn -B --no-transfer-progress deploy -DskipTests
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
