@@ -1,16 +1,25 @@
 package de.swa.mmfg;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import java.util.Date;
 import java.util.Vector;
 
 public class Timerange {
 	private Date begin, end;
+
+	@JsonIgnore
 	private Vector<Node> nodes = new Vector<Node>();
 	private boolean isUniversalTime = true;
 	private boolean isRelativeTime = false;
-	
+
+	public Timerange(Date begin, Date end, boolean isRelativeTime) {
+		this.begin = begin;
+		this.end = end;
+		this.isRelativeTime = isRelativeTime;
+	}
+
 	public boolean isUniversalTime() {
 		return isUniversalTime;
 	}
