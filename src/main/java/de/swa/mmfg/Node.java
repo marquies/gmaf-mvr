@@ -1,5 +1,6 @@
 package de.swa.mmfg;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import java.util.UUID;
 import java.util.Vector;
 
