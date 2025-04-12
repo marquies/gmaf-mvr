@@ -47,6 +47,11 @@ public class Configuration {
 	}
 
 	private Vector<MMFG> selection = new Vector<MMFG>();
+
+	public static void setInstance(Configuration mockConfig) {
+		instance = mockConfig;
+	}
+
 	public Vector<MMFG> getSelectedItems() {
 		return selection;
 	}
