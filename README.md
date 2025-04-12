@@ -16,3 +16,7 @@ Install as local dependency for the further packages
 ```
 mvn install
 ```
+                                    
+## Changelog
+
+[Changelog](https://github.com/marquies/gmaf-mvr/blob/main/CHANGELOG.md)
