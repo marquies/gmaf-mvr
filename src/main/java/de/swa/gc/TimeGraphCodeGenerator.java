@@ -1,0 +1,320 @@
+package de.swa.gc;
+
+import de.swa.mmfg.*;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Objects;
+import java.util.Vector;
+
+/**
+ * Created by Patrick Steinert on 14.04.25.
+ */
+public class TimeGraphCodeGenerator {
+	private static final int LEAF_TYPE = 2;
+	private static final int NODE_TYPE = 1;
+	private static final int CHILD_RELATIONSHIP = 1;
+
+	/**
+	 * returns a Graph Code based on a MMFG
+	 **/
+	public static TimeGraphCode generate(MMFG m) {
+		// find min max time interval
+		Date minTime = null;
+		Date maxTime = null;
+		Timerange minTimerange = findMinTimeRange(m);
+		if (minTimerange != null) {
+			minTime = minTimerange.getBegin();
+		}
+
+		Timerange maxTimerange = findMaxTimeRange(m);
+		if (maxTimerange != null) {
+			maxTime = maxTimerange.getEnd();
+		}
+
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+		System.out.println(sdf.format(minTime));
+		System.out.println(sdf.format(maxTime));
+		//gc.setMinTime(minTime);
+		//gc.setMaxTime(maxTime);
+
+		long diff = Objects.requireNonNull(maxTime).getTime() - Objects.requireNonNull(minTime).getTime();
+
+		TimeGraphCode gc = new TimeGraphCode((int) (diff/1000));
+		Vector<String> dictionary = new Vector<String>();
+
+		// Calculate the Graph Code Dictionary by the vocabulary terms of the MMFG
+		Vector<Node> vocTerms = m.allNodes;
+		for (Node n : vocTerms) {
+			String term = n.getName();
+			if (!term.equals("")) {
+				if (term.startsWith("Sentence_")) continue;
+				if (!dictionary.contains(term)) {
+					dictionary.add(term);
+				}
+			}
+		}
+		gc.setDictionary(dictionary);
+
+		// for each node in the MMFG, calculate relationship values
+		for (Node n : vocTerms) {
+			// Child Relationships
+			for (Node child : n.getChildNodes()) {
+				try {
+					if (n.getTimerange() != null && child.getTimerange() != null) {
+						// Both nodes have timeranges - use the overlapping period
+						processTimerangeRelationship(gc, n.getName(), child.getName(), 
+							CHILD_RELATIONSHIP, n.getTimerange(), child.getTimerange(), 
+							minTime.getTime(), diff);
+					} else if (n.getTimerange() != null) {
+						// Only parent has timerange
+						int[] timePoints = calculateTimePoints(n.getTimerange(), minTime.getTime(), diff);
+						for (int i = timePoints[0]; i <= timePoints[1]; i++) {
+							gc.setValueForTerms(n.getName(), child.getName(), CHILD_RELATIONSHIP, i);
+						}
+					} else if (child.getTimerange() != null) {
+						// Only child has timerange
+						int[] timePoints = calculateTimePoints(child.getTimerange(), minTime.getTime(), diff);
+						for (int i = timePoints[0]; i <= timePoints[1]; i++) {
+							gc.setValueForTerms(n.getName(), child.getName(), CHILD_RELATIONSHIP, i);
+						}
+					} else {
+						// Neither has timerange - use default time point 0
+						gc.setValueForTerms(n.getName(), child.getName(), CHILD_RELATIONSHIP, 0);
+					}
+				} catch (Exception x) {
+					//x.printStackTrace();
+				}
+			}
+			
+			// Composition Relationships
+			for (CompositionRelationship cr : n.getCompositionRelationships()) {
+				try {
+					Node relatedNode = cr.getRelatedObject();
+					
+					if (!cr.getTimeRange().isEmpty()) {
+						// Composition relationship has its own timeranges
+						for (Timerange tr : cr.getTimeRange()) {
+							if (n.getTimerange() != null) {
+								// Both relationship and node have timeranges - use the overlapping period
+								processTimerangeRelationship(gc, n.getName(), relatedNode.getName(), 
+									cr.getType(), n.getTimerange(), tr, 
+									minTime.getTime(), diff);
+							} else {
+								// Only relationship has timerange
+								int[] timePoints = calculateTimePoints(tr, minTime.getTime(), diff);
+								for (int i = timePoints[0]; i <= timePoints[1]; i++) {
+									gc.setValueForTerms(n.getName(), relatedNode.getName(), cr.getType(), i);
+								}
+							}
+						}
+					} else if (n.getTimerange() != null && relatedNode.getTimerange() != null) {
+						// No relationship timerange, but both nodes have timeranges
+						processTimerangeRelationship(gc, n.getName(), relatedNode.getName(), 
+							cr.getType(), n.getTimerange(), relatedNode.getTimerange(), 
+							minTime.getTime(), diff);
+					} else if (n.getTimerange() != null) {
+						// Only source node has timerange
+						int[] timePoints = calculateTimePoints(n.getTimerange(), minTime.getTime(), diff);
+						for (int i = timePoints[0]; i <= timePoints[1]; i++) {
+							gc.setValueForTerms(n.getName(), relatedNode.getName(), cr.getType(), i);
+						}
+					} else if (relatedNode.getTimerange() != null) {
+						// Only target node has timerange
+						int[] timePoints = calculateTimePoints(relatedNode.getTimerange(), minTime.getTime(), diff);
+						for (int i = timePoints[0]; i <= timePoints[1]; i++) {
+							gc.setValueForTerms(n.getName(), relatedNode.getName(), cr.getType(), i);
+						}
+					} else {
+						// No timeranges available - use default time point 0
+						gc.setValueForTerms(n.getName(), relatedNode.getName(), cr.getType(), 0);
+					}
+				} catch (Exception x) {
+					//x.printStackTrace();
+				}
+			}
+
+			// Semantic Relationships
+			for (SemanticRelationship sr : n.getSemanticRelationships()) {
+				// Similar implementation could be added for semantic relationships if needed
+			}
+		}
+
+		try {
+			for (MMFG mi : m.getCollectionElements()) {
+				TimeGraphCode gci = TimeGraphCodeGenerator.generate(mi);
+				gc.addTimeGraphCode(gci);
+			}
+		} catch (Exception x) {
+			System.out.println("TimeGraphCodeGenerator " + x);
+		}
+
+		return gc;
+	}
+	
+	/**
+	 * Process a relationship between two timeranges, setting values for their overlap period
+	 */
+	private static void processTimerangeRelationship(TimeGraphCode gc, String sourceName, 
+			String targetName, int relationshipType, Timerange sourceTimerange, 
+			Timerange targetTimerange, long minTime, long totalDuration) {
+		
+		// Find the overlapping time period
+		Date overlapStart = sourceTimerange.getBegin().after(targetTimerange.getBegin()) ? 
+				sourceTimerange.getBegin() : targetTimerange.getBegin();
+		
+		Date overlapEnd = sourceTimerange.getEnd().before(targetTimerange.getEnd()) ? 
+				sourceTimerange.getEnd() : targetTimerange.getEnd();
+		
+		// Only process if there is an actual overlap
+		if (!overlapStart.after(overlapEnd)) {
+			Timerange overlapTimerange = new Timerange();
+			overlapTimerange.setBegin(overlapStart);
+			overlapTimerange.setEnd(overlapEnd);
+			
+			int[] timePoints = calculateTimePoints(overlapTimerange, minTime, totalDuration);
+			for (int i = timePoints[0]; i <= timePoints[1]; i++) {
+				gc.setValueForTerms(sourceName, targetName, relationshipType, i);
+			}
+		}
+	}
+	
+	/**
+	 * Calculate the time point indices for the beginning and end of a timerange
+	 * @param timerange The timerange to calculate points for
+	 * @param minTime The minimum time (in milliseconds)
+	 * @param totalDuration The total duration (in milliseconds)
+	 * @return An array with [beginTimePoint, endTimePoint]
+	 */
+	private static int[] calculateTimePoints(Timerange timerange, long minTime, long totalDuration) {
+		int[] result = new int[2];
+		
+		// Calculate begin time point
+		long beginTime = timerange.getBegin().getTime();
+		double beginRelativePosition = (double)(beginTime - minTime) / totalDuration;
+		result[0] = (int)(beginRelativePosition * (totalDuration / 1000));
+		
+		// Calculate end time point
+		long endTime = timerange.getEnd().getTime();
+		double endRelativePosition = (double)(endTime - minTime) / totalDuration;
+		result[1] = (int)(endRelativePosition * (totalDuration / 1000));
+		
+		return result;
+	}
+
+	public static Timerange findMaxTimeRange(MMFG mmfg) {
+		Date maxDate = new Date(0); // Initialize with earliest possible date
+		Timerange maxTimerange = null;
+
+		// Check all nodes recursively
+		for (Node node : mmfg.getNodes()) {
+			Timerange nodeMax = findMaxTimeRangeInNode(node);
+			if (nodeMax != null && nodeMax.getEnd().after(maxDate)) {
+				maxDate = nodeMax.getEnd();
+				maxTimerange = nodeMax;
+			}
+		}
+
+		return maxTimerange;
+	}
+
+	private static Timerange findMaxTimeRangeInNode(Node node) {
+		Date maxDate = new Date(0);
+		Timerange maxTimerange = null;
+
+		// Check node's own timerange
+		if (node.getTimerange() != null && node.getTimerange().getEnd().after(maxDate)) {
+			maxDate = node.getTimerange().getEnd();
+			maxTimerange = node.getTimerange();
+		}
+
+		// Check composition relationships
+		for (CompositionRelationship cr : node.getCompositionRelationships()) {
+			for (Timerange tr : cr.getTimeRange()) {
+				if (tr.getEnd().after(maxDate)) {
+					maxDate = tr.getEnd();
+					maxTimerange = tr;
+				}
+			}
+		}
+
+		// Check semantic relationships
+		for (SemanticRelationship sr : node.getSemanticRelationships()) {
+			for (Timerange tr : sr.getTimeRange()) {
+				if (tr.getEnd().after(maxDate)) {
+					maxDate = tr.getEnd();
+					maxTimerange = tr;
+				}
+			}
+		}
+
+		// Recursively check child nodes
+		for (Node child : node.getChildNodes()) {
+			Timerange childMax = findMaxTimeRangeInNode(child);
+			if (childMax != null && childMax.getEnd().after(maxDate)) {
+				maxDate = childMax.getEnd();
+				maxTimerange = childMax;
+			}
+		}
+
+		return maxTimerange;
+	}
+
+	public static Timerange findMinTimeRange(MMFG mmfg) {
+		Date minDate = new Date(Long.MAX_VALUE);
+		Timerange minTimerange = null;
+
+		// Check all nodes recursively
+		for (Node node : mmfg.getNodes()) {
+			Timerange nodeMin = findMinTimeRangeInNode(node);
+			if (nodeMin != null && nodeMin.getBegin().before(minDate)) {
+				minDate = nodeMin.getBegin();
+				minTimerange = nodeMin;
+			}
+		}
+
+		return minTimerange;
+	}
+
+	private static Timerange findMinTimeRangeInNode(Node node) {
+		Date minDate = new Date(Long.MAX_VALUE);
+		Timerange minTimerange = null;
+
+		// Check node's own timerange
+		if (node.getTimerange() != null && node.getTimerange().getBegin().before(minDate)) {
+			minDate = node.getTimerange().getBegin();
+			minTimerange = node.getTimerange();
+		}
+
+		// Check composition relationships
+		for (CompositionRelationship cr : node.getCompositionRelationships()) {
+			for (Timerange tr : cr.getTimeRange()) {
+				if (tr.getBegin().before(minDate)) {
+					minDate = tr.getBegin();
+					minTimerange = tr;
+				}
+			}
+		}
+
+		// Check semantic relationships
+		for (SemanticRelationship sr : node.getSemanticRelationships()) {
+			for (Timerange tr : sr.getTimeRange()) {
+				if (tr.getBegin().before(minDate)) {
+					minDate = tr.getBegin();
+					minTimerange = tr;
+				}
+			}
+		}
+
+		// Recursively check child nodes
+		for (Node child : node.getChildNodes()) {
+			Timerange childMin = findMinTimeRangeInNode(child);
+			if (childMin != null && childMin.getBegin().before(minDate)) {
+				minDate = childMin.getBegin();
+				minTimerange = childMin;
+			}
+		}
+
+		return minTimerange;
+	}
+}
