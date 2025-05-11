@@ -20,27 +20,33 @@ public class TimeGraphCodeGenerator {
 	 **/
 	public static TimeGraphCode generate(MMFG m) {
 		// find min max time interval
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
 		Date minTime = null;
 		Date maxTime = null;
 		Timerange minTimerange = findMinTimeRange(m);
 		if (minTimerange != null) {
+			System.out.println(sdf.format(minTime));
 			minTime = minTimerange.getBegin();
+		} else {
+			minTime = new Date(0);
 		}
 
 		Timerange maxTimerange = findMaxTimeRange(m);
 		if (maxTimerange != null) {
+			System.out.println(sdf.format(maxTime));
 			maxTime = maxTimerange.getEnd();
+		} else {
+			maxTime = new Date(0);
 		}
+			
 
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
-		System.out.println(sdf.format(minTime));
-		System.out.println(sdf.format(maxTime));
+
 		//gc.setMinTime(minTime);
 		//gc.setMaxTime(maxTime);
 
 		long diff = Objects.requireNonNull(maxTime).getTime() - Objects.requireNonNull(minTime).getTime();
 
-		TimeGraphCode gc = new TimeGraphCode((int) (diff/1000));
+		TimeGraphCode gc = new TimeGraphCode((int) (diff / 1000));
 		Vector<String> dictionary = new Vector<String>();
 
 		// Calculate the Graph Code Dictionary by the vocabulary terms of the MMFG
@@ -63,9 +69,9 @@ public class TimeGraphCodeGenerator {
 				try {
 					if (n.getTimerange() != null && child.getTimerange() != null) {
 						// Both nodes have timeranges - use the overlapping period
-						processTimerangeRelationship(gc, n.getName(), child.getName(), 
-							CHILD_RELATIONSHIP, n.getTimerange(), child.getTimerange(), 
-							minTime.getTime(), diff);
+						processTimerangeRelationship(gc, n.getName(), child.getName(),
+								CHILD_RELATIONSHIP, n.getTimerange(), child.getTimerange(),
+								minTime.getTime(), diff);
 					} else if (n.getTimerange() != null) {
 						// Only parent has timerange
 						int[] timePoints = calculateTimePoints(n.getTimerange(), minTime.getTime(), diff);
@@ -86,20 +92,20 @@ public class TimeGraphCodeGenerator {
 					//x.printStackTrace();
 				}
 			}
-			
+
 			// Composition Relationships
 			for (CompositionRelationship cr : n.getCompositionRelationships()) {
 				try {
 					Node relatedNode = cr.getRelatedObject();
-					
+
 					if (!cr.getTimeRange().isEmpty()) {
 						// Composition relationship has its own timeranges
 						for (Timerange tr : cr.getTimeRange()) {
 							if (n.getTimerange() != null) {
 								// Both relationship and node have timeranges - use the overlapping period
-								processTimerangeRelationship(gc, n.getName(), relatedNode.getName(), 
-									cr.getType(), n.getTimerange(), tr, 
-									minTime.getTime(), diff);
+								processTimerangeRelationship(gc, n.getName(), relatedNode.getName(),
+										cr.getType(), n.getTimerange(), tr,
+										minTime.getTime(), diff);
 							} else {
 								// Only relationship has timerange
 								int[] timePoints = calculateTimePoints(tr, minTime.getTime(), diff);
@@ -110,9 +116,9 @@ public class TimeGraphCodeGenerator {
 						}
 					} else if (n.getTimerange() != null && relatedNode.getTimerange() != null) {
 						// No relationship timerange, but both nodes have timeranges
-						processTimerangeRelationship(gc, n.getName(), relatedNode.getName(), 
-							cr.getType(), n.getTimerange(), relatedNode.getTimerange(), 
-							minTime.getTime(), diff);
+						processTimerangeRelationship(gc, n.getName(), relatedNode.getName(),
+								cr.getType(), n.getTimerange(), relatedNode.getTimerange(),
+								minTime.getTime(), diff);
 					} else if (n.getTimerange() != null) {
 						// Only source node has timerange
 						int[] timePoints = calculateTimePoints(n.getTimerange(), minTime.getTime(), diff);
@@ -151,54 +157,55 @@ public class TimeGraphCodeGenerator {
 
 		return gc;
 	}
-	
+
 	/**
 	 * Process a relationship between two timeranges, setting values for their overlap period
 	 */
-	private static void processTimerangeRelationship(TimeGraphCode gc, String sourceName, 
-			String targetName, int relationshipType, Timerange sourceTimerange, 
-			Timerange targetTimerange, long minTime, long totalDuration) {
-		
+	private static void processTimerangeRelationship(TimeGraphCode gc, String sourceName,
+													 String targetName, int relationshipType, Timerange sourceTimerange,
+													 Timerange targetTimerange, long minTime, long totalDuration) {
+
 		// Find the overlapping time period
-		Date overlapStart = sourceTimerange.getBegin().after(targetTimerange.getBegin()) ? 
+		Date overlapStart = sourceTimerange.getBegin().after(targetTimerange.getBegin()) ?
 				sourceTimerange.getBegin() : targetTimerange.getBegin();
-		
-		Date overlapEnd = sourceTimerange.getEnd().before(targetTimerange.getEnd()) ? 
+
+		Date overlapEnd = sourceTimerange.getEnd().before(targetTimerange.getEnd()) ?
 				sourceTimerange.getEnd() : targetTimerange.getEnd();
-		
+
 		// Only process if there is an actual overlap
 		if (!overlapStart.after(overlapEnd)) {
 			Timerange overlapTimerange = new Timerange();
 			overlapTimerange.setBegin(overlapStart);
 			overlapTimerange.setEnd(overlapEnd);
-			
+
 			int[] timePoints = calculateTimePoints(overlapTimerange, minTime, totalDuration);
 			for (int i = timePoints[0]; i <= timePoints[1]; i++) {
 				gc.setValueForTerms(sourceName, targetName, relationshipType, i);
 			}
 		}
 	}
-	
+
 	/**
 	 * Calculate the time point indices for the beginning and end of a timerange
-	 * @param timerange The timerange to calculate points for
-	 * @param minTime The minimum time (in milliseconds)
+	 *
+	 * @param timerange     The timerange to calculate points for
+	 * @param minTime       The minimum time (in milliseconds)
 	 * @param totalDuration The total duration (in milliseconds)
 	 * @return An array with [beginTimePoint, endTimePoint]
 	 */
 	private static int[] calculateTimePoints(Timerange timerange, long minTime, long totalDuration) {
 		int[] result = new int[2];
-		
+
 		// Calculate begin time point
 		long beginTime = timerange.getBegin().getTime();
-		double beginRelativePosition = (double)(beginTime - minTime) / totalDuration;
-		result[0] = (int)(beginRelativePosition * (totalDuration / 1000));
-		
+		double beginRelativePosition = (double) (beginTime - minTime) / totalDuration;
+		result[0] = (int) (beginRelativePosition * (totalDuration / 1000));
+
 		// Calculate end time point
 		long endTime = timerange.getEnd().getTime();
-		double endRelativePosition = (double)(endTime - minTime) / totalDuration;
-		result[1] = (int)(endRelativePosition * (totalDuration / 1000));
-		
+		double endRelativePosition = (double) (endTime - minTime) / totalDuration;
+		result[1] = (int) (endRelativePosition * (totalDuration / 1000));
+
 		return result;
 	}
 

@@ -26,6 +26,8 @@ public class TimeMMFGTest {
 		Node n2 = new Node("b", timeMMFG);
 
 
+
+
 		timeMMFG.addNode(n1);
 		timeMMFG.addNode(n2);
 
@@ -33,7 +35,7 @@ public class TimeMMFGTest {
 		//CompositionRelationship cr2 = new CompositionRelationship(CompositionRelationship.RELATION_PART_OF, n2);
 
 		Vector<Timerange> timeranges = new Vector<>();
-		timeranges.add(new Timerange(new Date(0), new Date(10)));
+		timeranges.add(Timerange.create(new Date(0), new Date(10)));
 		cr.setTimeRange(timeranges);
 
 		n1.addCompositionRelationship(cr);
@@ -44,6 +46,9 @@ public class TimeMMFGTest {
 
 		Vector<CompositionRelationship> elementCRs = element.getCompositionRelationships();
 		Assert.assertFalse(elementCRs.isEmpty());
+
+
+		
 
 
 		//timeMMFG.addCompositionRelationship(cr2);
@@ -67,7 +72,7 @@ public class TimeMMFGTest {
 		//CompositionRelationship cr2 = new CompositionRelationship(CompositionRelationship.RELATION_PART_OF, n2);
 
 		Vector<Timerange> timeranges = new Vector<>();
-		timeranges.add(new Timerange(new Date(0*1000), new Date(10*1000)));
+		timeranges.add(Timerange.create(new Date(0*1000), new Date(10*1000)));
 		cr.setTimeRange(timeranges);
 
 		n1.addCompositionRelationship(cr);
@@ -106,7 +111,7 @@ public class TimeMMFGTest {
 		//CompositionRelationship cr2 = new CompositionRelationship(CompositionRelationship.RELATION_PART_OF, n2);
 
 		Vector<Timerange> timeranges = new Vector<>();
-		timeranges.add(new Timerange(new Date(0*1000), new Date(10*1000)));
+		timeranges.add(Timerange.create(new Date(0*1000), new Date(10*1000)));
 		cr.setTimeRange(timeranges);
 
 		n1.addCompositionRelationship(cr);
@@ -122,8 +127,6 @@ public class TimeMMFGTest {
 		Timerange max = TimeGraphCodeGenerator.findMaxTimeRange(timeMMFG);
 
 		Assert.assertEquals(13*1000, (max.getEnd().getTime()-min.getBegin().getTime()));
-
-		
 
 	}
 
