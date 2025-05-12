@@ -25,16 +25,16 @@ public class TimeGraphCodeGenerator {
 		Date maxTime = null;
 		Timerange minTimerange = findMinTimeRange(m);
 		if (minTimerange != null) {
-			System.out.println(sdf.format(minTime));
 			minTime = minTimerange.getBegin();
+			System.out.println(sdf.format(minTime));
 		} else {
 			minTime = new Date(0);
 		}
 
 		Timerange maxTimerange = findMaxTimeRange(m);
 		if (maxTimerange != null) {
-			System.out.println(sdf.format(maxTime));
 			maxTime = maxTimerange.getEnd();
+			System.out.println(sdf.format(maxTime));
 		} else {
 			maxTime = new Date(0);
 		}

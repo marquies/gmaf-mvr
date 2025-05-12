@@ -2,6 +2,8 @@ package de.swa.ui;
 
 import de.swa.gc.GraphCode;
 import de.swa.gc.GraphCodeMetric;
+import de.swa.gc.GraphCodeStrategy;
+import de.swa.gc.DefaultGraphCodeStrategy;
 import de.swa.gc.processing.GraphCodeMeta;
 import de.swa.mmfg.MMFG;
 import de.swa.mmfg.GeneralMetadata;
@@ -128,8 +130,10 @@ class MMFGCollectionTest {
     void processQuery_WithMultipleGraphCodes_ReturnsSortedResults() {
         // Create a fresh collection for this test
         MMFGCollection testCollection = new MMFGCollection();
-        // Initialize the collection
+        // Initialize the collection and clear anything loaded from localfiles
         testCollection.init();
+        testCollection.getCollection().clear();
+        assertEquals(0, testCollection.getCollection().size());
         
         // Create three different MMFGs
         MMFG exactMatch = new MMFG();
@@ -221,6 +225,58 @@ class MMFGCollectionTest {
             }
         }
     }
+
+    @Test
+    void testCustomGraphCodeStrategy() {
+        // Create a mock GraphCodeStrategy for testing
+        GraphCodeStrategy mockStrategy = new DefaultGraphCodeStrategy() {
+            @Override
+            public GraphCode generateGraphCode(MMFG mmfg) {
+                // Custom implementation for tests
+                GraphCode gc = new GraphCode();
+                // Add some test data to the graph code
+                Vector<String> terms = new Vector<String>();
+                terms.add("test_key");
+                gc.setDictionary(terms);
+
+                gc.setValueForTerms("test_key", "test_key", 2);
+                return gc;
+            }
+            
+            @Override
+            public String getGraphCodeFileExtension() {
+                return ".test_gc";
+            }
+        };
+        
+        // Create a test collection and set our custom strategy
+        MMFGCollection testCollection = new MMFGCollection();
+        // Initialize and clear any auto-loaded MMFGs
+        testCollection.init();
+        testCollection.setGraphCodeStrategy(mockStrategy);
+
+        testCollection.getCollection().clear();
+        
+        // Create a test MMFG
+        MMFG testMMFG = new MMFG();
+        GeneralMetadata gm = new GeneralMetadata();
+        gm.setFileName("test_file.jpg");
+        testMMFG.setGeneralMetadata(gm);
+        
+        // Add to collection
+        testCollection.addToCollection(testMMFG);
+        
+        // Get the graph code using our custom strategy
+        GraphCode gc = testCollection.getOrGenerateGraphCode(testMMFG);
+        
+        // Verify our custom strategy was used
+        assertNotNull(gc);
+        assertEquals(2, gc.getEdgeValueForTerms("test_key", "test_key"));
+        
+        // Test that the file extension from our custom strategy is used
+        assertEquals(".test_gc", mockStrategy.getGraphCodeFileExtension());
+    }
+
     private int compare(float[] metric_a, float[] metric_b) {
 
         // calculate numeric values to support java-compatible comparison

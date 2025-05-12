@@ -20,6 +20,10 @@ public class Timerange {
 		this.isRelativeTime = isRelativeTime;
 	}
 
+	public static Timerange create(Date date, Date date1) {
+		return new Timerange(date, date1);
+	}
+
 	public boolean isUniversalTime() {
 		return isUniversalTime;
 	}
