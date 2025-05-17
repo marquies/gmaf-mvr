@@ -16,7 +16,7 @@ public class TimeGraphCodeGenerator {
 	private static final int CHILD_RELATIONSHIP = 1;
 
 	/**
-	 * returns a Graph Code based on a MMFG
+	 * returns a Time Graph Code based on a MMFG
 	 **/
 	public static TimeGraphCode generate(MMFG m) {
 		// find min max time interval

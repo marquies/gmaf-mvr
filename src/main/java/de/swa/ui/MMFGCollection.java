@@ -429,8 +429,17 @@ public class MMFGCollection {
             String collectionProcessorClass = Configuration.getInstance().getCollectionProcessorClass();
             Class<?> c = Class.forName(collectionProcessorClass);
             cp = (CollectionProcessor) c.getDeclaredConstructor().newInstance();
+            
+            // If the processor is a DefaultCollectionProcessor, set the GraphCodeStrategy
+            if (cp instanceof DefaultCollectionProcessor) {
+                ((DefaultCollectionProcessor) cp).setGraphCodeStrategy(this.graphCodeStrategy);
+            }
         } catch (Exception ex) {
             System.out.println("Using default collection processor: " + cp.getClass());
+            // Ensure the default processor uses our GraphCodeStrategy
+            if (cp instanceof DefaultCollectionProcessor) {
+                ((DefaultCollectionProcessor) cp).setGraphCodeStrategy(this.graphCodeStrategy);
+            }
         }
         cp.setOperation(type);
 
