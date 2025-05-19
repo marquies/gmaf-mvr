@@ -17,21 +17,32 @@ public class TimeGraphCodeMetricTest {
 	@Test
 	public void testSimilarityByTime() {
 
+		Date start = new Date(0);
+		start.setSeconds(0);
+
+		Date end = new Date(0);
+		end.setSeconds(10);
+
+		Timerange tr = Timerange.create(start,end);
 
 		MMFG tmmfg1 = new MMFG();
 		Node n1 = new Node("alpha", tmmfg1);
+		n1.setTimerange(tr);
 		tmmfg1.addNode(n1);
 
 		MMFG tmmfg2 = new MMFG();
 		Node n2 = new Node("beta", tmmfg2);
-		tmmfg2.addNode(n1);
+		n2.setTimerange(tr);
+		tmmfg2.addNode(n2);
 
 		TimeGraphCode tgc1 = TimeGraphCodeGenerator.generate(tmmfg1);
 		TimeGraphCode tgc2 = TimeGraphCodeGenerator.generate(tmmfg2);
 
 
-		float score = TimeGraphCodeMetric.calculateSimilarity(tgc1, tgc2);
-		Assert.assertEquals(0.0f, score);
+		// Dictionary are different, but time is equal.
+		float[] score = TimeGraphCodeMetric.calculateSimilarity(tgc1, tgc2);
+		Assert.assertEquals(0.0f, score[0]);
+		Assert.assertEquals(1.0f, score[1]);
 	}
 
 	@Test
@@ -44,8 +55,8 @@ public class TimeGraphCodeMetricTest {
 
 		TimeGraphCode tgc1 = TimeGraphCodeGenerator.generate(tmmfg1);
 
-		float score = TimeGraphCodeMetric.calculateSimilarity(tgc1, tgc1);
-		Assert.assertTrue(Float.valueOf(1.0f).equals(score));
+		float[] score = TimeGraphCodeMetric.calculateSimilarity(tgc1, tgc1);
+		Assert.assertTrue(Float.valueOf(1.0f).equals(score[1]));
 	}
 
 	@Test
@@ -62,7 +73,8 @@ public class TimeGraphCodeMetricTest {
 		double distance1 = TimeGraphCodeMetric.computeDTW(seqA1, seqB1);
 		// For identical sequences, we expect only the diagonal elements of the DTW matrix to be used
 		// The distance should be the sum of Frobenius distances between corresponding matrices, which is 0
-		Assert.assertEquals(0.0, distance1, 0.001);
+		// However, since we are looking for similarity, the distance should be 1 by the computation.
+		Assert.assertEquals(1.0, distance1, 0.001);
 		
 		// Test case 2: Similar sequences with small differences
 		int[][][] seqA2 = {
@@ -102,14 +114,14 @@ public class TimeGraphCodeMetricTest {
 				{{10, 10}, {10, 10}}
 		};
 		double distance4 = TimeGraphCodeMetric.computeDTW(seqA4, seqB4);
-		// Distance should be significantly larger than for similar sequences
-		Assert.assertTrue(distance4 > distance2);
-		
+		// Distance should be significantly larger than for similar sequences, with the similarity inversion, shorter
+		Assert.assertTrue(distance4 < distance2);
+
 		// Test case 5: Edge case - single element sequences
 		int[][][] seqA5 = {{{1, 1}, {1, 1}}};
 		int[][][] seqB5 = {{{1, 1}, {1, 1}}};
 		double distance5 = TimeGraphCodeMetric.computeDTW(seqA5, seqB5);
-		Assert.assertEquals(0.0, distance5, 0.001);
+		Assert.assertEquals(1.0, distance5, 0.001);
 	}
 
 	@Test
@@ -157,19 +169,19 @@ public class TimeGraphCodeMetricTest {
 		Assert.assertEquals(tgc1.getDictionary().size(), tgc2.getDictionary().size());
 		
 		// Calculate similarity using standard method (should be high since dictionaries match)
-		float standardSimilarity = TimeGraphCodeMetric.calculateSimilarity(tgc1, tgc2);
-		Assert.assertTrue(standardSimilarity > 0.9f); // Should be close to 1.0
+		float[] standardSimilarity = TimeGraphCodeMetric.calculateSimilarity(tgc1, tgc2);
+		Assert.assertTrue(standardSimilarity[1] > 0.9f); // Should be close to 1.0
 		
 		// Extract the matrices for DTW comparison
 		int[][][] matrix1 = tgc1.matrix;
 		int[][][] matrix2 = tgc2.matrix;
 		
 		// Calculate DTW distance
-		double dtwDistance = TimeGraphCodeMetric.computeDTW(matrix1, matrix2);
+		double dtwDistanceOfRelated = TimeGraphCodeMetric.computeDTW(matrix1, matrix2);
 		
 		// The DTW distance should be relatively low despite the time stretching
 		// because DTW is designed to handle time warping
-		System.out.println("DTW distance between time-stretched graph codes: " + dtwDistance);
+		System.out.println("DTW distance between time-stretched graph codes: " + dtwDistanceOfRelated);
 		
 		// Create a third TimeGraphCode with different structure
 		Vector<String> differentDictionary = new Vector<>();
@@ -194,11 +206,11 @@ public class TimeGraphCodeMetricTest {
 		int[][][] compatibleMatrix = new int[tgc3.matrix.length][tgc1.matrix[0].length][tgc1.matrix[0][0].length];
 		
 		// DTW distance between unrelated graph codes should be higher
-		double dtwDistance2 = TimeGraphCodeMetric.computeDTW(matrix1, compatibleMatrix);
-		System.out.println("DTW distance between unrelated graph codes: " + dtwDistance2);
+		double dtwDistanceOfUnrelated = TimeGraphCodeMetric.computeDTW(matrix1, compatibleMatrix);
+		System.out.println("DTW distance between unrelated graph codes: " + dtwDistanceOfUnrelated);
 		
 		// The DTW distance for the time-stretched but structurally identical graph codes
 		// should be lower than the distance to an unrelated graph code
-		Assert.assertTrue(dtwDistance < dtwDistance2);
+		Assert.assertTrue(dtwDistanceOfRelated > dtwDistanceOfUnrelated);
 	}
 }

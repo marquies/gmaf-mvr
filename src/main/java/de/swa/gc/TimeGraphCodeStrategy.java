@@ -41,43 +41,46 @@ public class TimeGraphCodeStrategy implements GraphCodeStrategy {
             return GraphCodeMetric.calculateSimilarity(gcQuery, gc);
         }
         
-        TimeGraphCode timeGcQuery = (TimeGraphCode) gcQuery;
-        TimeGraphCode timeGc = (TimeGraphCode) gc;
-        
-        // Get the interval length from both graph codes
-        int queryIntervalLength = timeGcQuery.getIntervalLength();
-        int gcIntervalLength = timeGc.getIntervalLength();
-        
-        // If either has no time points, fall back to regular similarity at time point 0
-        if (queryIntervalLength <= 0 || gcIntervalLength <= 0) {
-            return GraphCodeMetric.calculateSimilarity(gcQuery, gc);
-        }
-        
-        // Calculate similarity at each time point and average the results
-        float totalNodeMetric = 0f;
-        float totalEdgeMetric = 0f;
-        float totalEdgeTypeMetric = 0f;
-        int timePointsCompared = 0;
-        
-        // Compare time points up to the minimum interval length
-        int minIntervalLength = Math.min(queryIntervalLength, gcIntervalLength);
-        for (int i = 0; i < minIntervalLength; i++) {
-            // Calculate metrics for this time point
-            float[] metrics = calculateTimePointSimilarity(timeGcQuery, timeGc, i);
-            
-            // Add to totals
-            totalNodeMetric += metrics[0];
-            totalEdgeMetric += metrics[1];
-            totalEdgeTypeMetric += metrics[2];
-            timePointsCompared++;
-        }
-        
-        // Calculate averages
-        float avgNodeMetric = timePointsCompared > 0 ? totalNodeMetric / timePointsCompared : 0f;
-        float avgEdgeMetric = timePointsCompared > 0 ? totalEdgeMetric / timePointsCompared : 0f;
-        float avgEdgeTypeMetric = timePointsCompared > 0 ? totalEdgeTypeMetric / timePointsCompared : 0f;
-        
-        return new float[] {avgNodeMetric, avgEdgeMetric, avgEdgeTypeMetric};
+//        TimeGraphCode timeGcQuery = (TimeGraphCode) gcQuery;
+//        TimeGraphCode timeGc = (TimeGraphCode) gc;
+//
+//        // Get the interval length from both graph codes
+//        int queryIntervalLength = timeGcQuery.getIntervalLength();
+//        int gcIntervalLength = timeGc.getIntervalLength();
+//
+//        // If either has no time points, fall back to regular similarity at time point 0
+//        if (queryIntervalLength <= 0 || gcIntervalLength <= 0) {
+//            return GraphCodeMetric.calculateSimilarity(gcQuery, gc);
+//        }
+//
+//        // Calculate similarity at each time point and average the results
+//        float totalNodeMetric = 0f;
+//        float totalEdgeMetric = 0f;
+//        float totalEdgeTypeMetric = 0f;
+//        int timePointsCompared = 0;
+//
+//        // Compare time points up to the minimum interval length
+//        int minIntervalLength = Math.min(queryIntervalLength, gcIntervalLength);
+//        for (int i = 0; i < minIntervalLength; i++) {
+//            // Calculate metrics for this time point
+//            float[] metrics = calculateTimePointSimilarity(timeGcQuery, timeGc, i);
+//
+//            // Add to totals
+//            totalNodeMetric += metrics[0];
+//            totalEdgeMetric += metrics[1];
+//            totalEdgeTypeMetric += metrics[2];
+//            timePointsCompared++;
+//        }
+//
+//        // Calculate averages
+//        float avgNodeMetric = timePointsCompared > 0 ? totalNodeMetric / timePointsCompared : 0f;
+//        float avgEdgeMetric = timePointsCompared > 0 ? totalEdgeMetric / timePointsCompared : 0f;
+//        float avgEdgeTypeMetric = timePointsCompared > 0 ? totalEdgeTypeMetric / timePointsCompared : 0f;
+
+
+        float[] sim = TimeGraphCodeMetric.calculateSimilarity((TimeGraphCode) gcQuery, (TimeGraphCode) gc);
+
+        return new float[] {sim[0], sim[1], 0.0f};
     }
     
     /**

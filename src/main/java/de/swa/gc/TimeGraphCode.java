@@ -1,5 +1,6 @@
 package de.swa.gc;
 
+import java.util.Arrays;
 import java.util.Vector;
 
 /**
@@ -10,6 +11,14 @@ public class TimeGraphCode extends GraphCode {
 	protected int[][][] matrix;
 
 	protected int intervalLength;
+
+	@Override
+	public String toString() {
+		return "TimeGraphCode{" +
+				"matrix=" + Arrays.toString(matrix) +
+				", intervalLength=" + intervalLength +
+				'}';
+	}
 
 	public TimeGraphCode(int intervalLength) {
 		this.intervalLength = intervalLength;

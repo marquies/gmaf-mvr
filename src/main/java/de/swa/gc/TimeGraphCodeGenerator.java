@@ -13,7 +13,8 @@ import java.util.Vector;
 public class TimeGraphCodeGenerator {
 	private static final int LEAF_TYPE = 2;
 	private static final int NODE_TYPE = 1;
-	private static final int CHILD_RELATIONSHIP = 1;
+	private static final int CHILD_RELATIONSHIP = 2;
+	private static final int APPEAR_TOGETHER = 1;
 
 	/**
 	 * returns a Time Graph Code based on a MMFG
@@ -64,6 +65,26 @@ public class TimeGraphCodeGenerator {
 
 		// for each node in the MMFG, calculate relationship values
 		for (Node n : vocTerms) {
+
+			// Same appearance with other nodes
+			for (Node other : vocTerms) {
+				if (n.getName().equals(other.getName())) {
+					continue;
+				}
+				try {
+					if (n.getTimerange() != null && other.getTimerange() != null) {
+						// Both nodes have timeranges - use the overlapping period
+						processTimerangeRelationship(gc, n.getName(), other.getName(),
+								APPEAR_TOGETHER, n.getTimerange(), other.getTimerange(),
+								minTime.getTime(), diff);
+						// Neither has timerange - use default time point 0
+						//gc.setValueForTerms(n.getName(), other.getName(), APPEAR_TOGETHER, 0);
+					}
+				} catch (Exception x) {
+					x.printStackTrace();
+				}
+			}
+
 			// Child Relationships
 			for (Node child : n.getChildNodes()) {
 				try {
@@ -144,6 +165,8 @@ public class TimeGraphCodeGenerator {
 			for (SemanticRelationship sr : n.getSemanticRelationships()) {
 				// Similar implementation could be added for semantic relationships if needed
 			}
+
+
 		}
 
 		try {
