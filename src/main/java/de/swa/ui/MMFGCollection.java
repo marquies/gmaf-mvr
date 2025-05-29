@@ -3,14 +3,15 @@ package de.swa.ui;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.io.RandomAccessFile;
 import java.nio.file.Files;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.UUID;
 import java.util.Vector;
 
-import de.swa.gc.DefaultGraphCodeStrategy;
-import de.swa.gc.GraphCodeStrategy;
+import de.swa.gc.GraphCodeGenerator;
+import de.swa.gc.GraphCodeIO;
 import de.swa.gc.processing.CollectionProcessor;
 import de.swa.gc.processing.DefaultCollectionProcessor;
 import de.swa.gc.processing.GraphCodeMeta;
@@ -101,7 +102,7 @@ public class MMFGCollection {
     public synchronized void init() {
         if (instanceInited)
             return;
-        
+
         // Initialize the GraphCodeStrategy
         try {
             // First try to get the strategy class from Configuration
@@ -123,7 +124,7 @@ public class MMFGCollection {
             // Ensure we always have a strategy
             this.graphCodeStrategy = new DefaultGraphCodeStrategy();
         }
-        
+
         GMAF gmaf = new GMAF();
         name = Configuration.getInstance().getCollectionName();
 
@@ -260,9 +261,13 @@ public class MMFGCollection {
         return name;
     }
 
-    public MMFG getMMFGForFile(File f) {
-        return fileMap.get(f);
-    }
+	/**
+	 * returns the MMFG for a given file
+	 **/
+	public MMFG getMMFGForFile(File f) {
+		if (f == null) return new MMFG();
+		return fileMap.get(f);
+	}
 
     public MMFG getMMFGForId(UUID id) {
         if (idMap.containsKey(id)) return idMap.get(id);
@@ -433,7 +438,7 @@ public class MMFGCollection {
             String collectionProcessorClass = Configuration.getInstance().getCollectionProcessorClass();
             Class<?> c = Class.forName(collectionProcessorClass);
             cp = (CollectionProcessor) c.getDeclaredConstructor().newInstance();
-            
+
             // If the processor is a DefaultCollectionProcessor, set the GraphCodeStrategy
             if (cp instanceof DefaultCollectionProcessor) {
                 ((DefaultCollectionProcessor) cp).setGraphCodeStrategy(this.graphCodeStrategy);
