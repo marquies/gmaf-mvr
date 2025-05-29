@@ -101,14 +101,11 @@ public class TimeGraphCode extends GraphCode {
 	 * @return The value at the specified position and time point
 	 */
 	public int getValueAtTimePoint(int x, int y, int timePoint) {
-		if (timePoint >= 0 && timePoint < intervalLength) {
-			try {
-				return matrix[timePoint][x][y];
-			} catch (Exception ex) {
-				return 0;
-			}
+		if (timePoint < 0 || timePoint >= intervalLength || x < 0 || y < 0 || 
+			x >= dictionary.size() || y >= dictionary.size()) {
+			return 0;
 		}
-		return 0;
+		return matrix[timePoint][x][y];
 	}
 	
 	/**

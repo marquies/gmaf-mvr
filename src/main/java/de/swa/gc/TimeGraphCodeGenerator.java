@@ -13,8 +13,9 @@ import java.util.Vector;
 public class TimeGraphCodeGenerator {
 	private static final int LEAF_TYPE = 2;
 	private static final int NODE_TYPE = 1;
-	private static final int CHILD_RELATIONSHIP = 2;
-	private static final int APPEAR_TOGETHER = 1;
+	private static final int CHILD_RELATIONSHIP = 3;
+	private static final int APPEAR_TOGETHER = 2;
+	private static final int APPEAR_SEPARATELY = 1;
 
 	/**
 	 * returns a Time Graph Code based on a MMFG
@@ -66,8 +67,26 @@ public class TimeGraphCodeGenerator {
 		// for each node in the MMFG, calculate relationship values
 		for (Node n : vocTerms) {
 
+			// Set the node values if the element is present at interval
+			try {
+				if (n.getTimerange() != null) {
+					int nodeTypeValue = 1;
+					Timerange timerange = n.getTimerange();
+					int start = timerange.getBegin().getSeconds();
+					int end = timerange.getEnd().getSeconds();
+					for (int i = start; i <= end; i++) {
+						gc.setValueForTerms(n.getName(), n.getName(), APPEAR_SEPARATELY, i);
+					}
+
+				}
+			} catch (Exception x) {
+
+			}
+
+
 			// Same appearance with other nodes
 			for (Node other : vocTerms) {
+
 				if (n.getName().equals(other.getName())) {
 					continue;
 				}

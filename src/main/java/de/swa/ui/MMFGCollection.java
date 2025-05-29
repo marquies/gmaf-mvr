@@ -148,6 +148,10 @@ public class MMFGCollection {
             Vector<String> fileExtensions = Configuration.getInstance().getFileExtensions();
             for (String path : paths) {
                 File f = new File(path);
+                if (!f.exists()) {
+                    System.out.println("path " + path + " does not exist");
+                    continue;
+                }
                 try {
                     File[] fs = f.listFiles();
                     if (fs != null) {
