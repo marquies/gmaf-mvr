@@ -10,8 +10,7 @@ import java.util.List;
 import java.util.UUID;
 import java.util.Vector;
 
-import de.swa.gc.GraphCodeGenerator;
-import de.swa.gc.GraphCodeIO;
+import de.swa.gc.*;
 import de.swa.gc.processing.CollectionProcessor;
 import de.swa.gc.processing.DefaultCollectionProcessor;
 import de.swa.gc.processing.GraphCodeMeta;
@@ -21,7 +20,6 @@ import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.ModelFactory;
 import org.apache.jena.riot.RDFDataMgr;
 
-import de.swa.gc.GraphCode;
 import de.swa.mmfg.MMFG;
 import de.swa.mmfg.builder.FeatureVectorBuilder;
 import de.swa.mmfg.builder.XMLEncodeDecode;

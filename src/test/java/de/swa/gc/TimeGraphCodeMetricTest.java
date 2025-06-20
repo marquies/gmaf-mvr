@@ -4,11 +4,16 @@ import de.swa.mmfg.MMFG;
 import de.swa.mmfg.Node;
 import de.swa.mmfg.CompositionRelationship;
 import de.swa.mmfg.Timerange;
+import de.swa.ui.MMFGCollection;
 import junit.framework.Assert;
 import org.junit.jupiter.api.Test;
 
+import java.io.File;
 import java.util.Date;
 import java.util.Vector;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * Created by Patrick Steinert on 15.04.25.
@@ -42,7 +47,32 @@ public class TimeGraphCodeMetricTest {
 		// Dictionary are different, but time is equal.
 		float[] score = TimeGraphCodeMetric.calculateSimilarity(tgc1, tgc2);
 		Assert.assertEquals(0.0f, score[0]);
-		Assert.assertEquals(1.0f, score[1]);
+		Assert.assertEquals(1.0f, score[2]);
+	}
+
+	@Test
+	public void testIntSimilarityByTime() {
+
+		MMFGCollection coll = MMFGCollection.getInstance();
+		coll.setGraphCodeStrategy(new TimeGraphCodeStrategy());
+		coll.init();
+
+		MMFG qMmfg = coll.getMMFGForFile(new File("/Users/breucking/dev/data/Multisport/football/query.mp4"));
+		GraphCode gc = coll.getOrGenerateGraphCode(qMmfg);
+
+		//coll.query(gc);
+		Vector<MMFG> result = coll.getSimilarAssets(gc);
+
+		for (MMFG m : result) {
+			float[] sim = m.getTempSimilarity();
+			for (int i = 0; i < sim.length; i++) {
+				System.out.print(sim[i] + " ");
+				assert (sim[i] >= 0.0f && sim[i] <= 1.0f);
+			}
+			System.out.println("\n");
+		}
+
+
 	}
 
 	@Test
@@ -166,7 +196,7 @@ public class TimeGraphCodeMetricTest {
 		}
 		
 		// Verify the dictionary sizes are the same
-		Assert.assertEquals(tgc1.getDictionary().size(), tgc2.getDictionary().size());
+		assertEquals(tgc1.getDictionary().size(), tgc2.getDictionary().size());
 		
 		// Calculate similarity using standard method (should be high since dictionaries match)
 		float[] standardSimilarity = TimeGraphCodeMetric.calculateSimilarity(tgc1, tgc2);
@@ -213,4 +243,42 @@ public class TimeGraphCodeMetricTest {
 		// should be lower than the distance to an unrelated graph code
 		Assert.assertTrue(dtwDistanceOfRelated > dtwDistanceOfUnrelated);
 	}
+
+	@Test
+	public void testComplexAgainstEmpty() {
+		int[][][] matrix1 = new int[100][10][10];
+		int[][][] matrix2 = new int[100][10][10];
+		
+		// Initialize matrix1 with a sparse pattern
+		// Add some non-zero values at specific positions to create a sparse pattern
+		for (int t = 0; t < 100; t += 10) {  // Every 10th time point
+			int value = t / 10 + 1;  // Increasing values based on time
+			
+			// Add diagonal elements
+			matrix1[t][0][0] = value;
+			matrix1[t][2][2] = value;
+			matrix1[t][5][5] = value;
+			
+			// Add a few off-diagonal elements
+			matrix1[t][1][3] = value;
+			matrix1[t][4][7] = value;
+		}
+
+		for (int t = 0; t < 100; t += 10) {
+			for (int m = 0; m < 10; m += 10) {
+				for (int n = 0; n < 10; n += 10) {
+					matrix2[t][m][n] = 0;
+				}
+			}
+
+		}
+
+		double result = TimeGraphCodeMetric.computeDTW(matrix1, matrix2);
+
+		assertTrue(result-0.25 < -0.0001, String.format("Expected result to be close to 0.2, but was: %f", result));
+
+
+	}
+
+
 }
