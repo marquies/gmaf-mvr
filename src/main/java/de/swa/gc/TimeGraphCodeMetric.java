@@ -92,10 +92,10 @@ public class TimeGraphCodeMetric {
 	public static double frobeniusDistance_2(int[][] A, int[][] B) {
 
 		// a) identical absence of data
-		if (isZeroSlice(A) && isZeroSlice(B)) return 0.0;
+		//if (isZeroSlice(A) && isZeroSlice(B)) return 0.0;
 
 		// b) one slice empty, the other not then maximal dissimilarity
-		if (isZeroSlice(A) || isZeroSlice(B)) return 5;
+		//if (isZeroSlice(A) || isZeroSlice(B)) return 5;
 
 		// c) regular case – energy–normalised distance in [0,1]
 		double diffSq = 0;
@@ -238,7 +238,7 @@ public class TimeGraphCodeMetric {
 		
 		// Apply coverage penalty with exponential decay for low coverage
 		// This heavily penalizes cases where only a few terms match
-		double coveragePenalty = Math.pow(averageCoverage, 2.0); // Quadratic penalty
+		double coveragePenalty = Math.sqrt(averageCoverage); // Square root penalty for gentler reduction
 		
 		// Early return with low similarity if coverage is too low (less than 20%)
 		if (averageCoverage < 0.2) {

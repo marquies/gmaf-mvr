@@ -3,6 +3,10 @@ package de.swa.gc.processing;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Vector;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.CountDownLatch;
 
 import de.swa.gc.GraphCodeMetric;
 import de.swa.gc.GraphCodeStrategy;
@@ -63,10 +67,42 @@ public class DefaultCollectionProcessor extends CollectionProcessor {
      * Calculates the similarity between the query graph code and each graph code in the collection using the GraphCodeStrategy.
      */
     public void execute() {
+        if (collection == null || collection.isEmpty()) {
+            return;
+        }
+        
+        // Create a thread pool based on available processors
+        int numThreads = Runtime.getRuntime().availableProcessors();
+        ExecutorService executor = Executors.newFixedThreadPool(numThreads);
+        
+        // Use CountDownLatch to wait for all tasks to complete
+        CountDownLatch latch = new CountDownLatch(collection.size());
+        
+        // Submit tasks to the thread pool
         for (GraphCodeMeta meta : collection) {
-            // Use the strategy to calculate similarity instead of directly calling GraphCodeMetric
-            float[] sim = graphCodeStrategy.calculateSimilarity(gcQuery, meta.getGraphcode());
-            meta.setMetric(sim);
+            executor.submit(() -> {
+                try {
+                    // Use the strategy to calculate similarity instead of directly calling GraphCodeMetric
+                    float[] sim = graphCodeStrategy.calculateSimilarity(gcQuery, meta.getGraphcode());
+                    meta.setMetric(sim);
+                } catch (Exception e) {
+                    System.err.println("Error processing GraphCodeMeta: " + e.getMessage());
+                } finally {
+                    latch.countDown();
+                }
+            });
+        }
+        
+        // Shutdown the executor and wait for all tasks to complete
+        executor.shutdown();
+        try {
+            // Wait for all tasks to complete or timeout after 5 minutes
+            if (!latch.await(5, TimeUnit.MINUTES)) {
+                System.err.println("Warning: Some similarity calculations did not complete within timeout");
+            }
+        } catch (InterruptedException e) {
+            System.err.println("Thread execution was interrupted: " + e.getMessage());
+            Thread.currentThread().interrupt();
         }
     }
 
