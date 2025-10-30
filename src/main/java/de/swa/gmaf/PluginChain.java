@@ -98,67 +98,69 @@ public class PluginChain {
 							}
 
 						} else {
-							Vector<Node> nodes = fvp.getDetectedNodes();
-
-							for (Node n : nodes) {
-								fv.setCurrentNode(n);
-
-
-								for (TechnicalAttribute ta : n.getTechnicalAttributes()) {
-									String box = (int) (ta.getRelative_x() / 100) * 100 + ""
-											+ (int) (ta.getRelative_y() / 100) * 100 + ""
-											+ (int) (ta.getWidth() / 100) * 100 + "" + (int) (ta.getHeight() / 100) * 100;
-
-									try {
-										if (ta.getWidth() < 80)
-											continue;
-										if (ta.getHeight() < 80)
-											continue;
-
-										// cut image
-										BufferedImage img = ImageIO.read(f);
-										BufferedImage section = img.getSubimage(ta.getRelative_x(), ta.getRelative_y(),
-												ta.getWidth(), ta.getHeight());
-
-										if (extension.equalsIgnoreCase(".png")) {
-											BufferedImage newImage = new BufferedImage(section.getWidth(), section.getHeight(), BufferedImage.TYPE_INT_RGB);
-											newImage.createGraphics().drawImage(section, 0, 0, Color.BLACK, null);
-											section = newImage;
-										}
-
-
-										ByteArrayOutputStream baos = new ByteArrayOutputStream();
-										boolean returnValue = ImageIO.write(section, "jpg", baos);
-										if (!returnValue) {
-											throw new RuntimeException("Could not create subimage from image '" + f.getName() + "'");
-										}
-										baos.flush();
-										byte[] sectionBytes = baos.toByteArray();
-										baos.close();
-
-										FileOutputStream fout = new FileOutputStream(new File("temp/section_"
-												+ fvp.getClass().getName() + "_" + System.currentTimeMillis() + ".jpg"));
-										ImageIO.write(section, "jpg", fout);
-
-										// reprocess parts of this image
-										System.out.println(
-												depth_offset + "  reprocessing TA " + ta.getWidth() + " " + ta.getHeight());
-										MMFG newImg = new GMAF().processAsset(sectionBytes, "section.jpg", "tmp", depth--,
-												max, f.getName(), null);
-
-										FeatureVectorBuilder.mergeIntoFeatureVector(fv, newImg);
-
-										if (fv.getNodes().size() > max) {
-											System.out.println("max number of nodes reached - returning");
-											return;
-										}
-									} catch (Exception x) {
-										System.out.println("Exception while trying to process file: " + f.getAbsolutePath() + f.getName());
-										x.printStackTrace();
-									}
-								}
-							}
+							System.out.println("no recursive data");
 						}
+//							Vector<Node> nodes = fvp.getDetectedNodes();
+//
+//							for (Node n : nodes) {
+//								fv.setCurrentNode(n);
+//
+//
+//								for (TechnicalAttribute ta : n.getTechnicalAttributes()) {
+//									String box = (int) (ta.getRelative_x() / 100) * 100 + ""
+//											+ (int) (ta.getRelative_y() / 100) * 100 + ""
+//											+ (int) (ta.getWidth() / 100) * 100 + "" + (int) (ta.getHeight() / 100) * 100;
+//
+//									try {
+//										if (ta.getWidth() < 80)
+//											continue;
+//										if (ta.getHeight() < 80)
+//											continue;
+//
+//										// cut image
+//										BufferedImage img = ImageIO.read(f);
+//										BufferedImage section = img.getSubimage(ta.getRelative_x(), ta.getRelative_y(),
+//												ta.getWidth(), ta.getHeight());
+//
+//										if (extension.equalsIgnoreCase(".png")) {
+//											BufferedImage newImage = new BufferedImage(section.getWidth(), section.getHeight(), BufferedImage.TYPE_INT_RGB);
+//											newImage.createGraphics().drawImage(section, 0, 0, Color.BLACK, null);
+//											section = newImage;
+//										}
+//
+//
+//										ByteArrayOutputStream baos = new ByteArrayOutputStream();
+//										boolean returnValue = ImageIO.write(section, "jpg", baos);
+//										if (!returnValue) {
+//											throw new RuntimeException("Could not create subimage from image '" + f.getName() + "'");
+//										}
+//										baos.flush();
+//										byte[] sectionBytes = baos.toByteArray();
+//										baos.close();
+//
+//										FileOutputStream fout = new FileOutputStream(new File("temp/section_"
+//												+ fvp.getClass().getName() + "_" + System.currentTimeMillis() + ".jpg"));
+//										ImageIO.write(section, "jpg", fout);
+//
+//										// reprocess parts of this image
+//										System.out.println(
+//												depth_offset + "  reprocessing TA " + ta.getWidth() + " " + ta.getHeight());
+//										MMFG newImg = new GMAF().processAsset(sectionBytes, "section.jpg", "tmp", depth--,
+//												max, f.getName(), null);
+//
+//										FeatureVectorBuilder.mergeIntoFeatureVector(fv, newImg);
+//
+//										if (fv.getNodes().size() > max) {
+//											System.out.println("max number of nodes reached - returning");
+//											return;
+//										}
+//									} catch (Exception x) {
+//										System.out.println("Exception while trying to process file: " + f.getAbsolutePath() + f.getName());
+//										x.printStackTrace();
+//									}
+//								}
+//							}
+//						}
 					}
 				}
 			}

@@ -23,9 +23,11 @@ public class TimeGraphCodeGenerator {
 	public static TimeGraphCode generate(MMFG m) {
 		// find min max time interval
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+
 		Date minTime = null;
 		Date maxTime = null;
 		Timerange minTimerange = findMinTimeRange(m);
+
 		if (minTimerange != null) {
 			minTime = minTimerange.getBegin();
 			System.out.println(sdf.format(minTime));
@@ -40,7 +42,6 @@ public class TimeGraphCodeGenerator {
 		} else {
 			maxTime = new Date(0);
 		}
-			
 
 
 		//gc.setMinTime(minTime);
@@ -72,15 +73,20 @@ public class TimeGraphCodeGenerator {
 				if (n.getTimerange() != null) {
 					int nodeTypeValue = 1;
 					Timerange timerange = n.getTimerange();
-					int start = timerange.getBegin().getSeconds();
-					int end = timerange.getEnd().getSeconds();
+					
+					// Calculate proper elapsed time points instead of using getSeconds()
+					int[] timePoints = calculateTimePoints(timerange, minTime.getTime(), diff);
+					int start = timePoints[0];
+					int end = timePoints[1];
+					
 					for (int i = start; i <= end; i++) {
 						gc.setValueForTerms(n.getName(), n.getName(), APPEAR_SEPARATELY, i);
 					}
 
 				}
 			} catch (Exception x) {
-
+				// Log the exception for debugging
+				System.err.println("Error processing timerange for node " + n.getName() + ": " + x.getMessage());
 			}
 
 
@@ -238,27 +244,55 @@ public class TimeGraphCodeGenerator {
 	private static int[] calculateTimePoints(Timerange timerange, long minTime, long totalDuration) {
 		int[] result = new int[2];
 
-		// Calculate begin time point
+		// Calculate begin time point - convert to elapsed seconds from start
 		long beginTime = timerange.getBegin().getTime();
-		double beginRelativePosition = (double) (beginTime - minTime) / totalDuration;
-		result[0] = (int) (beginRelativePosition * (totalDuration / 1000));
+		long beginElapsedMs = beginTime - minTime;
+		result[0] = (int) (beginElapsedMs / 1000); // Convert to seconds
 
-		// Calculate end time point
+		// Calculate end time point - convert to elapsed seconds from start  
 		long endTime = timerange.getEnd().getTime();
-		double endRelativePosition = (double) (endTime - minTime) / totalDuration;
-		result[1] = (int) (endRelativePosition * (totalDuration / 1000));
+		long endElapsedMs = endTime - minTime;
+		result[1] = (int) (endElapsedMs / 1000); // Convert to seconds
+
+		// Ensure we don't exceed the total duration in seconds
+		int maxTimePoint = (int) (totalDuration / 1000);
+		result[0] = Math.max(0, Math.min(result[0], maxTimePoint));
+		result[1] = Math.max(0, Math.min(result[1], maxTimePoint));
 
 		return result;
+	}
+	
+	/**
+	 * Convert a timestamp to elapsed seconds from the video start
+	 * 
+	 * @param timestamp The timestamp to convert
+	 * @param videoStartTime The start time of the video (in milliseconds)
+	 * @return Elapsed seconds from video start
+	 */
+	private static int getElapsedSeconds(Date timestamp, long videoStartTime) {
+		if (timestamp == null) return 0;
+		long elapsedMs = timestamp.getTime() - videoStartTime;
+		return (int) Math.max(0, elapsedMs / 1000);
 	}
 
 	public static Timerange findMaxTimeRange(MMFG mmfg) {
 		Date maxDate = new Date(0); // Initialize with earliest possible date
 		Timerange maxTimerange = null;
 
+		// Check MMFG's own timeranges
+		if(mmfg.getTimeranges() != null) {
+			for (Timerange timerange : mmfg.getTimeranges()) {
+				if (timerange != null && timerange.getEnd() != null && timerange.getEnd().after(maxDate)) {
+					maxDate = timerange.getEnd();
+					maxTimerange = timerange;
+				}
+			}
+		}
+
 		// Check all nodes recursively
 		for (Node node : mmfg.getNodes()) {
 			Timerange nodeMax = findMaxTimeRangeInNode(node);
-			if (nodeMax != null && nodeMax.getEnd().after(maxDate)) {
+			if (nodeMax != null && nodeMax.getEnd() != null && nodeMax.getEnd().after(maxDate)) {
 				maxDate = nodeMax.getEnd();
 				maxTimerange = nodeMax;
 			}
@@ -313,10 +347,20 @@ public class TimeGraphCodeGenerator {
 		Date minDate = new Date(Long.MAX_VALUE);
 		Timerange minTimerange = null;
 
+		// Check MMFG's own timeranges
+		if (mmfg.getTimeranges() != null) {
+			for (Timerange timerange : mmfg.getTimeranges()) {
+				if (timerange != null && timerange.getBegin() != null && timerange.getBegin().before(minDate)) {
+					minDate = timerange.getBegin();
+					minTimerange = timerange;
+				}
+			}
+		}
+
 		// Check all nodes recursively
 		for (Node node : mmfg.getNodes()) {
 			Timerange nodeMin = findMinTimeRangeInNode(node);
-			if (nodeMin != null && nodeMin.getBegin().before(minDate)) {
+			if (nodeMin != null && nodeMin.getBegin() != null && nodeMin.getBegin().before(minDate)) {
 				minDate = nodeMin.getBegin();
 				minTimerange = nodeMin;
 			}

@@ -12,6 +12,11 @@ public class TimeGraphCode extends GraphCode {
 
 	protected int intervalLength;
 
+	public TimeGraphCode(int intervalLength) {
+		this.intervalLength = intervalLength;
+	}
+
+
 	@Override
 	public String toString() {
 		return "TimeGraphCode{" +
@@ -20,9 +25,6 @@ public class TimeGraphCode extends GraphCode {
 				'}';
 	}
 
-	public TimeGraphCode(int intervalLength) {
-		this.intervalLength = intervalLength;
-	}
 
 	public void setDictionary(Vector<String> d) {
 		dictionary = new Vector<String>();
@@ -84,41 +86,44 @@ public class TimeGraphCode extends GraphCode {
 			return 0;
 		}
 	}
-	
+
 	/**
 	 * Returns the length of the time interval represented by this TimeGraphCode
+	 *
 	 * @return The number of time points in this graph code
 	 */
 	public int getIntervalLength() {
 		return intervalLength;
 	}
-	
+
 	/**
 	 * Gets the matrix value at a specific time point for given indices
-	 * @param x The row index
-	 * @param y The column index
+	 *
+	 * @param x         The row index
+	 * @param y         The column index
 	 * @param timePoint The time point to get the value for
 	 * @return The value at the specified position and time point
 	 */
 	public int getValueAtTimePoint(int x, int y, int timePoint) {
-		if (timePoint < 0 || timePoint >= intervalLength || x < 0 || y < 0 || 
-			x >= dictionary.size() || y >= dictionary.size()) {
+		if (timePoint < 0 || timePoint >= intervalLength || x < 0 || y < 0 ||
+				x >= dictionary.size() || y >= dictionary.size()) {
 			return 0;
 		}
 		return matrix[timePoint][x][y];
 	}
-	
+
 	/**
 	 * Gets the matrix value at a specific time point for given terms
-	 * @param term1 The first term
-	 * @param term2 The second term
+	 *
+	 * @param term1     The first term
+	 * @param term2     The second term
 	 * @param timePoint The time point to get the value for
 	 * @return The value at the specified position and time point
 	 */
 	public int getValueAtTimePoint(String term1, String term2, int timePoint) {
 		int translated_x = dictionary.indexOf(term1.toLowerCase());
 		int translated_y = dictionary.indexOf(term2.toLowerCase());
-		
+
 		return getValueAtTimePoint(translated_x, translated_y, timePoint);
 	}
 }

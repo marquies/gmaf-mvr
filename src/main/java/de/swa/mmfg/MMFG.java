@@ -185,4 +185,9 @@ public class MMFG {
 		this.tempSimilarity = similarity;
 	}
 	
+	/** returns all timeranges **/
+	public Vector<Timerange> getTimeranges() {
+		return timeranges;
+	}
+	
 }

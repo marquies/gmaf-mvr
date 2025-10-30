@@ -27,6 +27,14 @@ public class ContainerExtractorPlugin implements GMAF_Plugin {
 	@Override
 	public File[] prepareRecursiveProcessing(URL url, File f, byte[] bytes, MMFG fv) {
 		ArrayList<File> files = new ArrayList<>();
+		if (bytes == null) {
+			try {
+				FileInputStream fs = new FileInputStream(f);
+				bytes = fs.readAllBytes();
+			} catch (IOException e) {
+				System.out.println("Error reading file " + f.getAbsolutePath() + ": " + e.getMessage());
+			}
+		}
 		try (ZipInputStream zis = new ZipInputStream(new ByteArrayInputStream(bytes))) {
 			ZipEntry entry;
 			// Create temp directory if it doesn't exist
