@@ -7,6 +7,7 @@ import java.io.FileOutputStream;
 public class TempFileProvider {
 	/** receives a byte array, creates a temp file and returns the File object **/
 	public static File provideTempFile(byte[] bytes, String suffix, String original_file) {
+		if (bytes == null || bytes.length == 0) return null;
 		try {
 			File f = File.createTempFile("GMAF_TMP_" + original_file + "_", suffix);
 			FileOutputStream fout = new FileOutputStream(f);

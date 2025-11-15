@@ -7,7 +7,6 @@ import java.util.Vector;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
-import de.swa.gmaf.GMAF;
 import de.swa.mmfg.MMFG;
 import de.swa.mmfg.Node;
 
