@@ -23,11 +23,13 @@ import org.apache.jena.riot.RDFDataMgr;
 import de.swa.mmfg.MMFG;
 import de.swa.mmfg.builder.FeatureVectorBuilder;
 import de.swa.mmfg.builder.XMLEncodeDecode;
+import org.slf4j.LoggerFactory;
 
 /**
  * Created by Patrick Steinert on 27.12.23.
  */
 public class MMFGCollection {
+    private static final org.slf4j.Logger log = LoggerFactory.getLogger(MMFGCollection.class);
     public static boolean isQuery = false;
     private static MMFGCollection instance;
     private static Hashtable<String, MMFGCollection> sessions = new Hashtable<String, MMFGCollection>();
@@ -80,7 +82,7 @@ public class MMFGCollection {
         } else {
             //MMFGCollection newInstance = new MMFGCollection();
             //newInstance.init();
-            sessions.put(session_id, instance);
+            sessions.put(session_id, getInstance());
             return instance;
         }
     }
@@ -101,6 +103,7 @@ public class MMFGCollection {
         if (instanceInited)
             return;
 
+        log.info("Initializing MMFG Collection");
         // Initialize the GraphCodeStrategy
         try {
             // First try to get the strategy class from Configuration
@@ -468,7 +471,7 @@ public class MMFGCollection {
                 queryResultCache.put(gcm.getFileName(), m);
                 v.add(gcm);
             } else {
-                System.err.println("Skipping MMFG in query (null/empty GC): " + (m.getGeneralMetadata() != null ? m.getGeneralMetadata().getFileName() : m.getId()));
+                log.warn("Skipping MMFG in query (null/empty GC): " + (m.getGeneralMetadata() != null ? m.getGeneralMetadata().getFileName() : m.getId()));
             }
         }
 

@@ -4,6 +4,8 @@ import de.swa.gmaf.plugin.GMAF_Plugin;
 import de.swa.gmaf.plugin.fusion.SpacialFeatureFusion;
 import de.swa.mmfg.*;
 import de.swa.mmfg.builder.FeatureVectorBuilder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -19,6 +21,9 @@ import java.util.Vector;
  * this class chains the filters and plugins for GMAF processing
  **/
 public class PluginChain {
+
+	Logger logger = LoggerFactory.getLogger(this.getClass());
+
 	private Vector<GMAF_Plugin> plugins = new Vector<GMAF_Plugin>();
 
 	/**
@@ -35,7 +40,8 @@ public class PluginChain {
 				plugins.add(fvp);
 
 			} catch (Exception x) {
-				System.out.println(x);
+				//System.out.println(x);
+				logger.error("Error on loading plugins for plugin " + s + ".", x);
 			}
 		}
 	}
@@ -78,7 +84,8 @@ public class PluginChain {
 			if (fvp.canProcess(extension)) {
 				if (!fvp.isGeneralPlugin()) {
 					fvp.process(url, f, bytes, fv);
-					System.out.println("processing with plugin " + fvp.getClass());
+
+					logger.info("processing with plugin " + fvp.getClass());
 
 					if (fvp.providesRecoursiveData()) {
 						File[] files = fvp.prepareRecursiveProcessing(url, f, bytes, fv);
@@ -98,7 +105,7 @@ public class PluginChain {
 							}
 
 						} else {
-							System.out.println("no recursive data");
+							logger.debug("no recursive data");
 						}
 //							Vector<Node> nodes = fvp.getDetectedNodes();
 //

@@ -1,6 +1,5 @@
 package de.swa.mmfg;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import java.util.UUID;
 import java.util.Vector;
 
@@ -124,5 +123,9 @@ public class Node {
 	public void setTimerange(Timerange timerange) {
 		this.timerange = timerange;
 		timerange.addNode(this);
+	}
+
+	public String toString() {
+		return name;
 	}
 }
