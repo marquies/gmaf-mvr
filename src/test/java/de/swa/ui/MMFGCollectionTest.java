@@ -110,6 +110,12 @@ class MMFGCollectionTest {
 
     @Test
     void processQuery_ReturnsExpectedResults() {
+        // Add nodes to testMMFG so it generates a valid GraphCode
+        Node node1 = new Node("test_feature", "value1", testMMFG);
+        Node node2 = new Node("another_feature", "value2", testMMFG);
+        testMMFG.addNode(node1);
+        testMMFG.addNode(node2);
+        
         // Add test MMFG to collection
         collection.addToCollection(testMMFG);
         
