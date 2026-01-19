@@ -6,6 +6,7 @@ import de.swa.mmfg.CompositionRelationship;
 import de.swa.mmfg.Timerange;
 import de.swa.ui.MMFGCollection;
 import junit.framework.Assert;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
@@ -51,6 +52,8 @@ public class TimeGraphCodeMetricTest {
 	}
 
 	@Test
+	@Disabled
+	// Todo provide a test file
 	public void testIntSimilarityByTime() {
 
 		MMFGCollection coll = MMFGCollection.getInstance();
