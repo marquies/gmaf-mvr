@@ -124,4 +124,8 @@ public class Node {
 		this.timerange = timerange;
 		timerange.addNode(this);
 	}
+
+	public String toString() {
+		return name;
+	}
 }

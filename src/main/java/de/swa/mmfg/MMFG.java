@@ -40,16 +40,17 @@ public class MMFG {
 		setGeneralMetadata(gm);
 	}
 
-	/** returns all nodes with a given term **/
+	/**
+	 * Returns all nodes with a given term
+	 *
+	 * @param term to search for (case-sensitive)
+	 * @return the list of results - empty if not found.
+	 */
 	public Vector<Node> getNodesByTerm(String term) {
 		Vector<Node> result = new Vector<Node>();
 		for (Node n : nodes) {
 			if (n.getName().equals(term)) {
 				result.add(n);
-				//Vector<TechnicalAttribute> ta = n.getTechnicalAttributes();
-				//for (TechnicalAttribute t : ta) {
-				//	System.out.println("TA: " + t.getWidth());
-				//}
 			}
 			for (Node ni : n.getChildNodes()) {
 				if (ni.getName().equals(term) && !result.contains(ni)) result.add(ni);
@@ -183,6 +184,11 @@ public class MMFG {
 
 	public void setTempSimilarity(float[] similarity) {
 		this.tempSimilarity = similarity;
+	}
+	
+	/** returns all timeranges **/
+	public Vector<Timerange> getTimeranges() {
+		return timeranges;
 	}
 	
 }

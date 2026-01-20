@@ -34,6 +34,7 @@ public class Configuration {
 	private String serverName;
 	private String context;
 	private boolean showBoundingBox = true;
+	private String graphCodeStrategyClass = "de.swa.gc.DefaultGraphCodeStrategy";
 
 	private String collectionManager = "de.swa.ui.DefaultMMFGCollection";
 
@@ -109,6 +110,7 @@ public class Configuration {
 			String password = "";
 			String restServicePort = "8242";
 			String collectionManager = "de.swa.ui.DefaultMMFGCollection";
+			String graphCodeStrategyClass = "de.swa.gc.DefaultGraphCodeStrategy";
 
 			while ((line = rf.readLine()) != null) {
 				if (line.equals("")) continue;
@@ -194,18 +196,24 @@ public class Configuration {
 					else if (line.startsWith("collectionManager")) {
 						collectionManager = line.substring(line.indexOf("=") + 1, line.length()).trim();
 					}
+					else if (line.startsWith("graphCodeStrategy")) {
+						String strategyClass = line.substring(line.indexOf("=") + 1, line.length()).trim();
+						if (strategyClass != null && !strategyClass.isEmpty()) {
+							graphCodeStrategyClass = strategyClass;
+						}
+					}
  				}
 				catch (Exception x) {}
 			}
 			
-			Configuration.getInstance().setConfig(collectionName, collectionPaths, graphCodeRepo, exportFolder, fileEx, mmfgRepository, uimode, maxNodes, maxRecursions, thumbNails, autoProcess, semExt, launchServer, collectionProc, collectionConf, queryEx, rdfRepo, serverPort, flows, srv, ctx, password, restServicePort, collectionManager);
+			Configuration.getInstance().setConfig(collectionName, collectionPaths, graphCodeRepo, exportFolder, fileEx, mmfgRepository, uimode, maxNodes, maxRecursions, thumbNails, autoProcess, semExt, launchServer, collectionProc, collectionConf, queryEx, rdfRepo, serverPort, flows, srv, ctx, password, restServicePort, collectionManager, graphCodeStrategyClass);
 		}
 		catch (Exception x) {
 			x.printStackTrace();
 		}
 	}
 	
-	public void setConfig(String name, Vector<String> paths, String gcRepo, String export, Vector<String> fileEx, String mmfgRepo, String ui, String nodes, String recursions, String thumbNail, String auto, String semFact, String launch, String collectionProc, String collectionConf, String queryUI, String rdf, String serverPort, String flows, String serverName, String context, String password, String restServicePort, String collectionManager) {
+	public void setConfig(String name, Vector<String> paths, String gcRepo, String export, Vector<String> fileEx, String mmfgRepo, String ui, String nodes, String recursions, String thumbNail, String auto, String semFact, String launch, String collectionProc, String collectionConf, String queryUI, String rdf, String serverPort, String flows, String serverName, String context, String password, String restServicePort, String collectionManager, String graphCodeStrategyClass) {
 		try {
 			collectionName = name;
 			collectionPaths = paths;
@@ -230,6 +238,7 @@ public class Configuration {
 			this.context = context;
 			this.restServicePort = Integer.parseInt(restServicePort);
 			this.collectionManager = collectionManager;
+			this.graphCodeStrategyClass = graphCodeStrategyClass;
 			GMAF_SessionFactory.API_KEY = password;
 		}
 		catch (Exception x) {
@@ -352,5 +361,9 @@ public class Configuration {
 
 	public String getCollectionManager() {
 		return collectionManager;
+	}
+
+	public String getGraphCodeStrategyClass() {
+		return graphCodeStrategyClass;
 	}
 }

@@ -13,6 +13,11 @@ import com.google.gson.Gson;
 public class GraphCode implements Serializable {
 	private static final long serialVersionUID = 1L;
 	protected Vector<String> dictionary = new Vector<String>();
+
+//	public void setCollectionElements(Vector<GraphCode> collectionElements) {
+//		this.collectionElements = collectionElements;
+//	}
+
 	protected Vector<GraphCode> collectionElements = new Vector<GraphCode>();
 	
 	public GraphCode() {}
