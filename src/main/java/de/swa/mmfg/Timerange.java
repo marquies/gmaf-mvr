@@ -11,8 +11,8 @@ public class Timerange {
 
 	@JsonIgnore
 	private Vector<Node> nodes = new Vector<Node>();
-	private boolean isUniversalTime = true;
-	private boolean isRelativeTime = false;
+	private boolean isUniversalTime = false;
+	private boolean isRelativeTime = true;
 
 	public Timerange(Date begin, Date end, boolean isRelativeTime) {
 		this.begin = begin;
