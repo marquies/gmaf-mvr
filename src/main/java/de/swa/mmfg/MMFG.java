@@ -99,11 +99,14 @@ public class MMFG {
 		return getGeneralMetadata().getId();
 	}
 	
-	/** adds a node **/
-
+	/**
+	 *  Adds a node. Node is also added to allNodes, if it is not already in there.
+	 */
 	public void addNode(Node n) {
 		nodes.add(n);
-		allNodes.add(n);
+		if (!allNodes.contains(n)) {
+			allNodes.add(n);
+		}
 	}
 
 	/** returns a list of all nodes **/
