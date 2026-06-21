@@ -1,3 +1,4 @@
+[![Java CI with Maven](https://github.com/marquies/gmaf-mvr/actions/workflows/maven.yml/badge.svg)](https://github.com/marquies/gmaf-mvr/actions/workflows/maven.yml)
 # GMAF (MVR Edition)
 
 GMAF is a Java media-analysis framework for feature extraction, graph-based representation, metadata enrichment, and semantic extension. This fork adds MVR-specific integrations and a plugin pipeline for video/image processing.
