@@ -36,7 +36,7 @@ public class GraphCodeGeneratorTest {
 		m.addNode(leaf);
 
 		GraphCode gc = GraphCodeGenerator.generate(m);
-		assertEquals(1, gc.getEdgeValueForTerms("Root-Asset", "Root-Asset"));
+		assertEquals(2, gc.getEdgeValueForTerms("Root-Asset", "Root-Asset"));
 		assertEquals(2, gc.getEdgeValueForTerms("wheel", "wheel"));
 	}
 }

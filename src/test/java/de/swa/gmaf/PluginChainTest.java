@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import javax.imageio.ImageIO;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -22,7 +23,7 @@ public class PluginChainTest {
 		PluginChain chain = new PluginChain(new java.util.Vector<>());
 		MMFG m = new MMFG();
 		File temp = createTempJpeg();
-		chain.process(null, temp, new byte[0], m, 1, 10, ".jpg");
+		chain.process(temp.toURI().toURL(), temp, new byte[0], m, 1, 10, ".jpg");
 		assertEquals(temp.getName(), m.getGeneralMetadata().getFileName());
 		assertNotNull(m.getLocations());
 		assertEquals(2, m.getLocations().size());

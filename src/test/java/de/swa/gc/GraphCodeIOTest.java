@@ -16,26 +16,26 @@ public class GraphCodeIOTest {
 	@Test
 	public void asJson_andRead_roundTrip() {
 		GraphCode gc = new GraphCode();
-		gc.setDictionary(new java.util.Vector<String>() {{ add("a"); add("b"); }});
-		gc.setValueForTerms("a", "b", 3);
+		gc.setDictionary(new java.util.Vector<String>() {{ add("term_a"); add("term_b"); }});
+		gc.setValueForTerms("term_a", "term_b", 3);
 		String json = GraphCodeIO.asJson(gc);
 		GraphCode parsed = new Gson().fromJson(json, GraphCode.class);
 		assertEquals(2, parsed.getDictionary().size());
-		assertEquals(3, parsed.getEdgeValueForTerms("a", "b"));
+		assertEquals(3, parsed.getEdgeValueForTerms("term_a", "term_b"));
 	}
 
 	@Test
 	public void writeAndRead_fileRoundTrip() throws Exception {
 		GraphCode gc = new GraphCode();
-		gc.setDictionary(new java.util.Vector<String>() {{ add("x"); add("y"); }});
-		gc.setValueForTerms("x", "y", 7);
+		gc.setDictionary(new java.util.Vector<String>() {{ add("term_x"); add("term_y"); }});
+		gc.setValueForTerms("term_x", "term_y", 7);
 		File temp = File.createTempFile("gc_test_", ".gc");
 		temp.deleteOnExit();
 		GraphCodeIO.write(gc, temp);
 		assertTrue(temp.exists());
 		GraphCode read = GraphCodeIO.read(temp);
 		assertEquals(2, read.getDictionary().size());
-		assertEquals(7, read.getEdgeValueForTerms("x", "y"));
+		assertEquals(7, read.getEdgeValueForTerms("term_x", "term_y"));
 	}
 
 	@Test

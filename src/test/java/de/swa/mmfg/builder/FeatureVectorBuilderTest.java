@@ -24,9 +24,10 @@ public class FeatureVectorBuilderTest {
 		Node deltaRoot = new Node("Root-Asset", delta);
 		Node deltaChild = new Node("new", delta);
 		deltaRoot.addChildNode(deltaChild);
+		delta.addNode(deltaRoot);
 
 		FeatureVectorBuilder.mergeIntoFeatureVector(base, delta);
-		Vector<Node> children = baseRoot.getChildNodes();
+		java.util.Vector<Node> children = baseRoot.getChildNodes();
 		assertEquals(2, children.size());
 		assertTrue(children.stream().anyMatch(n -> n.getName().equals("new")));
 	}
