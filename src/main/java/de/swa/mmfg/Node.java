@@ -13,7 +13,7 @@ public class Node {
 	private Vector<CompositionRelationship> compositionRelationships = new Vector<CompositionRelationship>();
 	private Vector<AssetLink> assetLinks = new Vector<AssetLink>();
 	private String detectedBy;
-	private MMFG fv;
+	private transient MMFG fv;
 	private Timerange timerange;
 	
 	public Node() {}
