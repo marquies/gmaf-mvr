@@ -14,6 +14,7 @@ public class UnionFeatureFusion implements FeatureFusionStrategy {
 					mmfg.addNode(n);
 				}
 			}
+			mmfg.addTimeRange(m.getTimeranges().get(0));
 		}
 	}
 }

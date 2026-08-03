@@ -38,6 +38,7 @@ public class XMLEncodeDecode implements Flattener, Unflattener {
 		xstream.allowTypesByWildcard(new String[] {
 		    "de.swa.mmfg.**"
 		});
+		xstream.ignoreUnknownElements();
 
 		return (MMFG)xstream.fromXML(xml);
 
