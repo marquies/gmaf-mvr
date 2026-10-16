@@ -1,0 +1,148 @@
+<de.swa.mmfg.MMFG>
+  <nodes>
+    <de.swa.mmfg.Node>
+      <name>audio</name>
+      <childNodes/>
+      <weights>
+        <de.swa.mmfg.Weight>
+          <context>
+            <name>Default</name>
+            <id>e8f1271b-8e15-44ca-a36e-229ef64b8e0a</id>
+          </context>
+          <weight>0.5</weight>
+        </de.swa.mmfg.Weight>
+        <de.swa.mmfg.Weight>
+          <context reference="../../de.swa.mmfg.Weight/context"/>
+          <weight>0.5</weight>
+        </de.swa.mmfg.Weight>
+      </weights>
+      <technicalAttributes/>
+      <semanticRelationships/>
+      <compositionRelationships/>
+      <assetLinks/>
+      <fv reference="../../.."/>
+    </de.swa.mmfg.Node>
+    <de.swa.mmfg.Node>
+      <name>wind</name>
+      <childNodes/>
+      <weights>
+        <de.swa.mmfg.Weight>
+          <context reference="../../../../de.swa.mmfg.Node/weights/de.swa.mmfg.Weight/context"/>
+          <weight>0.5</weight>
+        </de.swa.mmfg.Weight>
+      </weights>
+      <technicalAttributes/>
+      <semanticRelationships/>
+      <compositionRelationships/>
+      <assetLinks/>
+      <fv reference="../../.."/>
+    </de.swa.mmfg.Node>
+    <de.swa.mmfg.Node>
+      <name>cloud</name>
+      <childNodes/>
+      <weights>
+        <de.swa.mmfg.Weight>
+          <context reference="../../../../de.swa.mmfg.Node/weights/de.swa.mmfg.Weight/context"/>
+          <weight>0.5</weight>
+        </de.swa.mmfg.Weight>
+      </weights>
+      <technicalAttributes/>
+      <semanticRelationships/>
+      <compositionRelationships/>
+      <assetLinks/>
+      <fv reference="../../.."/>
+    </de.swa.mmfg.Node>
+    <de.swa.mmfg.Node>
+      <name>piano</name>
+      <childNodes/>
+      <weights>
+        <de.swa.mmfg.Weight>
+          <context reference="../../../../de.swa.mmfg.Node/weights/de.swa.mmfg.Weight/context"/>
+          <weight>0.5</weight>
+        </de.swa.mmfg.Weight>
+      </weights>
+      <technicalAttributes/>
+      <semanticRelationships/>
+      <compositionRelationships/>
+      <assetLinks/>
+      <fv reference="../../.."/>
+    </de.swa.mmfg.Node>
+  </nodes>
+  <timeranges/>
+  <generalMetadata>
+    <id>4c9b6be3-97e5-50f4-8c94-5e77876b4f48</id>
+    <longitude>0</longitude>
+    <latitude>0</latitude>
+    <aperture>0.0</aperture>
+    <exposure>0.0</exposure>
+    <focalLength>0</focalLength>
+    <resolution>0</resolution>
+    <width>0</width>
+    <height>0</height>
+    <date>2026-01-18 17:38:40.80 UTC</date>
+    <fileSize>3500000</fileSize>
+    <iso>0</iso>
+    <shutterSpeed>0</shutterSpeed>
+    <fileName>JeffSpeed68_-_In_the_clouds.mp3</fileName>
+  </generalMetadata>
+  <locations/>
+  <allNodes>
+    <de.swa.mmfg.Node>
+      <name>metal</name>
+      <childNodes/>
+      <weights>
+        <de.swa.mmfg.Weight>
+          <context reference="../../../../../nodes/de.swa.mmfg.Node/weights/de.swa.mmfg.Weight/context"/>
+          <weight>0.5</weight>
+        </de.swa.mmfg.Weight>
+      </weights>
+      <technicalAttributes/>
+      <semanticRelationships/>
+      <compositionRelationships/>
+      <assetLinks/>
+      <fv reference="../../.."/>
+    </de.swa.mmfg.Node>
+    <de.swa.mmfg.Node reference="../de.swa.mmfg.Node"/>
+    <de.swa.mmfg.Node>
+      <name>noise</name>
+      <childNodes/>
+      <weights>
+        <de.swa.mmfg.Weight>
+          <context reference="../../../../../nodes/de.swa.mmfg.Node/weights/de.swa.mmfg.Weight/context"/>
+          <weight>0.5</weight>
+        </de.swa.mmfg.Weight>
+      </weights>
+      <technicalAttributes/>
+      <semanticRelationships/>
+      <compositionRelationships/>
+      <assetLinks/>
+      <fv reference="../../.."/>
+    </de.swa.mmfg.Node>
+    <de.swa.mmfg.Node reference="../de.swa.mmfg.Node[3]"/>
+    <de.swa.mmfg.Node reference="../../nodes/de.swa.mmfg.Node"/>
+    <de.swa.mmfg.Node reference="../../nodes/de.swa.mmfg.Node"/>
+    <de.swa.mmfg.Node>
+      <name>loud</name>
+      <childNodes/>
+      <weights>
+        <de.swa.mmfg.Weight>
+          <context reference="../../../../../nodes/de.swa.mmfg.Node/weights/de.swa.mmfg.Weight/context"/>
+          <weight>0.5</weight>
+        </de.swa.mmfg.Weight>
+      </weights>
+      <technicalAttributes/>
+      <semanticRelationships/>
+      <compositionRelationships/>
+      <assetLinks/>
+      <fv reference="../../.."/>
+    </de.swa.mmfg.Node>
+    <de.swa.mmfg.Node reference="../de.swa.mmfg.Node[7]"/>
+    <de.swa.mmfg.Node reference="../../nodes/de.swa.mmfg.Node[2]"/>
+    <de.swa.mmfg.Node reference="../../nodes/de.swa.mmfg.Node[2]"/>
+    <de.swa.mmfg.Node reference="../../nodes/de.swa.mmfg.Node[3]"/>
+    <de.swa.mmfg.Node reference="../../nodes/de.swa.mmfg.Node[3]"/>
+    <de.swa.mmfg.Node reference="../../nodes/de.swa.mmfg.Node[4]"/>
+    <de.swa.mmfg.Node reference="../../nodes/de.swa.mmfg.Node[4]"/>
+  </allNodes>
+  <collectionElements/>
+</de.swa.mmfg.MMFG>
