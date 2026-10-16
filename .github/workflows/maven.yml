@@ -19,6 +19,7 @@ permissions:
     contents: read
     checks: write
     id-token: write
+    pull-requests: write
 
 jobs:
   build:
@@ -40,6 +41,35 @@ jobs:
       with:
           report_paths: '**/target/surefire-reports/TEST-*.xml'
           fail_on_failure: true
+    - name: Code coverage summary
+      if: always()
+      run: |
+        csv=target/site/jacoco/jacoco.csv
+        if [ -f "$csv" ]; then
+          awk -F"," 'NR>1 { missed+=$8; covered+=$9 } END {
+            total=missed+covered;
+            pct=(total>0)?100*covered/total:0;
+            printf "## Code Coverage\n\nLine coverage: **%.2f%%** (%d/%d lines covered)\n", pct, covered, total
+          }' "$csv" >> "$GITHUB_STEP_SUMMARY"
+        else
+          echo "## Code Coverage\n\nNo jacoco.csv report found at $csv" >> "$GITHUB_STEP_SUMMARY"
+        fi
+    - name: Upload JaCoCo coverage report
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: jacoco-coverage-report
+        path: target/site/jacoco/
+        if-no-files-found: warn
+    - name: Report coverage on PR
+      if: github.event_name == 'pull_request'
+      uses: madrapps/jacoco-report@v1.6.1
+      with:
+        paths: ${{ github.workspace }}/target/site/jacoco/jacoco.xml
+        token: ${{ secrets.GITHUB_TOKEN }}
+        title: Unit Test Code Coverage
+        min-coverage-overall: 0
+        min-coverage-changed-files: 0
   publish-snapshot:
     needs: build
     runs-on: ubuntu-latest
