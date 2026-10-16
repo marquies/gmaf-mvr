@@ -1,0 +1,1383 @@
+<de.swa.mmfg.MMFG>
+  <nodes>
+    <de.swa.mmfg.Node>
+      <name>Root-Asset</name>
+      <childNodes/>
+      <weights>
+        <de.swa.mmfg.Weight>
+          <context>
+            <name>Default</name>
+            <id>1e297bd8-f6a0-4fd1-8e0d-ff0a00f19fd7</id>
+          </context>
+          <weight>0.5</weight>
+        </de.swa.mmfg.Weight>
+      </weights>
+      <technicalAttributes/>
+      <semanticRelationships/>
+      <compositionRelationships/>
+      <assetLinks/>
+      <fv reference="../../.."/>
+    </de.swa.mmfg.Node>
+    <de.swa.mmfg.Node>
+      <name>Avatar</name>
+      <childNodes/>
+      <weights>
+        <de.swa.mmfg.Weight>
+          <context reference="../../../../de.swa.mmfg.Node/weights/de.swa.mmfg.Weight/context"/>
+          <weight>0.5</weight>
+        </de.swa.mmfg.Weight>
+        <de.swa.mmfg.Weight>
+          <context>
+            <name>Confidence</name>
+          </context>
+          <weight>0.8125</weight>
+        </de.swa.mmfg.Weight>
+      </weights>
+      <technicalAttributes/>
+      <semanticRelationships/>
+      <compositionRelationships/>
+      <assetLinks/>
+      <fv>
+        <nodes>
+          <de.swa.mmfg.Node reference="../../.."/>
+          <de.swa.mmfg.Node>
+            <name>Avatar</name>
+            <childNodes/>
+            <weights>
+              <de.swa.mmfg.Weight>
+                <context reference="../../../../../../../de.swa.mmfg.Node/weights/de.swa.mmfg.Weight/context"/>
+                <weight>0.5</weight>
+              </de.swa.mmfg.Weight>
+              <de.swa.mmfg.Weight>
+                <context>
+                  <name>Confidence</name>
+                </context>
+                <weight>0.802734</weight>
+              </de.swa.mmfg.Weight>
+            </weights>
+            <technicalAttributes/>
+            <semanticRelationships/>
+            <compositionRelationships/>
+            <assetLinks/>
+            <fv reference="../../.."/>
+          </de.swa.mmfg.Node>
+          <de.swa.mmfg.Node>
+            <name>Avatar</name>
+            <childNodes/>
+            <weights>
+              <de.swa.mmfg.Weight>
+                <context reference="../../../../../../../de.swa.mmfg.Node/weights/de.swa.mmfg.Weight/context"/>
+                <weight>0.5</weight>
+              </de.swa.mmfg.Weight>
+              <de.swa.mmfg.Weight>
+                <context>
+                  <name>Confidence</name>
+                </context>
+                <weight>0.776367</weight>
+              </de.swa.mmfg.Weight>
+            </weights>
+            <technicalAttributes/>
+            <semanticRelationships/>
+            <compositionRelationships/>
+            <assetLinks/>
+            <fv reference="../../.."/>
+          </de.swa.mmfg.Node>
+          <de.swa.mmfg.Node>
+            <name>Avatar</name>
+            <childNodes/>
+            <weights>
+              <de.swa.mmfg.Weight>
+                <context reference="../../../../../../../de.swa.mmfg.Node/weights/de.swa.mmfg.Weight/context"/>
+                <weight>0.5</weight>
+              </de.swa.mmfg.Weight>
+              <de.swa.mmfg.Weight>
+                <context>
+                  <name>Confidence</name>
+                </context>
+                <weight>0.805176</weight>
+              </de.swa.mmfg.Weight>
+            </weights>
+            <technicalAttributes/>
+            <semanticRelationships/>
+            <compositionRelationships/>
+            <assetLinks/>
+            <fv reference="../../.."/>
+          </de.swa.mmfg.Node>
+          <de.swa.mmfg.Node>
+            <name>Avatar</name>
+            <childNodes/>
+            <weights>
+              <de.swa.mmfg.Weight>
+                <context reference="../../../../../../../de.swa.mmfg.Node/weights/de.swa.mmfg.Weight/context"/>
+                <weight>0.5</weight>
+              </de.swa.mmfg.Weight>
+              <de.swa.mmfg.Weight>
+                <context>
+                  <name>Confidence</name>
+                </context>
+                <weight>0.779785</weight>
+              </de.swa.mmfg.Weight>
+            </weights>
+            <technicalAttributes/>
+            <semanticRelationships/>
+            <compositionRelationships/>
+            <assetLinks/>
+            <fv reference="../../.."/>
+          </de.swa.mmfg.Node>
+          <de.swa.mmfg.Node>
+            <name>Avatar</name>
+            <childNodes/>
+            <weights>
+              <de.swa.mmfg.Weight>
+                <context reference="../../../../../../../de.swa.mmfg.Node/weights/de.swa.mmfg.Weight/context"/>
+                <weight>0.5</weight>
+              </de.swa.mmfg.Weight>
+              <de.swa.mmfg.Weight>
+                <context>
+                  <name>Confidence</name>
+                </context>
+                <weight>0.755371</weight>
+              </de.swa.mmfg.Weight>
+            </weights>
+            <technicalAttributes/>
+            <semanticRelationships/>
+            <compositionRelationships/>
+            <assetLinks/>
+            <fv reference="../../.."/>
+          </de.swa.mmfg.Node>
+        </nodes>
+        <timeranges/>
+        <generalMetadata>
+          <id>3f174e84-3a17-585d-9be3-c7812451f13d</id>
+          <longitude>0</longitude>
+          <latitude>0</latitude>
+          <aperture>0.0</aperture>
+          <exposure>0.0</exposure>
+          <focalLength>0</focalLength>
+          <resolution>0</resolution>
+          <width>0</width>
+          <height>0</height>
+          <fileSize>0</fileSize>
+          <iso>0</iso>
+          <shutterSpeed>0</shutterSpeed>
+        </generalMetadata>
+        <locations/>
+        <currentNode>
+          <name>Root-Asset</name>
+          <childNodes/>
+          <weights>
+            <de.swa.mmfg.Weight>
+              <context reference="../../../../../../de.swa.mmfg.Node/weights/de.swa.mmfg.Weight/context"/>
+              <weight>0.5</weight>
+            </de.swa.mmfg.Weight>
+          </weights>
+          <technicalAttributes/>
+          <semanticRelationships/>
+          <compositionRelationships/>
+          <assetLinks/>
+          <fv reference="../../../../.."/>
+        </currentNode>
+        <allNodes>
+          <de.swa.mmfg.Node reference="../../.."/>
+          <de.swa.mmfg.Node reference="../../.."/>
+          <de.swa.mmfg.Node reference="../../nodes/de.swa.mmfg.Node[2]"/>
+          <de.swa.mmfg.Node reference="../../nodes/de.swa.mmfg.Node[2]"/>
+          <de.swa.mmfg.Node reference="../../nodes/de.swa.mmfg.Node[3]"/>
+          <de.swa.mmfg.Node reference="../../nodes/de.swa.mmfg.Node[3]"/>
+          <de.swa.mmfg.Node reference="../../nodes/de.swa.mmfg.Node[4]"/>
+          <de.swa.mmfg.Node reference="../../nodes/de.swa.mmfg.Node[4]"/>
+          <de.swa.mmfg.Node reference="../../nodes/de.swa.mmfg.Node[5]"/>
+          <de.swa.mmfg.Node reference="../../nodes/de.swa.mmfg.Node[5]"/>
+          <de.swa.mmfg.Node reference="../../nodes/de.swa.mmfg.Node[6]"/>
+          <de.swa.mmfg.Node reference="../../nodes/de.swa.mmfg.Node[6]"/>
+        </allNodes>
+        <collectionElements/>
+      </fv>
+    </de.swa.mmfg.Node>
+    <de.swa.mmfg.Node reference="../de.swa.mmfg.Node[2]/fv/nodes/de.swa.mmfg.Node[2]"/>
+    <de.swa.mmfg.Node reference="../de.swa.mmfg.Node[2]/fv/nodes/de.swa.mmfg.Node[3]"/>
+    <de.swa.mmfg.Node reference="../de.swa.mmfg.Node[2]/fv/nodes/de.swa.mmfg.Node[4]"/>
+    <de.swa.mmfg.Node reference="../de.swa.mmfg.Node[2]/fv/nodes/de.swa.mmfg.Node[5]"/>
+    <de.swa.mmfg.Node reference="../de.swa.mmfg.Node[2]/fv/nodes/de.swa.mmfg.Node[6]"/>
+  </nodes>
+  <timeranges/>
+  <generalMetadata>
+    <id>2f408dd6-f0c6-4ce4-a07d-3b9698410d48</id>
+    <longitude>0</longitude>
+    <latitude>0</latitude>
+    <aperture>0.0</aperture>
+    <exposure>0.0</exposure>
+    <focalLength>0</focalLength>
+    <resolution>0</resolution>
+    <width>0</width>
+    <height>0</height>
+    <fileSize>0</fileSize>
+    <iso>0</iso>
+    <shutterSpeed>0</shutterSpeed>
+    <fileName>com.oculus.vrshell-20240322-102850.mp4</fileName>
+  </generalMetadata>
+  <locations>
+    <de.swa.mmfg.Location>
+      <type>40</type>
+      <name>com.oculus.vrshell-20240322-102850.mp4</name>
+    </de.swa.mmfg.Location>
+  </locations>
+  <currentNode reference="../nodes/de.swa.mmfg.Node"/>
+  <allNodes>
+    <de.swa.mmfg.Node reference="../../nodes/de.swa.mmfg.Node"/>
+    <de.swa.mmfg.Node reference="../../nodes/de.swa.mmfg.Node"/>
+    <de.swa.mmfg.Node>
+      <name>Root-Asset</name>
+      <childNodes>
+        <de.swa.mmfg.Node>
+          <name>refrigerator</name>
+          <childNodes/>
+          <weights>
+            <de.swa.mmfg.Weight>
+              <context reference="../../../../../../../nodes/de.swa.mmfg.Node/weights/de.swa.mmfg.Weight/context"/>
+              <weight>0.5</weight>
+            </de.swa.mmfg.Weight>
+          </weights>
+          <technicalAttributes>
+            <de.swa.mmfg.TechnicalAttribute>
+              <relative__x>93</relative__x>
+              <relative__y>46</relative__y>
+              <width>1780</width>
+              <height>985</height>
+              <sharpness>1.0</sharpness>
+              <blurryness>0.0</blurryness>
+              <dominantColors/>
+            </de.swa.mmfg.TechnicalAttribute>
+          </technicalAttributes>
+          <semanticRelationships/>
+          <compositionRelationships/>
+          <assetLinks/>
+          <fv>
+            <nodes/>
+            <timeranges/>
+            <generalMetadata>
+              <id>b09119da-ffb4-4e34-8d33-92295135f2c7</id>
+              <longitude>0</longitude>
+              <latitude>0</latitude>
+              <aperture>0.0</aperture>
+              <exposure>0.0</exposure>
+              <focalLength>0</focalLength>
+              <resolution>0</resolution>
+              <width>0</width>
+              <height>0</height>
+              <fileSize>0</fileSize>
+              <iso>0</iso>
+              <shutterSpeed>0</shutterSpeed>
+            </generalMetadata>
+            <locations/>
+            <currentNode reference="../../../.."/>
+            <allNodes>
+              <de.swa.mmfg.Node reference="../../.."/>
+              <de.swa.mmfg.Node>
+                <name>remote</name>
+                <childNodes/>
+                <weights>
+                  <de.swa.mmfg.Weight>
+                    <context reference="../../../../../../../../../../nodes/de.swa.mmfg.Node/weights/de.swa.mmfg.Weight/context"/>
+                    <weight>0.5</weight>
+                  </de.swa.mmfg.Weight>
+                </weights>
+                <technicalAttributes>
+                  <de.swa.mmfg.TechnicalAttribute>
+                    <relative__x>797</relative__x>
+                    <relative__y>517</relative__y>
+                    <width>359</width>
+                    <height>578</height>
+                    <sharpness>1.0</sharpness>
+                    <blurryness>0.0</blurryness>
+                    <dominantColors/>
+                  </de.swa.mmfg.TechnicalAttribute>
+                </technicalAttributes>
+                <semanticRelationships/>
+                <compositionRelationships/>
+                <assetLinks/>
+                <fv reference="../../.."/>
+              </de.swa.mmfg.Node>
+              <de.swa.mmfg.Node>
+                <name>sports ball</name>
+                <childNodes/>
+                <weights>
+                  <de.swa.mmfg.Weight>
+                    <context reference="../../../../../../../../../../nodes/de.swa.mmfg.Node/weights/de.swa.mmfg.Weight/context"/>
+                    <weight>0.5</weight>
+                  </de.swa.mmfg.Weight>
+                </weights>
+                <technicalAttributes>
+                  <de.swa.mmfg.TechnicalAttribute>
+                    <relative__x>529</relative__x>
+                    <relative__y>687</relative__y>
+                    <width>117</width>
+                    <height>52</height>
+                    <sharpness>1.0</sharpness>
+                    <blurryness>0.0</blurryness>
+                    <dominantColors/>
+                  </de.swa.mmfg.TechnicalAttribute>
+                </technicalAttributes>
+                <semanticRelationships/>
+                <compositionRelationships/>
+                <assetLinks/>
+                <fv reference="../../.."/>
+              </de.swa.mmfg.Node>
+              <de.swa.mmfg.Node>
+                <name>sports ball</name>
+                <childNodes/>
+                <weights>
+                  <de.swa.mmfg.Weight>
+                    <context reference="../../../../../../../../../../nodes/de.swa.mmfg.Node/weights/de.swa.mmfg.Weight/context"/>
+                    <weight>0.5</weight>
+                  </de.swa.mmfg.Weight>
+                </weights>
+                <technicalAttributes>
+                  <de.swa.mmfg.TechnicalAttribute>
+                    <relative__x>400</relative__x>
+                    <relative__y>613</relative__y>
+                    <width>129</width>
+                    <height>58</height>
+                    <sharpness>1.0</sharpness>
+                    <blurryness>0.0</blurryness>
+                    <dominantColors/>
+                  </de.swa.mmfg.TechnicalAttribute>
+                </technicalAttributes>
+                <semanticRelationships/>
+                <compositionRelationships/>
+                <assetLinks/>
+                <fv reference="../../.."/>
+              </de.swa.mmfg.Node>
+              <de.swa.mmfg.Node>
+                <name>sports ball</name>
+                <childNodes/>
+                <weights>
+                  <de.swa.mmfg.Weight>
+                    <context reference="../../../../../../../../../../nodes/de.swa.mmfg.Node/weights/de.swa.mmfg.Weight/context"/>
+                    <weight>0.5</weight>
+                  </de.swa.mmfg.Weight>
+                </weights>
+                <technicalAttributes>
+                  <de.swa.mmfg.TechnicalAttribute>
+                    <relative__x>584</relative__x>
+                    <relative__y>787</relative__y>
+                    <width>131</width>
+                    <height>66</height>
+                    <sharpness>1.0</sharpness>
+                    <blurryness>0.0</blurryness>
+                    <dominantColors/>
+                  </de.swa.mmfg.TechnicalAttribute>
+                </technicalAttributes>
+                <semanticRelationships/>
+                <compositionRelationships/>
+                <assetLinks/>
+                <fv reference="../../.."/>
+              </de.swa.mmfg.Node>
+              <de.swa.mmfg.Node>
+                <name>sports ball</name>
+                <childNodes/>
+                <weights>
+                  <de.swa.mmfg.Weight>
+                    <context reference="../../../../../../../../../../nodes/de.swa.mmfg.Node/weights/de.swa.mmfg.Weight/context"/>
+                    <weight>0.5</weight>
+                  </de.swa.mmfg.Weight>
+                </weights>
+                <technicalAttributes>
+                  <de.swa.mmfg.TechnicalAttribute>
+                    <relative__x>762</relative__x>
+                    <relative__y>382</relative__y>
+                    <width>115</width>
+                    <height>122</height>
+                    <sharpness>1.0</sharpness>
+                    <blurryness>0.0</blurryness>
+                    <dominantColors/>
+                  </de.swa.mmfg.TechnicalAttribute>
+                </technicalAttributes>
+                <semanticRelationships/>
+                <compositionRelationships/>
+                <assetLinks/>
+                <fv reference="../../.."/>
+              </de.swa.mmfg.Node>
+              <de.swa.mmfg.Node>
+                <name>sports ball</name>
+                <childNodes/>
+                <weights>
+                  <de.swa.mmfg.Weight>
+                    <context reference="../../../../../../../../../../nodes/de.swa.mmfg.Node/weights/de.swa.mmfg.Weight/context"/>
+                    <weight>0.5</weight>
+                  </de.swa.mmfg.Weight>
+                </weights>
+                <technicalAttributes>
+                  <de.swa.mmfg.TechnicalAttribute>
+                    <relative__x>327</relative__x>
+                    <relative__y>606</relative__y>
+                    <width>130</width>
+                    <height>54</height>
+                    <sharpness>1.0</sharpness>
+                    <blurryness>0.0</blurryness>
+                    <dominantColors/>
+                  </de.swa.mmfg.TechnicalAttribute>
+                </technicalAttributes>
+                <semanticRelationships/>
+                <compositionRelationships/>
+                <assetLinks/>
+                <fv reference="../../.."/>
+              </de.swa.mmfg.Node>
+              <de.swa.mmfg.Node>
+                <name>remote</name>
+                <childNodes/>
+                <weights>
+                  <de.swa.mmfg.Weight>
+                    <context reference="../../../../../../../../../../nodes/de.swa.mmfg.Node/weights/de.swa.mmfg.Weight/context"/>
+                    <weight>0.5</weight>
+                  </de.swa.mmfg.Weight>
+                </weights>
+                <technicalAttributes>
+                  <de.swa.mmfg.TechnicalAttribute>
+                    <relative__x>619</relative__x>
+                    <relative__y>487</relative__y>
+                    <width>303</width>
+                    <height>462</height>
+                    <sharpness>1.0</sharpness>
+                    <blurryness>0.0</blurryness>
+                    <dominantColors/>
+                  </de.swa.mmfg.TechnicalAttribute>
+                </technicalAttributes>
+                <semanticRelationships/>
+                <compositionRelationships/>
+                <assetLinks/>
+                <fv reference="../../.."/>
+              </de.swa.mmfg.Node>
+              <de.swa.mmfg.Node>
+                <name>vase</name>
+                <childNodes/>
+                <weights>
+                  <de.swa.mmfg.Weight>
+                    <context reference="../../../../../../../../../../nodes/de.swa.mmfg.Node/weights/de.swa.mmfg.Weight/context"/>
+                    <weight>0.5</weight>
+                  </de.swa.mmfg.Weight>
+                </weights>
+                <technicalAttributes>
+                  <de.swa.mmfg.TechnicalAttribute>
+                    <relative__x>1541</relative__x>
+                    <relative__y>337</relative__y>
+                    <width>209</width>
+                    <height>510</height>
+                    <sharpness>1.0</sharpness>
+                    <blurryness>0.0</blurryness>
+                    <dominantColors/>
+                  </de.swa.mmfg.TechnicalAttribute>
+                </technicalAttributes>
+                <semanticRelationships/>
+                <compositionRelationships/>
+                <assetLinks/>
+                <fv reference="../../.."/>
+              </de.swa.mmfg.Node>
+              <de.swa.mmfg.Node>
+                <name>vase</name>
+                <childNodes/>
+                <weights>
+                  <de.swa.mmfg.Weight>
+                    <context reference="../../../../../../../../../../nodes/de.swa.mmfg.Node/weights/de.swa.mmfg.Weight/context"/>
+                    <weight>0.5</weight>
+                  </de.swa.mmfg.Weight>
+                </weights>
+                <technicalAttributes>
+                  <de.swa.mmfg.TechnicalAttribute>
+                    <relative__x>1444</relative__x>
+                    <relative__y>507</relative__y>
+                    <width>178</width>
+                    <height>373</height>
+                    <sharpness>1.0</sharpness>
+                    <blurryness>0.0</blurryness>
+                    <dominantColors/>
+                  </de.swa.mmfg.TechnicalAttribute>
+                </technicalAttributes>
+                <semanticRelationships/>
+                <compositionRelationships/>
+                <assetLinks/>
+                <fv reference="../../.."/>
+              </de.swa.mmfg.Node>
+              <de.swa.mmfg.Node>
+                <name>vase</name>
+                <childNodes/>
+                <weights>
+                  <de.swa.mmfg.Weight>
+                    <context reference="../../../../../../../../../../nodes/de.swa.mmfg.Node/weights/de.swa.mmfg.Weight/context"/>
+                    <weight>0.5</weight>
+                  </de.swa.mmfg.Weight>
+                </weights>
+                <technicalAttributes>
+                  <de.swa.mmfg.TechnicalAttribute>
+                    <relative__x>1201</relative__x>
+                    <relative__y>342</relative__y>
+                    <width>149</width>
+                    <height>319</height>
+                    <sharpness>1.0</sharpness>
+                    <blurryness>0.0</blurryness>
+                    <dominantColors/>
+                  </de.swa.mmfg.TechnicalAttribute>
+                </technicalAttributes>
+                <semanticRelationships/>
+                <compositionRelationships/>
+                <assetLinks/>
+                <fv reference="../../.."/>
+              </de.swa.mmfg.Node>
+              <de.swa.mmfg.Node>
+                <name>frisbee</name>
+                <childNodes/>
+                <weights>
+                  <de.swa.mmfg.Weight>
+                    <context reference="../../../../../../../../../../nodes/de.swa.mmfg.Node/weights/de.swa.mmfg.Weight/context"/>
+                    <weight>0.5</weight>
+                  </de.swa.mmfg.Weight>
+                </weights>
+                <technicalAttributes>
+                  <de.swa.mmfg.TechnicalAttribute>
+                    <relative__x>1548</relative__x>
+                    <relative__y>792</relative__y>
+                    <width>369</width>
+                    <height>114</height>
+                    <sharpness>1.0</sharpness>
+                    <blurryness>0.0</blurryness>
+                    <dominantColors/>
+                  </de.swa.mmfg.TechnicalAttribute>
+                </technicalAttributes>
+                <semanticRelationships/>
+                <compositionRelationships/>
+                <assetLinks/>
+                <fv reference="../../.."/>
+              </de.swa.mmfg.Node>
+              <de.swa.mmfg.Node>
+                <name>sports ball</name>
+                <childNodes/>
+                <weights>
+                  <de.swa.mmfg.Weight>
+                    <context reference="../../../../../../../../../../nodes/de.swa.mmfg.Node/weights/de.swa.mmfg.Weight/context"/>
+                    <weight>0.5</weight>
+                  </de.swa.mmfg.Weight>
+                </weights>
+                <technicalAttributes>
+                  <de.swa.mmfg.TechnicalAttribute>
+                    <relative__x>796</relative__x>
+                    <relative__y>443</relative__y>
+                    <width>123</width>
+                    <height>124</height>
+                    <sharpness>1.0</sharpness>
+                    <blurryness>0.0</blurryness>
+                    <dominantColors/>
+                  </de.swa.mmfg.TechnicalAttribute>
+                </technicalAttributes>
+                <semanticRelationships/>
+                <compositionRelationships/>
+                <assetLinks/>
+                <fv reference="../../.."/>
+              </de.swa.mmfg.Node>
+              <de.swa.mmfg.Node>
+                <name>vase</name>
+                <childNodes/>
+                <weights>
+                  <de.swa.mmfg.Weight>
+                    <context reference="../../../../../../../../../../nodes/de.swa.mmfg.Node/weights/de.swa.mmfg.Weight/context"/>
+                    <weight>0.5</weight>
+                  </de.swa.mmfg.Weight>
+                </weights>
+                <technicalAttributes>
+                  <de.swa.mmfg.TechnicalAttribute>
+                    <relative__x>1476</relative__x>
+                    <relative__y>18</relative__y>
+                    <width>276</width>
+                    <height>478</height>
+                    <sharpness>1.0</sharpness>
+                    <blurryness>0.0</blurryness>
+                    <dominantColors/>
+                  </de.swa.mmfg.TechnicalAttribute>
+                </technicalAttributes>
+                <semanticRelationships/>
+                <compositionRelationships/>
+                <assetLinks/>
+                <fv reference="../../.."/>
+              </de.swa.mmfg.Node>
+              <de.swa.mmfg.Node>
+                <name>vase</name>
+                <childNodes/>
+                <weights>
+                  <de.swa.mmfg.Weight>
+                    <context reference="../../../../../../../../../../nodes/de.swa.mmfg.Node/weights/de.swa.mmfg.Weight/context"/>
+                    <weight>0.5</weight>
+                  </de.swa.mmfg.Weight>
+                </weights>
+                <technicalAttributes>
+                  <de.swa.mmfg.TechnicalAttribute>
+                    <relative__x>1335</relative__x>
+                    <relative__y>377</relative__y>
+                    <width>177</width>
+                    <height>312</height>
+                    <sharpness>1.0</sharpness>
+                    <blurryness>0.0</blurryness>
+                    <dominantColors/>
+                  </de.swa.mmfg.TechnicalAttribute>
+                </technicalAttributes>
+                <semanticRelationships/>
+                <compositionRelationships/>
+                <assetLinks/>
+                <fv reference="../../.."/>
+              </de.swa.mmfg.Node>
+              <de.swa.mmfg.Node>
+                <name>person</name>
+                <childNodes/>
+                <weights>
+                  <de.swa.mmfg.Weight>
+                    <context reference="../../../../../../../../../../nodes/de.swa.mmfg.Node/weights/de.swa.mmfg.Weight/context"/>
+                    <weight>0.5</weight>
+                  </de.swa.mmfg.Weight>
+                </weights>
+                <technicalAttributes>
+                  <de.swa.mmfg.TechnicalAttribute>
+                    <relative__x>260</relative__x>
+                    <relative__y>876</relative__y>
+                    <width>1135</width>
+                    <height>205</height>
+                    <sharpness>1.0</sharpness>
+                    <blurryness>0.0</blurryness>
+                    <dominantColors/>
+                  </de.swa.mmfg.TechnicalAttribute>
+                </technicalAttributes>
+                <semanticRelationships/>
+                <compositionRelationships/>
+                <assetLinks/>
+                <fv reference="../../.."/>
+              </de.swa.mmfg.Node>
+              <de.swa.mmfg.Node>
+                <name>vase</name>
+                <childNodes/>
+                <weights>
+                  <de.swa.mmfg.Weight>
+                    <context reference="../../../../../../../../../../nodes/de.swa.mmfg.Node/weights/de.swa.mmfg.Weight/context"/>
+                    <weight>0.5</weight>
+                  </de.swa.mmfg.Weight>
+                </weights>
+                <technicalAttributes>
+                  <de.swa.mmfg.TechnicalAttribute>
+                    <relative__x>1243</relative__x>
+                    <relative__y>485</relative__y>
+                    <width>153</width>
+                    <height>423</height>
+                    <sharpness>1.0</sharpness>
+                    <blurryness>0.0</blurryness>
+                    <dominantColors/>
+                  </de.swa.mmfg.TechnicalAttribute>
+                </technicalAttributes>
+                <semanticRelationships/>
+                <compositionRelationships/>
+                <assetLinks/>
+                <fv reference="../../.."/>
+              </de.swa.mmfg.Node>
+              <de.swa.mmfg.Node>
+                <name>remote</name>
+                <childNodes/>
+                <weights>
+                  <de.swa.mmfg.Weight>
+                    <context reference="../../../../../../../../../../nodes/de.swa.mmfg.Node/weights/de.swa.mmfg.Weight/context"/>
+                    <weight>0.5</weight>
+                  </de.swa.mmfg.Weight>
+                </weights>
+                <technicalAttributes>
+                  <de.swa.mmfg.TechnicalAttribute>
+                    <relative__x>740</relative__x>
+                    <relative__y>241</relative__y>
+                    <width>267</width>
+                    <height>579</height>
+                    <sharpness>1.0</sharpness>
+                    <blurryness>0.0</blurryness>
+                    <dominantColors/>
+                  </de.swa.mmfg.TechnicalAttribute>
+                </technicalAttributes>
+                <semanticRelationships/>
+                <compositionRelationships/>
+                <assetLinks/>
+                <fv reference="../../.."/>
+              </de.swa.mmfg.Node>
+              <de.swa.mmfg.Node>
+                <name>remote</name>
+                <childNodes/>
+                <weights>
+                  <de.swa.mmfg.Weight>
+                    <context reference="../../../../../../../../../../nodes/de.swa.mmfg.Node/weights/de.swa.mmfg.Weight/context"/>
+                    <weight>0.5</weight>
+                  </de.swa.mmfg.Weight>
+                </weights>
+                <technicalAttributes>
+                  <de.swa.mmfg.TechnicalAttribute>
+                    <relative__x>1063</relative__x>
+                    <relative__y>506</relative__y>
+                    <width>452</width>
+                    <height>578</height>
+                    <sharpness>1.0</sharpness>
+                    <blurryness>0.0</blurryness>
+                    <dominantColors/>
+                  </de.swa.mmfg.TechnicalAttribute>
+                </technicalAttributes>
+                <semanticRelationships/>
+                <compositionRelationships/>
+                <assetLinks/>
+                <fv reference="../../.."/>
+              </de.swa.mmfg.Node>
+              <de.swa.mmfg.Node>
+                <name>sports ball</name>
+                <childNodes/>
+                <weights>
+                  <de.swa.mmfg.Weight>
+                    <context reference="../../../../../../../../../../nodes/de.swa.mmfg.Node/weights/de.swa.mmfg.Weight/context"/>
+                    <weight>0.5</weight>
+                  </de.swa.mmfg.Weight>
+                </weights>
+                <technicalAttributes>
+                  <de.swa.mmfg.TechnicalAttribute>
+                    <relative__x>591</relative__x>
+                    <relative__y>276</relative__y>
+                    <width>137</width>
+                    <height>134</height>
+                    <sharpness>1.0</sharpness>
+                    <blurryness>0.0</blurryness>
+                    <dominantColors/>
+                  </de.swa.mmfg.TechnicalAttribute>
+                </technicalAttributes>
+                <semanticRelationships/>
+                <compositionRelationships/>
+                <assetLinks/>
+                <fv reference="../../.."/>
+              </de.swa.mmfg.Node>
+              <de.swa.mmfg.Node>
+                <name>sports ball</name>
+                <childNodes/>
+                <weights>
+                  <de.swa.mmfg.Weight>
+                    <context reference="../../../../../../../../../../nodes/de.swa.mmfg.Node/weights/de.swa.mmfg.Weight/context"/>
+                    <weight>0.5</weight>
+                  </de.swa.mmfg.Weight>
+                </weights>
+                <technicalAttributes>
+                  <de.swa.mmfg.TechnicalAttribute>
+                    <relative__x>1293</relative__x>
+                    <relative__y>415</relative__y>
+                    <width>78</width>
+                    <height>90</height>
+                    <sharpness>1.0</sharpness>
+                    <blurryness>0.0</blurryness>
+                    <dominantColors/>
+                  </de.swa.mmfg.TechnicalAttribute>
+                </technicalAttributes>
+                <semanticRelationships/>
+                <compositionRelationships/>
+                <assetLinks/>
+                <fv reference="../../.."/>
+              </de.swa.mmfg.Node>
+              <de.swa.mmfg.Node>
+                <name>sports ball</name>
+                <childNodes/>
+                <weights>
+                  <de.swa.mmfg.Weight>
+                    <context reference="../../../../../../../../../../nodes/de.swa.mmfg.Node/weights/de.swa.mmfg.Weight/context"/>
+                    <weight>0.5</weight>
+                  </de.swa.mmfg.Weight>
+                </weights>
+                <technicalAttributes>
+                  <de.swa.mmfg.TechnicalAttribute>
+                    <relative__x>1071</relative__x>
+                    <relative__y>473</relative__y>
+                    <width>124</width>
+                    <height>118</height>
+                    <sharpness>1.0</sharpness>
+                    <blurryness>0.0</blurryness>
+                    <dominantColors/>
+                  </de.swa.mmfg.TechnicalAttribute>
+                </technicalAttributes>
+                <semanticRelationships/>
+                <compositionRelationships/>
+                <assetLinks/>
+                <fv reference="../../.."/>
+              </de.swa.mmfg.Node>
+              <de.swa.mmfg.Node>
+                <name>remote</name>
+                <childNodes/>
+                <weights>
+                  <de.swa.mmfg.Weight>
+                    <context reference="../../../../../../../../../../nodes/de.swa.mmfg.Node/weights/de.swa.mmfg.Weight/context"/>
+                    <weight>0.5</weight>
+                  </de.swa.mmfg.Weight>
+                </weights>
+                <technicalAttributes>
+                  <de.swa.mmfg.TechnicalAttribute>
+                    <relative__x>981</relative__x>
+                    <relative__y>342</relative__y>
+                    <width>276</width>
+                    <height>631</height>
+                    <sharpness>1.0</sharpness>
+                    <blurryness>0.0</blurryness>
+                    <dominantColors/>
+                  </de.swa.mmfg.TechnicalAttribute>
+                </technicalAttributes>
+                <semanticRelationships/>
+                <compositionRelationships/>
+                <assetLinks/>
+                <fv reference="../../.."/>
+              </de.swa.mmfg.Node>
+              <de.swa.mmfg.Node>
+                <name>sports ball</name>
+                <childNodes/>
+                <weights>
+                  <de.swa.mmfg.Weight>
+                    <context reference="../../../../../../../../../../nodes/de.swa.mmfg.Node/weights/de.swa.mmfg.Weight/context"/>
+                    <weight>0.5</weight>
+                  </de.swa.mmfg.Weight>
+                </weights>
+                <technicalAttributes>
+                  <de.swa.mmfg.TechnicalAttribute>
+                    <relative__x>776</relative__x>
+                    <relative__y>274</relative__y>
+                    <width>131</width>
+                    <height>130</height>
+                    <sharpness>1.0</sharpness>
+                    <blurryness>0.0</blurryness>
+                    <dominantColors/>
+                  </de.swa.mmfg.TechnicalAttribute>
+                </technicalAttributes>
+                <semanticRelationships/>
+                <compositionRelationships/>
+                <assetLinks/>
+                <fv reference="../../.."/>
+              </de.swa.mmfg.Node>
+              <de.swa.mmfg.Node>
+                <name>bottle</name>
+                <childNodes/>
+                <weights>
+                  <de.swa.mmfg.Weight>
+                    <context reference="../../../../../../../../../../nodes/de.swa.mmfg.Node/weights/de.swa.mmfg.Weight/context"/>
+                    <weight>0.5</weight>
+                  </de.swa.mmfg.Weight>
+                </weights>
+                <technicalAttributes>
+                  <de.swa.mmfg.TechnicalAttribute>
+                    <relative__x>940</relative__x>
+                    <relative__y>361</relative__y>
+                    <width>33</width>
+                    <height>54</height>
+                    <sharpness>1.0</sharpness>
+                    <blurryness>0.0</blurryness>
+                    <dominantColors/>
+                  </de.swa.mmfg.TechnicalAttribute>
+                </technicalAttributes>
+                <semanticRelationships/>
+                <compositionRelationships/>
+                <assetLinks/>
+                <fv reference="../../.."/>
+              </de.swa.mmfg.Node>
+              <de.swa.mmfg.Node>
+                <name>vase</name>
+                <childNodes/>
+                <weights>
+                  <de.swa.mmfg.Weight>
+                    <context reference="../../../../../../../../../../nodes/de.swa.mmfg.Node/weights/de.swa.mmfg.Weight/context"/>
+                    <weight>0.5</weight>
+                  </de.swa.mmfg.Weight>
+                </weights>
+                <technicalAttributes>
+                  <de.swa.mmfg.TechnicalAttribute>
+                    <relative__x>1426</relative__x>
+                    <relative__y>315</relative__y>
+                    <width>191</width>
+                    <height>311</height>
+                    <sharpness>1.0</sharpness>
+                    <blurryness>0.0</blurryness>
+                    <dominantColors/>
+                  </de.swa.mmfg.TechnicalAttribute>
+                </technicalAttributes>
+                <semanticRelationships/>
+                <compositionRelationships/>
+                <assetLinks/>
+                <fv reference="../../.."/>
+              </de.swa.mmfg.Node>
+              <de.swa.mmfg.Node>
+                <name>clock</name>
+                <childNodes/>
+                <weights>
+                  <de.swa.mmfg.Weight>
+                    <context reference="../../../../../../../../../../nodes/de.swa.mmfg.Node/weights/de.swa.mmfg.Weight/context"/>
+                    <weight>0.5</weight>
+                  </de.swa.mmfg.Weight>
+                </weights>
+                <technicalAttributes>
+                  <de.swa.mmfg.TechnicalAttribute>
+                    <relative__x>937</relative__x>
+                    <relative__y>270</relative__y>
+                    <width>738</width>
+                    <height>528</height>
+                    <sharpness>1.0</sharpness>
+                    <blurryness>0.0</blurryness>
+                    <dominantColors/>
+                  </de.swa.mmfg.TechnicalAttribute>
+                </technicalAttributes>
+                <semanticRelationships/>
+                <compositionRelationships/>
+                <assetLinks/>
+                <fv reference="../../.."/>
+              </de.swa.mmfg.Node>
+              <de.swa.mmfg.Node>
+                <name>sports ball</name>
+                <childNodes/>
+                <weights>
+                  <de.swa.mmfg.Weight>
+                    <context reference="../../../../../../../../../../nodes/de.swa.mmfg.Node/weights/de.swa.mmfg.Weight/context"/>
+                    <weight>0.5</weight>
+                  </de.swa.mmfg.Weight>
+                </weights>
+                <technicalAttributes>
+                  <de.swa.mmfg.TechnicalAttribute>
+                    <relative__x>542</relative__x>
+                    <relative__y>832</relative__y>
+                    <width>138</width>
+                    <height>68</height>
+                    <sharpness>1.0</sharpness>
+                    <blurryness>0.0</blurryness>
+                    <dominantColors/>
+                  </de.swa.mmfg.TechnicalAttribute>
+                </technicalAttributes>
+                <semanticRelationships/>
+                <compositionRelationships/>
+                <assetLinks/>
+                <fv reference="../../.."/>
+              </de.swa.mmfg.Node>
+              <de.swa.mmfg.Node>
+                <name>sports ball</name>
+                <childNodes/>
+                <weights>
+                  <de.swa.mmfg.Weight>
+                    <context reference="../../../../../../../../../../nodes/de.swa.mmfg.Node/weights/de.swa.mmfg.Weight/context"/>
+                    <weight>0.5</weight>
+                  </de.swa.mmfg.Weight>
+                </weights>
+                <technicalAttributes>
+                  <de.swa.mmfg.TechnicalAttribute>
+                    <relative__x>1228</relative__x>
+                    <relative__y>133</relative__y>
+                    <width>84</width>
+                    <height>94</height>
+                    <sharpness>1.0</sharpness>
+                    <blurryness>0.0</blurryness>
+                    <dominantColors/>
+                  </de.swa.mmfg.TechnicalAttribute>
+                </technicalAttributes>
+                <semanticRelationships/>
+                <compositionRelationships/>
+                <assetLinks/>
+                <fv reference="../../.."/>
+              </de.swa.mmfg.Node>
+              <de.swa.mmfg.Node>
+                <name>scissors</name>
+                <childNodes/>
+                <weights>
+                  <de.swa.mmfg.Weight>
+                    <context reference="../../../../../../../../../../nodes/de.swa.mmfg.Node/weights/de.swa.mmfg.Weight/context"/>
+                    <weight>0.5</weight>
+                  </de.swa.mmfg.Weight>
+                </weights>
+                <technicalAttributes>
+                  <de.swa.mmfg.TechnicalAttribute>
+                    <relative__x>897</relative__x>
+                    <relative__y>391</relative__y>
+                    <width>90</width>
+                    <height>241</height>
+                    <sharpness>1.0</sharpness>
+                    <blurryness>0.0</blurryness>
+                    <dominantColors/>
+                  </de.swa.mmfg.TechnicalAttribute>
+                </technicalAttributes>
+                <semanticRelationships/>
+                <compositionRelationships/>
+                <assetLinks/>
+                <fv reference="../../.."/>
+              </de.swa.mmfg.Node>
+              <de.swa.mmfg.Node>
+                <name>remote</name>
+                <childNodes/>
+                <weights>
+                  <de.swa.mmfg.Weight>
+                    <context reference="../../../../../../../../../../nodes/de.swa.mmfg.Node/weights/de.swa.mmfg.Weight/context"/>
+                    <weight>0.5</weight>
+                  </de.swa.mmfg.Weight>
+                </weights>
+                <technicalAttributes>
+                  <de.swa.mmfg.TechnicalAttribute>
+                    <relative__x>1342</relative__x>
+                    <relative__y>873</relative__y>
+                    <width>287</width>
+                    <height>200</height>
+                    <sharpness>1.0</sharpness>
+                    <blurryness>0.0</blurryness>
+                    <dominantColors/>
+                  </de.swa.mmfg.TechnicalAttribute>
+                </technicalAttributes>
+                <semanticRelationships/>
+                <compositionRelationships/>
+                <assetLinks/>
+                <fv reference="../../.."/>
+              </de.swa.mmfg.Node>
+              <de.swa.mmfg.Node>
+                <name>sports ball</name>
+                <childNodes/>
+                <weights>
+                  <de.swa.mmfg.Weight>
+                    <context reference="../../../../../../../../../../nodes/de.swa.mmfg.Node/weights/de.swa.mmfg.Weight/context"/>
+                    <weight>0.5</weight>
+                  </de.swa.mmfg.Weight>
+                </weights>
+                <technicalAttributes>
+                  <de.swa.mmfg.TechnicalAttribute>
+                    <relative__x>570</relative__x>
+                    <relative__y>723</relative__y>
+                    <width>121</width>
+                    <height>55</height>
+                    <sharpness>1.0</sharpness>
+                    <blurryness>0.0</blurryness>
+                    <dominantColors/>
+                  </de.swa.mmfg.TechnicalAttribute>
+                </technicalAttributes>
+                <semanticRelationships/>
+                <compositionRelationships/>
+                <assetLinks/>
+                <fv reference="../../.."/>
+              </de.swa.mmfg.Node>
+              <de.swa.mmfg.Node>
+                <name>frisbee</name>
+                <childNodes/>
+                <weights>
+                  <de.swa.mmfg.Weight>
+                    <context reference="../../../../../../../../../../nodes/de.swa.mmfg.Node/weights/de.swa.mmfg.Weight/context"/>
+                    <weight>0.5</weight>
+                  </de.swa.mmfg.Weight>
+                </weights>
+                <technicalAttributes>
+                  <de.swa.mmfg.TechnicalAttribute>
+                    <relative__x>715</relative__x>
+                    <relative__y>695</relative__y>
+                    <width>275</width>
+                    <height>77</height>
+                    <sharpness>1.0</sharpness>
+                    <blurryness>0.0</blurryness>
+                    <dominantColors/>
+                  </de.swa.mmfg.TechnicalAttribute>
+                </technicalAttributes>
+                <semanticRelationships/>
+                <compositionRelationships/>
+                <assetLinks/>
+                <fv reference="../../.."/>
+              </de.swa.mmfg.Node>
+              <de.swa.mmfg.Node>
+                <name>bottle</name>
+                <childNodes/>
+                <weights>
+                  <de.swa.mmfg.Weight>
+                    <context reference="../../../../../../../../../../nodes/de.swa.mmfg.Node/weights/de.swa.mmfg.Weight/context"/>
+                    <weight>0.5</weight>
+                  </de.swa.mmfg.Weight>
+                </weights>
+                <technicalAttributes>
+                  <de.swa.mmfg.TechnicalAttribute>
+                    <relative__x>887</relative__x>
+                    <relative__y>354</relative__y>
+                    <width>35</width>
+                    <height>62</height>
+                    <sharpness>1.0</sharpness>
+                    <blurryness>0.0</blurryness>
+                    <dominantColors/>
+                  </de.swa.mmfg.TechnicalAttribute>
+                </technicalAttributes>
+                <semanticRelationships/>
+                <compositionRelationships/>
+                <assetLinks/>
+                <fv reference="../../.."/>
+              </de.swa.mmfg.Node>
+              <de.swa.mmfg.Node>
+                <name>remote</name>
+                <childNodes/>
+                <weights>
+                  <de.swa.mmfg.Weight>
+                    <context reference="../../../../../../../../../../nodes/de.swa.mmfg.Node/weights/de.swa.mmfg.Weight/context"/>
+                    <weight>0.5</weight>
+                  </de.swa.mmfg.Weight>
+                </weights>
+                <technicalAttributes>
+                  <de.swa.mmfg.TechnicalAttribute>
+                    <relative__x>1430</relative__x>
+                    <relative__y>730</relative__y>
+                    <width>336</width>
+                    <height>341</height>
+                    <sharpness>1.0</sharpness>
+                    <blurryness>0.0</blurryness>
+                    <dominantColors/>
+                  </de.swa.mmfg.TechnicalAttribute>
+                </technicalAttributes>
+                <semanticRelationships/>
+                <compositionRelationships/>
+                <assetLinks/>
+                <fv reference="../../.."/>
+              </de.swa.mmfg.Node>
+              <de.swa.mmfg.Node>
+                <name>sports ball</name>
+                <childNodes/>
+                <weights>
+                  <de.swa.mmfg.Weight>
+                    <context reference="../../../../../../../../../../nodes/de.swa.mmfg.Node/weights/de.swa.mmfg.Weight/context"/>
+                    <weight>0.5</weight>
+                  </de.swa.mmfg.Weight>
+                </weights>
+                <technicalAttributes>
+                  <de.swa.mmfg.TechnicalAttribute>
+                    <relative__x>506</relative__x>
+                    <relative__y>300</relative__y>
+                    <width>137</width>
+                    <height>132</height>
+                    <sharpness>1.0</sharpness>
+                    <blurryness>0.0</blurryness>
+                    <dominantColors/>
+                  </de.swa.mmfg.TechnicalAttribute>
+                </technicalAttributes>
+                <semanticRelationships/>
+                <compositionRelationships/>
+                <assetLinks/>
+                <fv reference="../../.."/>
+              </de.swa.mmfg.Node>
+              <de.swa.mmfg.Node>
+                <name>vase</name>
+                <childNodes/>
+                <weights>
+                  <de.swa.mmfg.Weight>
+                    <context reference="../../../../../../../../../../nodes/de.swa.mmfg.Node/weights/de.swa.mmfg.Weight/context"/>
+                    <weight>0.5</weight>
+                  </de.swa.mmfg.Weight>
+                </weights>
+                <technicalAttributes>
+                  <de.swa.mmfg.TechnicalAttribute>
+                    <relative__x>1676</relative__x>
+                    <relative__y>48</relative__y>
+                    <width>239</width>
+                    <height>418</height>
+                    <sharpness>1.0</sharpness>
+                    <blurryness>0.0</blurryness>
+                    <dominantColors/>
+                  </de.swa.mmfg.TechnicalAttribute>
+                </technicalAttributes>
+                <semanticRelationships/>
+                <compositionRelationships/>
+                <assetLinks/>
+                <fv reference="../../.."/>
+              </de.swa.mmfg.Node>
+              <de.swa.mmfg.Node>
+                <name>sports ball</name>
+                <childNodes/>
+                <weights>
+                  <de.swa.mmfg.Weight>
+                    <context reference="../../../../../../../../../../nodes/de.swa.mmfg.Node/weights/de.swa.mmfg.Weight/context"/>
+                    <weight>0.5</weight>
+                  </de.swa.mmfg.Weight>
+                </weights>
+                <technicalAttributes>
+                  <de.swa.mmfg.TechnicalAttribute>
+                    <relative__x>324</relative__x>
+                    <relative__y>739</relative__y>
+                    <width>134</width>
+                    <height>66</height>
+                    <sharpness>1.0</sharpness>
+                    <blurryness>0.0</blurryness>
+                    <dominantColors/>
+                  </de.swa.mmfg.TechnicalAttribute>
+                </technicalAttributes>
+                <semanticRelationships/>
+                <compositionRelationships/>
+                <assetLinks/>
+                <fv reference="../../.."/>
+              </de.swa.mmfg.Node>
+              <de.swa.mmfg.Node>
+                <name>remote</name>
+                <childNodes/>
+                <weights>
+                  <de.swa.mmfg.Weight>
+                    <context reference="../../../../../../../../../../nodes/de.swa.mmfg.Node/weights/de.swa.mmfg.Weight/context"/>
+                    <weight>0.5</weight>
+                  </de.swa.mmfg.Weight>
+                </weights>
+                <technicalAttributes>
+                  <de.swa.mmfg.TechnicalAttribute>
+                    <relative__x>1008</relative__x>
+                    <relative__y>693</relative__y>
+                    <width>158</width>
+                    <height>349</height>
+                    <sharpness>1.0</sharpness>
+                    <blurryness>0.0</blurryness>
+                    <dominantColors/>
+                  </de.swa.mmfg.TechnicalAttribute>
+                </technicalAttributes>
+                <semanticRelationships/>
+                <compositionRelationships/>
+                <assetLinks/>
+                <fv reference="../../.."/>
+              </de.swa.mmfg.Node>
+              <de.swa.mmfg.Node>
+                <name>mouse</name>
+                <childNodes/>
+                <weights>
+                  <de.swa.mmfg.Weight>
+                    <context reference="../../../../../../../../../../nodes/de.swa.mmfg.Node/weights/de.swa.mmfg.Weight/context"/>
+                    <weight>0.5</weight>
+                  </de.swa.mmfg.Weight>
+                </weights>
+                <technicalAttributes>
+                  <de.swa.mmfg.TechnicalAttribute>
+                    <relative__x>112</relative__x>
+                    <relative__y>851</relative__y>
+                    <width>206</width>
+                    <height>103</height>
+                    <sharpness>1.0</sharpness>
+                    <blurryness>0.0</blurryness>
+                    <dominantColors/>
+                  </de.swa.mmfg.TechnicalAttribute>
+                </technicalAttributes>
+                <semanticRelationships/>
+                <compositionRelationships/>
+                <assetLinks/>
+                <fv reference="../../.."/>
+              </de.swa.mmfg.Node>
+              <de.swa.mmfg.Node>
+                <name>sports ball</name>
+                <childNodes/>
+                <weights>
+                  <de.swa.mmfg.Weight>
+                    <context reference="../../../../../../../../../../nodes/de.swa.mmfg.Node/weights/de.swa.mmfg.Weight/context"/>
+                    <weight>0.5</weight>
+                  </de.swa.mmfg.Weight>
+                </weights>
+                <technicalAttributes>
+                  <de.swa.mmfg.TechnicalAttribute>
+                    <relative__x>583</relative__x>
+                    <relative__y>750</relative__y>
+                    <width>126</width>
+                    <height>58</height>
+                    <sharpness>1.0</sharpness>
+                    <blurryness>0.0</blurryness>
+                    <dominantColors/>
+                  </de.swa.mmfg.TechnicalAttribute>
+                </technicalAttributes>
+                <semanticRelationships/>
+                <compositionRelationships/>
+                <assetLinks/>
+                <fv reference="../../.."/>
+              </de.swa.mmfg.Node>
+            </allNodes>
+            <collectionElements/>
+          </fv>
+        </de.swa.mmfg.Node>
+        <de.swa.mmfg.Node reference="../de.swa.mmfg.Node/fv/allNodes/de.swa.mmfg.Node[2]"/>
+        <de.swa.mmfg.Node reference="../de.swa.mmfg.Node/fv/allNodes/de.swa.mmfg.Node[3]"/>
+        <de.swa.mmfg.Node reference="../de.swa.mmfg.Node/fv/allNodes/de.swa.mmfg.Node[4]"/>
+        <de.swa.mmfg.Node reference="../de.swa.mmfg.Node/fv/allNodes/de.swa.mmfg.Node[5]"/>
+        <de.swa.mmfg.Node reference="../de.swa.mmfg.Node/fv/allNodes/de.swa.mmfg.Node[6]"/>
+        <de.swa.mmfg.Node reference="../de.swa.mmfg.Node/fv/allNodes/de.swa.mmfg.Node[7]"/>
+        <de.swa.mmfg.Node reference="../de.swa.mmfg.Node/fv/allNodes/de.swa.mmfg.Node[8]"/>
+        <de.swa.mmfg.Node reference="../de.swa.mmfg.Node/fv/allNodes/de.swa.mmfg.Node[9]"/>
+        <de.swa.mmfg.Node reference="../de.swa.mmfg.Node/fv/allNodes/de.swa.mmfg.Node[10]"/>
+        <de.swa.mmfg.Node reference="../de.swa.mmfg.Node/fv/allNodes/de.swa.mmfg.Node[11]"/>
+        <de.swa.mmfg.Node reference="../de.swa.mmfg.Node/fv/allNodes/de.swa.mmfg.Node[12]"/>
+        <de.swa.mmfg.Node reference="../de.swa.mmfg.Node/fv/allNodes/de.swa.mmfg.Node[13]"/>
+        <de.swa.mmfg.Node reference="../de.swa.mmfg.Node/fv/allNodes/de.swa.mmfg.Node[14]"/>
+        <de.swa.mmfg.Node reference="../de.swa.mmfg.Node/fv/allNodes/de.swa.mmfg.Node[15]"/>
+        <de.swa.mmfg.Node reference="../de.swa.mmfg.Node/fv/allNodes/de.swa.mmfg.Node[16]"/>
+        <de.swa.mmfg.Node reference="../de.swa.mmfg.Node/fv/allNodes/de.swa.mmfg.Node[17]"/>
+        <de.swa.mmfg.Node reference="../de.swa.mmfg.Node/fv/allNodes/de.swa.mmfg.Node[18]"/>
+        <de.swa.mmfg.Node reference="../de.swa.mmfg.Node/fv/allNodes/de.swa.mmfg.Node[19]"/>
+        <de.swa.mmfg.Node reference="../de.swa.mmfg.Node/fv/allNodes/de.swa.mmfg.Node[20]"/>
+        <de.swa.mmfg.Node reference="../de.swa.mmfg.Node/fv/allNodes/de.swa.mmfg.Node[21]"/>
+        <de.swa.mmfg.Node reference="../de.swa.mmfg.Node/fv/allNodes/de.swa.mmfg.Node[22]"/>
+        <de.swa.mmfg.Node reference="../de.swa.mmfg.Node/fv/allNodes/de.swa.mmfg.Node[23]"/>
+        <de.swa.mmfg.Node reference="../de.swa.mmfg.Node/fv/allNodes/de.swa.mmfg.Node[24]"/>
+        <de.swa.mmfg.Node reference="../de.swa.mmfg.Node/fv/allNodes/de.swa.mmfg.Node[25]"/>
+        <de.swa.mmfg.Node reference="../de.swa.mmfg.Node/fv/allNodes/de.swa.mmfg.Node[26]"/>
+        <de.swa.mmfg.Node reference="../de.swa.mmfg.Node/fv/allNodes/de.swa.mmfg.Node[27]"/>
+        <de.swa.mmfg.Node reference="../de.swa.mmfg.Node/fv/allNodes/de.swa.mmfg.Node[28]"/>
+        <de.swa.mmfg.Node reference="../de.swa.mmfg.Node/fv/allNodes/de.swa.mmfg.Node[29]"/>
+        <de.swa.mmfg.Node reference="../de.swa.mmfg.Node/fv/allNodes/de.swa.mmfg.Node[30]"/>
+        <de.swa.mmfg.Node reference="../de.swa.mmfg.Node/fv/allNodes/de.swa.mmfg.Node[31]"/>
+        <de.swa.mmfg.Node reference="../de.swa.mmfg.Node/fv/allNodes/de.swa.mmfg.Node[32]"/>
+        <de.swa.mmfg.Node reference="../de.swa.mmfg.Node/fv/allNodes/de.swa.mmfg.Node[33]"/>
+        <de.swa.mmfg.Node reference="../de.swa.mmfg.Node/fv/allNodes/de.swa.mmfg.Node[34]"/>
+        <de.swa.mmfg.Node reference="../de.swa.mmfg.Node/fv/allNodes/de.swa.mmfg.Node[35]"/>
+        <de.swa.mmfg.Node reference="../de.swa.mmfg.Node/fv/allNodes/de.swa.mmfg.Node[36]"/>
+        <de.swa.mmfg.Node reference="../de.swa.mmfg.Node/fv/allNodes/de.swa.mmfg.Node[37]"/>
+        <de.swa.mmfg.Node reference="../de.swa.mmfg.Node/fv/allNodes/de.swa.mmfg.Node[38]"/>
+        <de.swa.mmfg.Node reference="../de.swa.mmfg.Node/fv/allNodes/de.swa.mmfg.Node[39]"/>
+        <de.swa.mmfg.Node reference="../de.swa.mmfg.Node/fv/allNodes/de.swa.mmfg.Node[40]"/>
+        <de.swa.mmfg.Node reference="../de.swa.mmfg.Node/fv/allNodes/de.swa.mmfg.Node[41]"/>
+      </childNodes>
+      <weights>
+        <de.swa.mmfg.Weight>
+          <context reference="../../../../../nodes/de.swa.mmfg.Node/weights/de.swa.mmfg.Weight/context"/>
+          <weight>0.5</weight>
+        </de.swa.mmfg.Weight>
+      </weights>
+      <technicalAttributes/>
+      <semanticRelationships/>
+      <compositionRelationships/>
+      <assetLinks/>
+      <fv reference="../../.."/>
+    </de.swa.mmfg.Node>
+    <de.swa.mmfg.Node reference="../de.swa.mmfg.Node[3]/childNodes/de.swa.mmfg.Node"/>
+    <de.swa.mmfg.Node reference="../de.swa.mmfg.Node[3]/childNodes/de.swa.mmfg.Node/fv/allNodes/de.swa.mmfg.Node[2]"/>
+    <de.swa.mmfg.Node reference="../de.swa.mmfg.Node[3]/childNodes/de.swa.mmfg.Node/fv/allNodes/de.swa.mmfg.Node[3]"/>
+    <de.swa.mmfg.Node reference="../de.swa.mmfg.Node[3]/childNodes/de.swa.mmfg.Node/fv/allNodes/de.swa.mmfg.Node[4]"/>
+    <de.swa.mmfg.Node reference="../de.swa.mmfg.Node[3]/childNodes/de.swa.mmfg.Node/fv/allNodes/de.swa.mmfg.Node[5]"/>
+    <de.swa.mmfg.Node reference="../de.swa.mmfg.Node[3]/childNodes/de.swa.mmfg.Node/fv/allNodes/de.swa.mmfg.Node[6]"/>
+    <de.swa.mmfg.Node reference="../de.swa.mmfg.Node[3]/childNodes/de.swa.mmfg.Node/fv/allNodes/de.swa.mmfg.Node[7]"/>
+    <de.swa.mmfg.Node reference="../de.swa.mmfg.Node[3]/childNodes/de.swa.mmfg.Node/fv/allNodes/de.swa.mmfg.Node[8]"/>
+    <de.swa.mmfg.Node reference="../de.swa.mmfg.Node[3]/childNodes/de.swa.mmfg.Node/fv/allNodes/de.swa.mmfg.Node[9]"/>
+    <de.swa.mmfg.Node reference="../de.swa.mmfg.Node[3]/childNodes/de.swa.mmfg.Node/fv/allNodes/de.swa.mmfg.Node[10]"/>
+    <de.swa.mmfg.Node reference="../de.swa.mmfg.Node[3]/childNodes/de.swa.mmfg.Node/fv/allNodes/de.swa.mmfg.Node[11]"/>
+    <de.swa.mmfg.Node reference="../de.swa.mmfg.Node[3]/childNodes/de.swa.mmfg.Node/fv/allNodes/de.swa.mmfg.Node[12]"/>
+    <de.swa.mmfg.Node reference="../de.swa.mmfg.Node[3]/childNodes/de.swa.mmfg.Node/fv/allNodes/de.swa.mmfg.Node[13]"/>
+    <de.swa.mmfg.Node reference="../de.swa.mmfg.Node[3]/childNodes/de.swa.mmfg.Node/fv/allNodes/de.swa.mmfg.Node[14]"/>
+    <de.swa.mmfg.Node reference="../de.swa.mmfg.Node[3]/childNodes/de.swa.mmfg.Node/fv/allNodes/de.swa.mmfg.Node[15]"/>
+    <de.swa.mmfg.Node reference="../de.swa.mmfg.Node[3]/childNodes/de.swa.mmfg.Node/fv/allNodes/de.swa.mmfg.Node[16]"/>
+    <de.swa.mmfg.Node reference="../de.swa.mmfg.Node[3]/childNodes/de.swa.mmfg.Node/fv/allNodes/de.swa.mmfg.Node[17]"/>
+    <de.swa.mmfg.Node reference="../de.swa.mmfg.Node[3]/childNodes/de.swa.mmfg.Node/fv/allNodes/de.swa.mmfg.Node[18]"/>
+    <de.swa.mmfg.Node reference="../de.swa.mmfg.Node[3]/childNodes/de.swa.mmfg.Node/fv/allNodes/de.swa.mmfg.Node[19]"/>
+    <de.swa.mmfg.Node reference="../de.swa.mmfg.Node[3]/childNodes/de.swa.mmfg.Node/fv/allNodes/de.swa.mmfg.Node[20]"/>
+    <de.swa.mmfg.Node reference="../de.swa.mmfg.Node[3]/childNodes/de.swa.mmfg.Node/fv/allNodes/de.swa.mmfg.Node[21]"/>
+    <de.swa.mmfg.Node reference="../de.swa.mmfg.Node[3]/childNodes/de.swa.mmfg.Node/fv/allNodes/de.swa.mmfg.Node[22]"/>
+    <de.swa.mmfg.Node reference="../de.swa.mmfg.Node[3]/childNodes/de.swa.mmfg.Node/fv/allNodes/de.swa.mmfg.Node[23]"/>
+    <de.swa.mmfg.Node reference="../de.swa.mmfg.Node[3]/childNodes/de.swa.mmfg.Node/fv/allNodes/de.swa.mmfg.Node[24]"/>
+    <de.swa.mmfg.Node reference="../de.swa.mmfg.Node[3]/childNodes/de.swa.mmfg.Node/fv/allNodes/de.swa.mmfg.Node[25]"/>
+    <de.swa.mmfg.Node reference="../de.swa.mmfg.Node[3]/childNodes/de.swa.mmfg.Node/fv/allNodes/de.swa.mmfg.Node[26]"/>
+    <de.swa.mmfg.Node reference="../de.swa.mmfg.Node[3]/childNodes/de.swa.mmfg.Node/fv/allNodes/de.swa.mmfg.Node[27]"/>
+    <de.swa.mmfg.Node reference="../de.swa.mmfg.Node[3]/childNodes/de.swa.mmfg.Node/fv/allNodes/de.swa.mmfg.Node[28]"/>
+    <de.swa.mmfg.Node reference="../de.swa.mmfg.Node[3]/childNodes/de.swa.mmfg.Node/fv/allNodes/de.swa.mmfg.Node[29]"/>
+    <de.swa.mmfg.Node reference="../de.swa.mmfg.Node[3]/childNodes/de.swa.mmfg.Node/fv/allNodes/de.swa.mmfg.Node[30]"/>
+    <de.swa.mmfg.Node reference="../de.swa.mmfg.Node[3]/childNodes/de.swa.mmfg.Node/fv/allNodes/de.swa.mmfg.Node[31]"/>
+    <de.swa.mmfg.Node reference="../de.swa.mmfg.Node[3]/childNodes/de.swa.mmfg.Node/fv/allNodes/de.swa.mmfg.Node[32]"/>
+    <de.swa.mmfg.Node reference="../de.swa.mmfg.Node[3]/childNodes/de.swa.mmfg.Node/fv/allNodes/de.swa.mmfg.Node[33]"/>
+    <de.swa.mmfg.Node reference="../de.swa.mmfg.Node[3]/childNodes/de.swa.mmfg.Node/fv/allNodes/de.swa.mmfg.Node[34]"/>
+    <de.swa.mmfg.Node reference="../de.swa.mmfg.Node[3]/childNodes/de.swa.mmfg.Node/fv/allNodes/de.swa.mmfg.Node[35]"/>
+    <de.swa.mmfg.Node reference="../de.swa.mmfg.Node[3]/childNodes/de.swa.mmfg.Node/fv/allNodes/de.swa.mmfg.Node[36]"/>
+    <de.swa.mmfg.Node reference="../de.swa.mmfg.Node[3]/childNodes/de.swa.mmfg.Node/fv/allNodes/de.swa.mmfg.Node[37]"/>
+    <de.swa.mmfg.Node reference="../de.swa.mmfg.Node[3]/childNodes/de.swa.mmfg.Node/fv/allNodes/de.swa.mmfg.Node[38]"/>
+    <de.swa.mmfg.Node reference="../de.swa.mmfg.Node[3]/childNodes/de.swa.mmfg.Node/fv/allNodes/de.swa.mmfg.Node[39]"/>
+    <de.swa.mmfg.Node reference="../de.swa.mmfg.Node[3]/childNodes/de.swa.mmfg.Node/fv/allNodes/de.swa.mmfg.Node[40]"/>
+    <de.swa.mmfg.Node reference="../de.swa.mmfg.Node[3]/childNodes/de.swa.mmfg.Node/fv/allNodes/de.swa.mmfg.Node[41]"/>
+    <de.swa.mmfg.Node reference="../../nodes/de.swa.mmfg.Node[2]/fv/currentNode"/>
+    <de.swa.mmfg.Node reference="../../nodes/de.swa.mmfg.Node[2]"/>
+    <de.swa.mmfg.Node reference="../../nodes/de.swa.mmfg.Node[2]/fv/nodes/de.swa.mmfg.Node[2]"/>
+    <de.swa.mmfg.Node reference="../../nodes/de.swa.mmfg.Node[2]/fv/nodes/de.swa.mmfg.Node[3]"/>
+    <de.swa.mmfg.Node reference="../../nodes/de.swa.mmfg.Node[2]/fv/nodes/de.swa.mmfg.Node[4]"/>
+    <de.swa.mmfg.Node reference="../../nodes/de.swa.mmfg.Node[2]/fv/nodes/de.swa.mmfg.Node[5]"/>
+    <de.swa.mmfg.Node reference="../../nodes/de.swa.mmfg.Node[2]/fv/nodes/de.swa.mmfg.Node[6]"/>
+  </allNodes>
+  <collectionElements/>
+</de.swa.mmfg.MMFG>
