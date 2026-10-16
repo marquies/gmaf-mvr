@@ -80,6 +80,10 @@ Workflow: `.github/workflows/maven.yml`
 - Build job: `mvn -B package`
 - Snapshot publish: `mvn deploy -DskipTests` to GitHub Packages when required
 - Test results: JUnit report action writes `**/target/surefire-reports/TEST-*.xml`
+- Code coverage: JaCoCo instruments tests and writes `target/site/jacoco/` (HTML/XML/CSV).
+  The workflow prints a line-coverage summary to the job summary, uploads the full
+  report as the `jacoco-coverage-report` build artifact, and posts a coverage
+  comment on pull requests via `madrapps/jacoco-report`.
 
 ## Samples and Exports
 
