@@ -1,0 +1,391 @@
+<de.swa.mmfg.MMFG>
+  <generalMetadata>
+    <fileName>football/v_ZcFbmdCxDhQ_c010</fileName>
+    <id>39b580e4-cf2b-5e2d-aea1-773ef3c7cf77</id>
+  </generalMetadata>
+  <nodes>
+    <de.swa.mmfg.Node>
+      <name>Root-Asset</name>
+      <childNodes/>
+      <weights>
+        <de.swa.mmfg.Weight>
+          <context>
+            <name>Default</name>
+            <id>cfc62703-7a53-4373-bf21-06f684ebeff8</id>
+          </context>
+          <weight>0.5</weight>
+        </de.swa.mmfg.Weight>
+      </weights>
+      <technicalAttributes/>
+      <semanticRelationships/>
+      <compositionRelationships/>
+      <assetLinks/>
+      <fv reference="../../.."/>
+    </de.swa.mmfg.Node>
+    <de.swa.mmfg.Node>
+      <name>Video: football/v_ZcFbmdCxDhQ_c010</name>
+      <childNodes/>
+      <technicalAttributes/>
+      <semanticRelationships/>
+      <compositionRelationships/>
+      <assetLinks/>
+      <timerange>
+        <begin>2019-12-31 23:00:00.0 UTC</begin>
+        <end>2019-12-31 23:00:00.0 UTC</end>
+        <isUniversalTime>true</isUniversalTime>
+        <isRelativeTime>true</isRelativeTime>
+      </timerange>
+    </de.swa.mmfg.Node>
+    <de.swa.mmfg.Node>
+      <name>football throw</name>
+      <childNodes/>
+      <technicalAttributes/>
+      <semanticRelationships/>
+      <compositionRelationships/>
+      <assetLinks/>
+      <timerange>
+        <begin>2019-12-31 23:00:01.8 UTC</begin>
+        <end>2019-12-31 23:00:01.17 UTC</end>
+        <isUniversalTime>true</isUniversalTime>
+        <isRelativeTime>true</isRelativeTime>
+      </timerange>
+    </de.swa.mmfg.Node>
+    <de.swa.mmfg.Node>
+      <name>football short pass</name>
+      <childNodes/>
+      <technicalAttributes/>
+      <semanticRelationships/>
+      <compositionRelationships/>
+      <assetLinks/>
+      <timerange>
+        <begin>2019-12-31 23:00:01.24 UTC</begin>
+        <end>2019-12-31 23:00:02.20 UTC</end>
+        <isUniversalTime>true</isUniversalTime>
+        <isRelativeTime>true</isRelativeTime>
+      </timerange>
+    </de.swa.mmfg.Node>
+    <de.swa.mmfg.Node>
+      <name>football short pass</name>
+      <childNodes/>
+      <technicalAttributes/>
+      <semanticRelationships/>
+      <compositionRelationships/>
+      <assetLinks/>
+      <timerange>
+        <begin>2019-12-31 23:00:03.0 UTC</begin>
+        <end>2019-12-31 23:00:03.10 UTC</end>
+        <isUniversalTime>true</isUniversalTime>
+        <isRelativeTime>true</isRelativeTime>
+      </timerange>
+    </de.swa.mmfg.Node>
+    <de.swa.mmfg.Node>
+      <name>football short pass</name>
+      <childNodes/>
+      <technicalAttributes/>
+      <semanticRelationships/>
+      <compositionRelationships/>
+      <assetLinks/>
+      <timerange>
+        <begin>2019-12-31 23:00:04.5 UTC</begin>
+        <end>2019-12-31 23:00:04.9 UTC</end>
+        <isUniversalTime>true</isUniversalTime>
+        <isRelativeTime>true</isRelativeTime>
+      </timerange>
+    </de.swa.mmfg.Node>
+    <de.swa.mmfg.Node>
+      <name>football short pass</name>
+      <childNodes/>
+      <technicalAttributes/>
+      <semanticRelationships/>
+      <compositionRelationships/>
+      <assetLinks/>
+      <timerange>
+        <begin>2019-12-31 23:00:04.22 UTC</begin>
+        <end>2019-12-31 23:00:05.11 UTC</end>
+        <isUniversalTime>true</isUniversalTime>
+        <isRelativeTime>true</isRelativeTime>
+      </timerange>
+    </de.swa.mmfg.Node>
+    <de.swa.mmfg.Node>
+      <name>football short pass</name>
+      <childNodes/>
+      <technicalAttributes/>
+      <semanticRelationships/>
+      <compositionRelationships/>
+      <assetLinks/>
+      <timerange>
+        <begin>2019-12-31 23:00:17.1 UTC</begin>
+        <end>2019-12-31 23:00:17.16 UTC</end>
+        <isUniversalTime>true</isUniversalTime>
+        <isRelativeTime>true</isRelativeTime>
+      </timerange>
+    </de.swa.mmfg.Node>
+    <de.swa.mmfg.Node>
+      <name>football short pass</name>
+      <childNodes/>
+      <technicalAttributes/>
+      <semanticRelationships/>
+      <compositionRelationships/>
+      <assetLinks/>
+      <timerange>
+        <begin>2019-12-31 23:00:20.7 UTC</begin>
+        <end>2019-12-31 23:00:20.13 UTC</end>
+        <isUniversalTime>true</isUniversalTime>
+        <isRelativeTime>true</isRelativeTime>
+      </timerange>
+    </de.swa.mmfg.Node>
+    <de.swa.mmfg.Node>
+      <name>football short pass</name>
+      <childNodes/>
+      <technicalAttributes/>
+      <semanticRelationships/>
+      <compositionRelationships/>
+      <assetLinks/>
+      <timerange>
+        <begin>2019-12-31 23:00:22.13 UTC</begin>
+        <end>2019-12-31 23:00:23.0 UTC</end>
+        <isUniversalTime>true</isUniversalTime>
+        <isRelativeTime>true</isRelativeTime>
+      </timerange>
+    </de.swa.mmfg.Node>
+    <de.swa.mmfg.Node>
+      <name>football short pass</name>
+      <childNodes/>
+      <technicalAttributes/>
+      <semanticRelationships/>
+      <compositionRelationships/>
+      <assetLinks/>
+      <timerange>
+        <begin>2019-12-31 23:00:24.5 UTC</begin>
+        <end>2019-12-31 23:00:24.13 UTC</end>
+        <isUniversalTime>true</isUniversalTime>
+        <isRelativeTime>true</isRelativeTime>
+      </timerange>
+    </de.swa.mmfg.Node>
+    <de.swa.mmfg.Node>
+      <name>football press</name>
+      <childNodes/>
+      <technicalAttributes/>
+      <semanticRelationships/>
+      <compositionRelationships/>
+      <assetLinks/>
+      <timerange>
+        <begin>2019-12-31 23:00:02.2 UTC</begin>
+        <end>2019-12-31 23:00:02.9 UTC</end>
+        <isUniversalTime>true</isUniversalTime>
+        <isRelativeTime>true</isRelativeTime>
+      </timerange>
+    </de.swa.mmfg.Node>
+    <de.swa.mmfg.Node>
+      <name>football press</name>
+      <childNodes/>
+      <technicalAttributes/>
+      <semanticRelationships/>
+      <compositionRelationships/>
+      <assetLinks/>
+      <timerange>
+        <begin>2019-12-31 23:00:03.16 UTC</begin>
+        <end>2019-12-31 23:00:04.10 UTC</end>
+        <isUniversalTime>true</isUniversalTime>
+        <isRelativeTime>true</isRelativeTime>
+      </timerange>
+    </de.swa.mmfg.Node>
+    <de.swa.mmfg.Node>
+      <name>football press</name>
+      <childNodes/>
+      <technicalAttributes/>
+      <semanticRelationships/>
+      <compositionRelationships/>
+      <assetLinks/>
+      <timerange>
+        <begin>2019-12-31 23:00:05.2 UTC</begin>
+        <end>2019-12-31 23:00:07.15 UTC</end>
+        <isUniversalTime>true</isUniversalTime>
+        <isRelativeTime>true</isRelativeTime>
+      </timerange>
+    </de.swa.mmfg.Node>
+    <de.swa.mmfg.Node>
+      <name>football press</name>
+      <childNodes/>
+      <technicalAttributes/>
+      <semanticRelationships/>
+      <compositionRelationships/>
+      <assetLinks/>
+      <timerange>
+        <begin>2019-12-31 23:00:22.23 UTC</begin>
+        <end>2019-12-31 23:00:24.10 UTC</end>
+        <isUniversalTime>true</isUniversalTime>
+        <isRelativeTime>true</isRelativeTime>
+      </timerange>
+    </de.swa.mmfg.Node>
+    <de.swa.mmfg.Node>
+      <name>football trap</name>
+      <childNodes/>
+      <technicalAttributes/>
+      <semanticRelationships/>
+      <compositionRelationships/>
+      <assetLinks/>
+      <timerange>
+        <begin>2019-12-31 23:00:03.17 UTC</begin>
+        <end>2019-12-31 23:00:03.23 UTC</end>
+        <isUniversalTime>true</isUniversalTime>
+        <isRelativeTime>true</isRelativeTime>
+      </timerange>
+    </de.swa.mmfg.Node>
+    <de.swa.mmfg.Node>
+      <name>football trap</name>
+      <childNodes/>
+      <technicalAttributes/>
+      <semanticRelationships/>
+      <compositionRelationships/>
+      <assetLinks/>
+      <timerange>
+        <begin>2019-12-31 23:00:06.14 UTC</begin>
+        <end>2019-12-31 23:00:07.3 UTC</end>
+        <isUniversalTime>true</isUniversalTime>
+        <isRelativeTime>true</isRelativeTime>
+      </timerange>
+    </de.swa.mmfg.Node>
+    <de.swa.mmfg.Node>
+      <name>football trap</name>
+      <childNodes/>
+      <technicalAttributes/>
+      <semanticRelationships/>
+      <compositionRelationships/>
+      <assetLinks/>
+      <timerange>
+        <begin>2019-12-31 23:00:14.24 UTC</begin>
+        <end>2019-12-31 23:00:15.11 UTC</end>
+        <isUniversalTime>true</isUniversalTime>
+        <isRelativeTime>true</isRelativeTime>
+      </timerange>
+    </de.swa.mmfg.Node>
+    <de.swa.mmfg.Node>
+      <name>football trap</name>
+      <childNodes/>
+      <technicalAttributes/>
+      <semanticRelationships/>
+      <compositionRelationships/>
+      <assetLinks/>
+      <timerange>
+        <begin>2019-12-31 23:00:15.17 UTC</begin>
+        <end>2019-12-31 23:00:16.7 UTC</end>
+        <isUniversalTime>true</isUniversalTime>
+        <isRelativeTime>true</isRelativeTime>
+      </timerange>
+    </de.swa.mmfg.Node>
+    <de.swa.mmfg.Node>
+      <name>football trap</name>
+      <childNodes/>
+      <technicalAttributes/>
+      <semanticRelationships/>
+      <compositionRelationships/>
+      <assetLinks/>
+      <timerange>
+        <begin>2019-12-31 23:00:18.14 UTC</begin>
+        <end>2019-12-31 23:00:19.3 UTC</end>
+        <isUniversalTime>true</isUniversalTime>
+        <isRelativeTime>true</isRelativeTime>
+      </timerange>
+    </de.swa.mmfg.Node>
+    <de.swa.mmfg.Node>
+      <name>football trap</name>
+      <childNodes/>
+      <technicalAttributes/>
+      <semanticRelationships/>
+      <compositionRelationships/>
+      <assetLinks/>
+      <timerange>
+        <begin>2019-12-31 23:00:21.10 UTC</begin>
+        <end>2019-12-31 23:00:21.21 UTC</end>
+        <isUniversalTime>true</isUniversalTime>
+        <isRelativeTime>true</isRelativeTime>
+      </timerange>
+    </de.swa.mmfg.Node>
+    <de.swa.mmfg.Node>
+      <name>football trap</name>
+      <childNodes/>
+      <technicalAttributes/>
+      <semanticRelationships/>
+      <compositionRelationships/>
+      <assetLinks/>
+      <timerange>
+        <begin>2019-12-31 23:00:23.6 UTC</begin>
+        <end>2019-12-31 23:00:23.17 UTC</end>
+        <isUniversalTime>true</isUniversalTime>
+        <isRelativeTime>true</isRelativeTime>
+      </timerange>
+    </de.swa.mmfg.Node>
+    <de.swa.mmfg.Node>
+      <name>football steal</name>
+      <childNodes/>
+      <technicalAttributes/>
+      <semanticRelationships/>
+      <compositionRelationships/>
+      <assetLinks/>
+      <timerange>
+        <begin>2019-12-31 23:00:07.17 UTC</begin>
+        <end>2019-12-31 23:00:08.5 UTC</end>
+        <isUniversalTime>true</isUniversalTime>
+        <isRelativeTime>true</isRelativeTime>
+      </timerange>
+    </de.swa.mmfg.Node>
+    <de.swa.mmfg.Node>
+      <name>football long pass</name>
+      <childNodes/>
+      <technicalAttributes/>
+      <semanticRelationships/>
+      <compositionRelationships/>
+      <assetLinks/>
+      <timerange>
+        <begin>2019-12-31 23:00:11.7 UTC</begin>
+        <end>2019-12-31 23:00:11.17 UTC</end>
+        <isUniversalTime>true</isUniversalTime>
+        <isRelativeTime>true</isRelativeTime>
+      </timerange>
+    </de.swa.mmfg.Node>
+  </nodes>
+      <allNodes>
+      <de.swa.mmfg.Node reference="../../nodes/de.swa.mmfg.Node"/>
+    <de.swa.mmfg.Node reference="../../nodes/de.swa.mmfg.Node"/>
+    <de.swa.mmfg.Node>
+      <name>Root-Asset</name>
+      <childNodes/>
+      <weights>
+        <de.swa.mmfg.Weight>
+          <context reference="../../../../../nodes/de.swa.mmfg.Node/weights/de.swa.mmfg.Weight/context"/>
+          <weight>0.5</weight>
+        </de.swa.mmfg.Weight>
+      </weights>
+      <technicalAttributes/>
+      <semanticRelationships/>
+      <compositionRelationships/>
+      <assetLinks/>
+      <fv reference="../../.."/>
+    </de.swa.mmfg.Node>
+        <de.swa.mmfg.Node reference="../../nodes/de.swa.mmfg.Node[2]"/>
+        <de.swa.mmfg.Node reference="../../nodes/de.swa.mmfg.Node[3]"/>
+        <de.swa.mmfg.Node reference="../../nodes/de.swa.mmfg.Node[4]"/>
+        <de.swa.mmfg.Node reference="../../nodes/de.swa.mmfg.Node[5]"/>
+        <de.swa.mmfg.Node reference="../../nodes/de.swa.mmfg.Node[6]"/>
+        <de.swa.mmfg.Node reference="../../nodes/de.swa.mmfg.Node[7]"/>
+        <de.swa.mmfg.Node reference="../../nodes/de.swa.mmfg.Node[8]"/>
+        <de.swa.mmfg.Node reference="../../nodes/de.swa.mmfg.Node[9]"/>
+        <de.swa.mmfg.Node reference="../../nodes/de.swa.mmfg.Node[10]"/>
+        <de.swa.mmfg.Node reference="../../nodes/de.swa.mmfg.Node[11]"/>
+        <de.swa.mmfg.Node reference="../../nodes/de.swa.mmfg.Node[12]"/>
+        <de.swa.mmfg.Node reference="../../nodes/de.swa.mmfg.Node[13]"/>
+        <de.swa.mmfg.Node reference="../../nodes/de.swa.mmfg.Node[14]"/>
+        <de.swa.mmfg.Node reference="../../nodes/de.swa.mmfg.Node[15]"/>
+        <de.swa.mmfg.Node reference="../../nodes/de.swa.mmfg.Node[16]"/>
+        <de.swa.mmfg.Node reference="../../nodes/de.swa.mmfg.Node[17]"/>
+        <de.swa.mmfg.Node reference="../../nodes/de.swa.mmfg.Node[18]"/>
+        <de.swa.mmfg.Node reference="../../nodes/de.swa.mmfg.Node[19]"/>
+        <de.swa.mmfg.Node reference="../../nodes/de.swa.mmfg.Node[20]"/>
+        <de.swa.mmfg.Node reference="../../nodes/de.swa.mmfg.Node[21]"/>
+        <de.swa.mmfg.Node reference="../../nodes/de.swa.mmfg.Node[22]"/>
+        <de.swa.mmfg.Node reference="../../nodes/de.swa.mmfg.Node[23]"/>
+        <de.swa.mmfg.Node reference="../../nodes/de.swa.mmfg.Node[24]"/>
+      </allNodes>
+      <collectionElements/>
+</de.swa.mmfg.MMFG>
