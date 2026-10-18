@@ -56,6 +56,41 @@ public class GraphCodeCollectionTest {
 	}
 
 	@Test
+	public void getUnion_doesNotSumSharedEdges() {
+		GraphCode gc1 = new GraphCode();
+		gc1.setDictionary(new java.util.Vector<String>() {{ add("term_a"); add("term_b"); }});
+		gc1.setValueForTerms("term_a", "term_b", 1);
+		GraphCode gc2 = new GraphCode();
+		gc2.setDictionary(new java.util.Vector<String>() {{ add("term_a"); add("term_b"); }});
+		gc2.setValueForTerms("term_a", "term_b", 1);
+		java.util.Vector<GraphCode> list = new java.util.Vector<>();
+		list.add(gc1);
+		list.add(gc2);
+		GraphCode union = GraphCodeCollection.getUnion(list);
+		assertEquals(1, union.getEdgeValueForTerms("term_a", "term_b"));
+	}
+
+	@Test
+	public void getUnion_keepsEdgesAcrossThreeCodes() {
+		GraphCode gc1 = new GraphCode();
+		gc1.setDictionary(new java.util.Vector<String>() {{ add("term_a"); add("term_b"); }});
+		gc1.setValueForTerms("term_a", "term_b", 5);
+		GraphCode gc2 = new GraphCode();
+		gc2.setDictionary(new java.util.Vector<String>() {{ add("term_b"); add("term_c"); }});
+		gc2.setValueForTerms("term_b", "term_c", 7);
+		GraphCode gc3 = new GraphCode();
+		gc3.setDictionary(new java.util.Vector<String>() {{ add("term_d"); }});
+		java.util.Vector<GraphCode> list = new java.util.Vector<>();
+		list.add(gc1);
+		list.add(gc2);
+		list.add(gc3);
+		GraphCode union = GraphCodeCollection.getUnion(list);
+		assertEquals(4, union.getDictionary().size());
+		assertEquals(5, union.getEdgeValueForTerms("term_a", "term_b"));
+		assertEquals(7, union.getEdgeValueForTerms("term_b", "term_c"));
+	}
+
+	@Test
 	public void subtract_removesDictionaryTermsAndEdges() {
 		GraphCode gc1 = new GraphCode();
 		gc1.setDictionary(new java.util.Vector<String>() {{ add("term_a"); add("term_b"); add("term_c"); }});

@@ -110,10 +110,10 @@ public class GraphCodeCollection {
 		for (GraphCode gci : gcs) {
 			for (String s : dictionary) {
 				for (String t : dictionary) {
-					int current = gc.getEdgeValueForTerms(s, t);
 					int i = 0;
 					try { i = gci.getEdgeValueForTerms(s, t); } catch (Exception x) {}
-					gc.setValueForTerms(s, t, current + i);
+					// values are relationship type codes, not counts: never sum, and don't let a missing edge (0) overwrite an existing one
+					if (i != 0) gc.setValueForTerms(s, t, i);
 				}
 			}
 		}
