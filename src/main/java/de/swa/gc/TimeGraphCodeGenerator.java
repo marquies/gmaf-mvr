@@ -6,11 +6,15 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Objects;
 import java.util.Vector;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Created by Patrick Steinert on 14.04.25.
  */
 public class TimeGraphCodeGenerator {
+	private static final Logger log = LoggerFactory.getLogger(TimeGraphCodeGenerator.class);
+
 	private static final int LEAF_TYPE = 2;
 	private static final int NODE_TYPE = 1;
 	private static final int CHILD_RELATIONSHIP = 3;
@@ -30,7 +34,7 @@ public class TimeGraphCodeGenerator {
 
 		if (minTimerange != null) {
 			minTime = minTimerange.getBegin();
-			System.out.println(sdf.format(minTime));
+			log.debug("Min time: {}", sdf.format(minTime));
 		} else {
 			minTime = new Date(0);
 		}
@@ -38,7 +42,7 @@ public class TimeGraphCodeGenerator {
 		Timerange maxTimerange = findMaxTimeRange(m);
 		if (maxTimerange != null) {
 			maxTime = maxTimerange.getEnd();
-			System.out.println(sdf.format(maxTime));
+			log.debug("Max time: {}", sdf.format(maxTime));
 		} else {
 			maxTime = new Date(0);
 		}
@@ -200,7 +204,7 @@ public class TimeGraphCodeGenerator {
 				gc.addTimeGraphCode(gci);
 			}
 		} catch (Exception x) {
-			System.out.println("TimeGraphCodeGenerator " + x);
+			log.error("Could not generate time graph code", x);
 		}
 
 		return gc;

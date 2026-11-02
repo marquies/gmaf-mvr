@@ -12,6 +12,8 @@ import de.swa.gc.GraphCodeMetric;
 import de.swa.gc.GraphCodeStrategy;
 import de.swa.gc.DefaultGraphCodeStrategy;
 import de.swa.ui.Configuration;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Default implementation of the CollectionProcessor interface.
@@ -20,6 +22,8 @@ import de.swa.ui.Configuration;
  * It uses a GraphCodeStrategy to calculate the similarity between the query graph code and each graph code in the collection.
  */
 public class DefaultCollectionProcessor extends CollectionProcessor {
+    private static final Logger log = LoggerFactory.getLogger(DefaultCollectionProcessor.class);
+
     private Vector<GraphCodeMeta> collection;
     private GraphCodeStrategy graphCodeStrategy;
 
@@ -35,7 +39,7 @@ public class DefaultCollectionProcessor extends CollectionProcessor {
             try {
                 Class<?> strategyClass = Class.forName(strategyClassName);
                 this.graphCodeStrategy = (GraphCodeStrategy) strategyClass.getDeclaredConstructor().newInstance();
-                System.out.println("Using GraphCodeStrategy from configuration: " + strategyClassName);
+                log.info("Using GraphCodeStrategy from configuration: {}", strategyClassName);
             } catch (Exception e) {
                 System.err.println("Error initializing GraphCodeStrategy from configuration: " + e.getMessage());
                 this.graphCodeStrategy = new DefaultGraphCodeStrategy();

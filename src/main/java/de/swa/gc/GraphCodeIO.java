@@ -18,6 +18,8 @@ import java.util.Vector;
 
 import de.swa.mmfg.MMFG;
 import de.swa.mmfg.builder.Flattener;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /** Utility Class for Graph Code Import and Export, implements the MMFG-Flattener-Interface
  * 
@@ -25,6 +27,8 @@ import de.swa.mmfg.builder.Flattener;
  */
 
 public class GraphCodeIO implements Flattener {
+	private static final Logger log = LoggerFactory.getLogger(GraphCodeIO.class);
+
 	/** exports a Graph Code based on a MMFG to Json **/
 	public String flatten(MMFG fv) {
 		GraphCode gc = GraphCodeGenerator.generate(fv);
@@ -59,7 +63,7 @@ public class GraphCodeIO implements Flattener {
 				return tgc;
 			}
 		} catch (Exception x) {
-			System.out.println("Failed to deserialize as TimeGraphCode, falling back to GraphCode");
+			log.warn("Failed to deserialize as TimeGraphCode, falling back to GraphCode");
 		}
 		
 		// Fall back to regular GraphCode

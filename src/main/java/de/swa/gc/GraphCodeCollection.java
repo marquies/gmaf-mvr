@@ -7,6 +7,8 @@ import java.util.Vector;
 import de.swa.ui.MMFGCollection;
 import de.swa.ui.Configuration;
 import de.swa.ui.MMFGCollectionFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /** this class contains operations for Graph Code Collections, i.e. connected recursive lists of Graph Codes
  * 
@@ -14,6 +16,8 @@ import de.swa.ui.MMFGCollectionFactory;
  */
 
 public class GraphCodeCollection {
+	private static final Logger log = LoggerFactory.getLogger(GraphCodeCollection.class);
+
 	/** returns the union of all Graph Codes of the collection **/
 	public static GraphCode getCollectionGraphCode(GraphCode gc) {
 		if (gc.getCollectionElements().size() == 0) return gc;
@@ -159,7 +163,7 @@ public class GraphCodeCollection {
 				old_max = localMax;	// skip this record next time
 			}
 			catch (Exception x) {
-				System.out.println(x);
+				log.warn("Could not add ranked graph code at index {}", idx, x);
 			}
 		}
 		

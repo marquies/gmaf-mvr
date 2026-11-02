@@ -8,6 +8,8 @@ import java.io.ObjectOutputStream;
 import java.io.RandomAccessFile;
 import java.util.Hashtable;
 import java.util.Vector;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /** General Dictionary to represent words and word-stems
  * 
@@ -15,6 +17,8 @@ import java.util.Vector;
  */
 
 public class GeneralDictionary {
+	private static final Logger log = LoggerFactory.getLogger(GeneralDictionary.class);
+
 	/** private constructor, Singleton pattern **/
 	private GeneralDictionary() {
 		try {
@@ -25,7 +29,7 @@ public class GeneralDictionary {
 		}
 		catch (Exception x) {
 			x.printStackTrace();
-			System.out.println("no dictionary found. Recreating....");
+			log.info("No dictionary found. Recreating...");
 		}
 		if (words.size() == 0) init();
 	}
@@ -69,15 +73,15 @@ public class GeneralDictionary {
 	private Hashtable<String, Word> wordIDs = new Hashtable<String, Word>();
 	
 	private void init() {
-		System.out.println("Initializing Dictionary");
+		log.info("Initializing Dictionary");
 		processFile("dictionary" + File.separatorChar + "data.noun", Word.TYPE_NOUN);
-		System.out.println("-> nouns");
+		log.info("-> nouns");
 		processFile("dictionary" + File.separatorChar + "data.adj", Word.TYPE_ADJECTIVE);
-		System.out.println("-> adjectives");
+		log.info("-> adjectives");
 		processFile("dictionary" + File.separatorChar + "data.adv", Word.TYPE_ADVERB);
-		System.out.println("-> adverbs");
+		log.info("-> adverbs");
 		processFile("dictionary" + File.separatorChar + "data.verb", Word.TYPE_VERB);
-		System.out.println("-> verbs");
+		log.info("-> verbs");
 		
 		try {
 			ObjectOutputStream oout = new ObjectOutputStream(new FileOutputStream("temp/dictionary.ser"));
@@ -89,7 +93,7 @@ public class GeneralDictionary {
 		catch (Exception x) {
 			x.printStackTrace();
 		}
-		System.out.println("Initializing Dictionary finished.");
+		log.info("Initializing Dictionary finished.");
 	}
 	
 	/*
@@ -160,13 +164,13 @@ public class GeneralDictionary {
 		GeneralDictionary d = GeneralDictionary.getInstance();
 		Vector<Word> words = d.getWord("plant");
 		for (Word w : words) {
-			System.out.println("Result (1st level): " + w.getWord() + " [" + w.getId() + "]");
+			log.info("Result (1st level): {} [{}]", w.getWord(), w.getId());
 			
 			for (String s : w.getSynonymIDs()) {
 				try {
 //				System.out.println("  Synonym " + s);
 					Word syn = d.getWordForId(s);
-					System.out.println("\tSynonym (2nd level): " + syn.getWord() + " [" + syn.getId() + "]");
+					log.info("\tSynonym (2nd level): {} [{}]", syn.getWord(), syn.getId());
 				}
 				catch (Exception x) {}
 			}

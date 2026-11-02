@@ -26,6 +26,8 @@ import de.swa.mmfg.MMFG;
 import de.swa.mmfg.Node;
 import de.swa.mmfg.builder.FeatureVectorBuilder;
 import de.swa.mmfg.builder.JsonFlattener;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /** Exif Plugin based on Apache Commons Imaging
  * 
@@ -33,6 +35,8 @@ import de.swa.mmfg.builder.JsonFlattener;
  */
 
 public class ExifHandler implements GMAF_Plugin {
+	private static final Logger log = LoggerFactory.getLogger(ExifHandler.class);
+
 	/** returns true, if one of the extensions is jpg, jpeg, png, tiff, or gif **/
 	public boolean canProcess(String extension) {
 		if (extension.equalsIgnoreCase(".jpg")) return true;
@@ -58,7 +62,7 @@ public class ExifHandler implements GMAF_Plugin {
 				MMFG fv = FeatureVectorBuilder.parse(field.toString());
 			}
 		} catch (Exception x) {
-			System.out.println("Exc: " + x);
+			log.error("Could not read Exif data", x);
 		}
 		return null;
 	}
@@ -141,7 +145,7 @@ public class ExifHandler implements GMAF_Plugin {
 				gm.setDate(d);
 			}
 		} catch (Exception x) {
-			System.out.println("Exif-Error: " + x);
+			log.error("Could not process Exif data", x);
 		}
 
 		if (gm.getDate() == null) gm.setDate(new Date(f.lastModified()));
