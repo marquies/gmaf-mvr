@@ -11,9 +11,9 @@ name: Java CI with Maven
 on:
   workflow_dispatch:
   push:
-    branches: [ "master", "develop" ]
+    branches: [ "master" ]
   pull_request:
-    branches: [ "master", "develop" ]
+    branches: [ "master" ]
 
 permissions:
     contents: read
@@ -72,6 +72,7 @@ jobs:
         min-coverage-changed-files: 0
   publish-snapshot:
     needs: build
+    if: github.ref == 'refs/heads/master'
     runs-on: ubuntu-latest
 
     steps:

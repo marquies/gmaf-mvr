@@ -6,7 +6,7 @@ GMAF is a Java media-analysis framework for feature extraction, graph-based repr
 ## Status
 
 - **Default branch:** `master`
-- **CI:** Java CI with Maven on `master` and `develop`
+- **CI:** Java CI with Maven on `master`
 - **JDK:** build on JDK 17+; CI runs Temurin JDK 21
 
 ## Prerequisites
@@ -136,7 +136,9 @@ Highlights:
 Workflow: `.github/workflows/maven.yml`
 
 - Build job: `mvn -B package`
-- Snapshot publish: `mvn deploy -DskipTests` to GitHub Packages when required
+- Branches: `master` is the only long-lived branch. Open pull requests against it.
+- Snapshots: every push to `master` publishes the `-SNAPSHOT` version from `pom.xml` to GitHub Packages.
+- Releases: pushing a tag such as `v1.0.7` builds and tests that commit, publishes version `1.0.7` to GitHub Packages and creates a GitHub Release with the JAR.
 - Test results: JUnit report action writes `**/target/surefire-reports/TEST-*.xml`
 - Code coverage: JaCoCo instruments tests and writes `target/site/jacoco/` (HTML/XML/CSV).
   The workflow prints a line-coverage summary to the job summary, uploads the full
