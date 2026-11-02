@@ -112,7 +112,7 @@ public class MMFGCollection {
                 try {
                     Class<?> strategyClass = Class.forName(strategyClassName);
                     this.graphCodeStrategy = (GraphCodeStrategy) strategyClass.getDeclaredConstructor().newInstance();
-                    System.out.println("Using GraphCodeStrategy from configuration: " + strategyClassName);
+                    log.info("Using GraphCodeStrategy from configuration: {}", strategyClassName);
                 } catch (Exception e) {
                     System.err.println("Error initializing GraphCodeStrategy from configuration: " + e.getMessage());
                     this.graphCodeStrategy = new DefaultGraphCodeStrategy();
@@ -151,7 +151,7 @@ public class MMFGCollection {
             for (String path : paths) {
                 File f = new File(path);
                 if (!f.exists()) {
-                    System.out.println("path " + path + " does not exist");
+                    log.warn("Path {} does not exist", path);
                     continue;
                 }
                 try {
@@ -162,7 +162,7 @@ public class MMFGCollection {
                             count++;
                             int progress = 100 * count / fs.length;
                             String txt = "loading " + path + " > " + fi.getName() + " (" + count + " / " + fs.length + ")";
-                            System.out.println(progress + " -> " + txt);
+                            log.info("{} -> {}", progress, txt);
                             for (ProgressListener pl : progressListeners) {
                                 pl.log(progress, txt);
                             }
@@ -255,7 +255,7 @@ public class MMFGCollection {
         } catch (Exception x) {
             x.printStackTrace();
         }
-        System.out.println("MMFG replaced in collection for file " + f.getAbsolutePath());
+        log.info("MMFG replaced in collection for file {}", f.getAbsolutePath());
     }
 
     public String getName() {
@@ -445,7 +445,7 @@ public class MMFGCollection {
                 ((DefaultCollectionProcessor) cp).setGraphCodeStrategy(this.graphCodeStrategy);
             }
         } catch (Exception ex) {
-            System.out.println("Using default collection processor: " + cp.getClass());
+            log.info("Using default collection processor: {}", cp.getClass());
             // Ensure the default processor uses our GraphCodeStrategy
             if (cp instanceof DefaultCollectionProcessor) {
                 ((DefaultCollectionProcessor) cp).setGraphCodeStrategy(this.graphCodeStrategy);

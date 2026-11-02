@@ -9,12 +9,16 @@ import java.util.zip.ZipInputStream;
 
 import de.swa.mmfg.MMFG;
 import de.swa.mmfg.Node;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Plugin to handle container files (ZIP) by extracting and processing each contained file
  * using the existing ProcessFlow system
  */
 public class ContainerExtractorPlugin implements GMAF_Plugin {
+	private static final Logger log = LoggerFactory.getLogger(ContainerExtractorPlugin.class);
+
 	private final Vector<Node> detectedNodes = new Vector<>();
 	private static final String TEMP_DIR = System.getProperty("java.io.tmpdir") + File.separator + "container" + File.separator;
 
@@ -31,7 +35,7 @@ public class ContainerExtractorPlugin implements GMAF_Plugin {
 				FileInputStream fs = new FileInputStream(f);
 				bytes = fs.readAllBytes();
 			} catch (IOException e) {
-				System.out.println("Error reading file " + f.getAbsolutePath() + ": " + e.getMessage());
+				log.error("Error reading file {}", f.getAbsolutePath(), e);
 			}
 		}
 		try (ZipInputStream zis = new ZipInputStream(new ByteArrayInputStream(bytes))) {
@@ -91,7 +95,7 @@ public class ContainerExtractorPlugin implements GMAF_Plugin {
 
 	@Override
 	public void process(URL url, File f, byte[] bytes, MMFG fv) {
-		System.out.println("ContainerExtractorPlugin process");
+		log.debug("ContainerExtractorPlugin process");
 	}
 
 	@Override

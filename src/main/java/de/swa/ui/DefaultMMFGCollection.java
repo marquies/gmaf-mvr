@@ -20,9 +20,12 @@ import de.swa.gc.processing.GraphCodeMeta;
 import de.swa.gmaf.GMAF;
 import de.swa.mmfg.GeneralMetadata;
 import de.swa.mmfg.MMFG;
+import org.slf4j.LoggerFactory;
 
 /** data structure representing the collection of all MMFGs **/
 public class DefaultMMFGCollection extends MMFGCollection {
+	private static final org.slf4j.Logger log = LoggerFactory.getLogger(DefaultMMFGCollection.class);
+
 	private Vector<MMFG> collection = new Vector<MMFG>();
 	private Hashtable<File, MMFG> fileMap = new Hashtable<File, MMFG>();
 	private String name = "";
@@ -78,7 +81,7 @@ public class DefaultMMFGCollection extends MMFGCollection {
 			for (String path : paths) {
 				File f = new File(path);
 				if (!f.exists()) {
-					System.out.println("path " + path + " does not exist");
+					log.warn("Path {} does not exist", path);
 					continue;
 				}
 				try {
@@ -88,7 +91,7 @@ public class DefaultMMFGCollection extends MMFGCollection {
 						count++;
 						int progress = 100 * count / fs.length;
 						String txt = "loading " + path + " > " + fi.getName() + " (" + count + " / " + fs.length + ")";
-						System.out.println(progress + " -> " + txt);
+						log.info("{} -> {}", progress, txt);
 						for (ProgressListener pl : progressListeners) {
 							pl.log(progress, txt);
 						}
@@ -169,7 +172,7 @@ public class DefaultMMFGCollection extends MMFGCollection {
 		} catch (Exception x) {
 			x.printStackTrace();
 		}
-		System.out.println("MMFG replaced in collection for file " + f.getAbsolutePath());
+		log.info("MMFG replaced in collection for file {}", f.getAbsolutePath());
 	}
 
 	/** returns the collection name **/
@@ -243,8 +246,8 @@ public class DefaultMMFGCollection extends MMFGCollection {
 			Class c = Class.forName(collectionProcessorClass);
 			cp = (CollectionProcessor) c.newInstance();
 		} catch (Exception ex) {
-			System.out.println("no collection processor defined.");
-			System.out.println("using " + cp.getClass() + " instead");
+			log.warn("No collection processor defined.");
+			log.warn("Using {} instead", cp.getClass());
 		}
 		cp.setOperation(type);
 

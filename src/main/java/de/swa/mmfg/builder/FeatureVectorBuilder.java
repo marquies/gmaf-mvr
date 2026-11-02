@@ -5,9 +5,13 @@ import java.io.File;
 import de.swa.gmaf.plugin.ExifHandler;
 import de.swa.mmfg.MMFG;
 import de.swa.mmfg.Node;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /** utility class, that builds a MMFG in various ways **/
 public class FeatureVectorBuilder {
+	private static final Logger log = LoggerFactory.getLogger(FeatureVectorBuilder.class);
+
 	/** returns a MMFG based on EXIF-data embedded in files **/
 	public static MMFG getFeatureVectorFromAsset(File f) {
 		return ExifHandler.getFeatureVectorFromExif(f);
@@ -24,7 +28,7 @@ public class FeatureVectorBuilder {
 				}
 			}
 			else {
-				System.out.println("merging " + ni.getName() + " into " + n.getName());
+				log.debug("Merging {} into {}", ni.getName(), n.getName());
 				n.addChildNode(ni);
 				ni.setFeatureVector(base);
 			}
