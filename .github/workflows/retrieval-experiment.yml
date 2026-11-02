@@ -52,7 +52,7 @@ jobs:
         rm ../voc/voc.tar
     - name: Run experiment on this revision
       run: >
-        mvn -B -q test -Dtest=VocRetrievalExperimentTest,PaperMetricTest
+        mvn -B -q test -Dtest=VocRetrievalExperimentTest,PaperMetricTest,RankingMeasuresTest
         -Dvoc.annotations="$VOC_ANNOTATIONS" -Dvoc.report="$PWD/head-report.json"
     - name: Run experiment on the base revision
       if: github.event_name == 'pull_request'

@@ -36,7 +36,8 @@ class VocRetrievalExperimentTest {
 	static final List<String> CLASSES = Arrays.asList("bicycle", "bus", "car", "cat", "cow", "dog", "horse",
 			"motorbike", "person", "sheep");
 	static final int MIN_RELEVANT = 10;
-	static final int CUTOFF = 10;
+	static final int[] CUTOFFS = Arrays.stream(System.getProperty("voc.k", "5,10,20,50,100").split(","))
+			.mapToInt(k -> Integer.parseInt(k.trim())).toArray();
 
 	private static final class Query {
 		final String id;
@@ -125,30 +126,35 @@ class VocRetrievalExperimentTest {
 
 	private static Map<String, Object> measure(Ranker ranker, List<Query> queries, Vector<VocImage> images) {
 		Map<String, Double> averagePrecision = new LinkedHashMap<String, Double>();
-		double precisionAtCutoff = 0, precision = 0, recall = 0;
+		double[][] atCutoff = new double[CUTOFFS.length][3];
+		double precision = 0, recall = 0;
 		for (Query q : queries) {
-			List<VocImage> ranked = matchingTermsOnly(q.graphCode, ranker.rank(q.graphCode, images));
-			int hits = 0;
-			double sum = 0;
-			int hitsAtCutoff = 0;
-			for (int i = 0; i < ranked.size(); i++) {
-				if (q.relevant.contains(ranked.get(i).name)) {
-					hits++;
-					sum += (double) hits / (i + 1);
-					if (i < CUTOFF) hitsAtCutoff++;
-				}
+			List<Boolean> ranked = matchingTermsOnly(q.graphCode, ranker.rank(q.graphCode, images)).stream()
+					.map(i -> q.relevant.contains(i.name)).collect(Collectors.toList());
+			int relevant = q.relevant.size();
+			averagePrecision.put(q.id, RankingMeasures.averagePrecisionAt(ranked, relevant, images.size()));
+			for (int c = 0; c < CUTOFFS.length; c++) {
+				atCutoff[c][0] += RankingMeasures.precisionAt(ranked, CUTOFFS[c]);
+				atCutoff[c][1] += RankingMeasures.recallAt(ranked, relevant, CUTOFFS[c]);
+				atCutoff[c][2] += RankingMeasures.averagePrecisionAt(ranked, relevant, CUTOFFS[c]);
 			}
-			averagePrecision.put(q.id, sum / q.relevant.size());
-			precisionAtCutoff += (double) hitsAtCutoff / CUTOFF;
-			precision += ranked.isEmpty() ? 0 : (double) hits / ranked.size();
-			recall += (double) hits / q.relevant.size();
+			precision += ranked.isEmpty() ? 0 : RankingMeasures.precisionAt(ranked, ranked.size());
+			recall += RankingMeasures.recallAt(ranked, relevant, ranked.size());
+		}
+		Map<String, Map<String, Double>> atK = new LinkedHashMap<String, Map<String, Double>>();
+		for (int c = 0; c < CUTOFFS.length; c++) {
+			Map<String, Double> values = new LinkedHashMap<String, Double>();
+			values.put("P", atCutoff[c][0] / queries.size());
+			values.put("R", atCutoff[c][1] / queries.size());
+			values.put("mAP", atCutoff[c][2] / queries.size());
+			atK.put(String.valueOf(CUTOFFS[c]), values);
 		}
 		Map<String, Object> result = new LinkedHashMap<String, Object>();
 		result.put("queries", queries.size());
 		result.put("mAP", averagePrecision.values().stream().mapToDouble(d -> d).average().orElse(0));
-		result.put("P@" + CUTOFF, precisionAtCutoff / queries.size());
 		result.put("precision", precision / queries.size());
 		result.put("recall", recall / queries.size());
+		result.put("atK", atK);
 		result.put("averagePrecision", averagePrecision);
 		return result;
 	}

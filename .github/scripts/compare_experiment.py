@@ -9,14 +9,26 @@ SETS = (("productionFusion", "Production fusion"), ("correctedLabels", "Correcte
 
 
 def table(head, base):
-    lines = ["| Corpus | Ranking | Queries | mAP | P@10 | Base mAP |", "|---|---|---|---|---|---|"]
+    lines = ["| Corpus | Ranking | Queries | mAP | Base mAP |", "|---|---|---|---|---|"]
     for key, title in SETS:
         for variant in VARIANTS:
             for group in GATED:
                 current = head[key][variant][group]
                 before = f"{base[key][variant][group]['mAP']:.4f}" if base else "n/a"
-                lines.append(f"| {title} | {variant} / {group} | {current['queries']} | {current['mAP']:.4f} "
-                             f"| {current['P@10']:.4f} | {before} |")
+                lines.append(f"| {title} | {variant} / {group} | {current['queries']} | {current['mAP']:.4f} | {before} |")
+    return lines
+
+
+def cutoff_table(head):
+    cutoffs = list(head["productionFusion"]["production"]["relations"]["atK"])
+    columns = [f"{name}@{k}" for k in cutoffs for name in ("P", "R", "mAP")]
+    lines = ["| Corpus | Ranking | " + " | ".join(columns) + " |", "|---|---|" + "---|" * len(columns)]
+    for key, title in SETS:
+        for variant in VARIANTS:
+            for group in GATED:
+                at_k = head[key][variant][group]["atK"]
+                values = [f"{at_k[k][name]:.4f}" for k in cutoffs for name in ("P", "R", "mAP")]
+                lines.append(f"| {title} | {variant} / {group} | " + " | ".join(values) + " |")
     return lines
 
 
@@ -36,6 +48,8 @@ def main():
     print("## Retrieval experiment\n")
     print(f"{head['images']} PASCAL VOC images. Protocol: `experiments/retrieval-experiment.md`.\n")
     print("\n".join(table(head, base)))
+    print("\n### Measures at k\n")
+    print("\n".join(cutoff_table(head)))
     print(f"\nRuntime in ms by collection size (not gated): `{head['runtimeMillisByCollectionSize']}`")
     if not base:
         print("\nNo base report, nothing was gated.")

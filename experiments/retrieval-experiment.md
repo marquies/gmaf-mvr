@@ -7,6 +7,19 @@ Effective Retrieval* (ICIVR 2021). The workflow is `.github/workflows/retrieval-
 This is a regression experiment derived from that paper. It is not a replication, and its numbers
 can't be compared with the paper's values.
 
+## Running it locally
+
+From this repository, with Java 21, Maven and Python 3 available:
+
+```sh
+bash experiments/run-experiment.sh                # k = 5,10,20,50,100
+bash experiments/run-experiment.sh 1,5,10,25      # choose your own k
+```
+
+The first run downloads about 460 MB and verifies the checksum, later runs reuse
+`~/.cache/gmaf-voc` (override with `VOC_HOME`). Results are printed and stored in
+`target/voc-report.json`. In this workspace, prefix the command with `mise exec --`.
+
 ## Protocol
 
 - **Corpus:** the 5011 PASCAL VOC2007 trainval annotations, pinned by SHA-256. Objects marked
@@ -17,8 +30,13 @@ can't be compared with the paper's values.
   construction, so they only detect breakage, and they can't detect a change to `M_FR` or `M_RT`.
 - **Relation queries:** class pairs with `above`, `under` or `next_to`, with at least 10 relevant
   images. Relevance comes from the bounding boxes alone, independently of the code under test.
-- **Measures:** mAP, P@10, precision and recall over images sharing a query term. Runtime by
-  collection size is reported, not gated.
+- **Measures:** results are the images sharing a query term. Per query, with `R` relevant images:
+  - `P@k` is the relevant results in the top k, divided by k. Missing results count as misses.
+  - `R@k` is the relevant results in the top k, divided by `R`.
+  - `AP@k` sums the precision at each relevant position up to k, divided by `min(R, k)`.
+  - `mAP@k` is the mean of `AP@k` over all queries, and `mAP` the same with no cutoff.
+
+  Runtime by collection size is reported, not gated.
 - **Rankings:** `production` runs `GraphCodeMetric` through `DefaultCollectionProcessor`. The two
   `paper_mrt_*` rankings run `PaperMetric`, the formulas as printed, sorted by M_F, M_FR, M_RT.
   Ties keep file name order.
