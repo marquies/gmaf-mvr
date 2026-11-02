@@ -2,6 +2,7 @@ package de.swa.ui;
 
 import de.swa.gc.GraphCode;
 import de.swa.gc.GraphCodeMetric;
+import de.swa.gc.processing.CollectionProcessor;
 import de.swa.gc.processing.GraphCodeMeta;
 import de.swa.mmfg.MMFG;
 import de.swa.mmfg.GeneralMetadata;
@@ -10,6 +11,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
+import java.util.Arrays;
 import java.util.UUID;
 import java.util.Vector;
 
@@ -115,12 +117,12 @@ class MMFGCollectionTest {
         GraphCode queryGraphCode = collection.getOrGenerateGraphCode(testMMFG);
         
         // Test different query types
-        Vector<MMFG> results = collection.processQuery(queryGraphCode, 0); // Default type
+        Vector<MMFG> results = collection.processQuery(queryGraphCode, CollectionProcessor.SIMILARITY);
         assertNotNull(results, "Query results should not be null");
         assertFalse(results.isEmpty(), "Query results should not be empty");
         
         // Test with different query type
-        Vector<MMFG> recommendedResults = collection.processQuery(queryGraphCode, 1);
+        Vector<MMFG> recommendedResults = collection.processQuery(queryGraphCode, CollectionProcessor.RECOMMENDATION);
         assertNotNull(recommendedResults, "Recommended results should not be null");
     }
 
@@ -169,16 +171,16 @@ class MMFGCollectionTest {
         differentOne.addNode(diffNode2);
 
         try {
-            // Add all MMFGs to collection
-            testCollection.addToCollection(exactMatch);
-            testCollection.addToCollection(partialMatch);
+            // Add all MMFGs to collection, worst match first so that insertion order can't satisfy the test
             testCollection.addToCollection(differentOne);
+            testCollection.addToCollection(partialMatch);
+            testCollection.addToCollection(exactMatch);
             
             // Create query using the exact match as template
             GraphCode queryGraphCode = testCollection.getOrGenerateGraphCode(exactMatch);
             
             // Process query
-            Vector<MMFG> results = testCollection.processQuery(queryGraphCode, 0);
+            Vector<MMFG> results = testCollection.processQuery(queryGraphCode, CollectionProcessor.SIMILARITY);
             
             // Verify results
             assertNotNull(results, "Query results should not be null");
@@ -194,9 +196,9 @@ class MMFGCollectionTest {
             assertEquals("exact_match.jpg", results.get(0).getGeneralMetadata().getFileName(), 
                         "First result should be exact match");
             assertEquals("partial_match.jpg", results.get(1).getGeneralMetadata().getFileName(),
-                        "Third result should be partial match");
+                        "Second result should be partial match");
             assertEquals("different.jpg", results.get(2).getGeneralMetadata().getFileName(),
-                        "Second result should be the one with common feature");
+                        "Third result should be the one with the fewest common features");
 
             // Verify that the similarity scores are in descending order
             float previousSimilarity[] = new float[] {Float.MAX_VALUE,Float.MAX_VALUE,Float.MAX_VALUE};
@@ -206,7 +208,7 @@ class MMFGCollectionTest {
                 int compare = compare(currentSimilarity, previousSimilarity);
                 assertTrue(compare >= 0,
                           "Results should be ordered by descending similarity. Current: " + 
-                          currentSimilarity + " Previous: " + previousSimilarity);
+                          Arrays.toString(currentSimilarity) + " Previous: " + Arrays.toString(previousSimilarity));
                 previousSimilarity = currentSimilarity;
             }
         } finally {
@@ -224,8 +226,8 @@ class MMFGCollectionTest {
     private int compare(float[] metric_a, float[] metric_b) {
 
         // calculate numeric values to support java-compatible comparison
-        float a = metric_a[1] * 100000 + metric_a[0] * 100 + metric_a[2];
-        float b = metric_b[1] * 100000 + metric_b[0] * 100 + metric_b[2];
+        float a = metric_a[0] * 100000 + metric_a[1] * 100 + metric_a[2];
+        float b = metric_b[0] * 100000 + metric_b[1] * 100 + metric_b[2];
 
         return (int)(b - a);
     };
