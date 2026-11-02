@@ -8,20 +8,24 @@ import de.swa.gc.GraphCodeGenerator;
 import de.swa.mmfg.MMFG;
 import de.swa.mmfg.Node;
 import de.swa.mmfg.TechnicalAttribute;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /** export the complete list of MMFGs as XML **/
 public class DetectionExporter implements Flattener, Unflattener {
+	private static final Logger log = LoggerFactory.getLogger(DetectionExporter.class);
+
 	public String flatten(MMFG fv) {	
 		String fn = fv.getGeneralMetadata().getFileName();
 		try {
 			fn = fv.getGeneralMetadata().getFileReference().getName();
-			System.out.println("found original file: " + fv.getGeneralMetadata().getFileReference().getAbsolutePath());
+			log.debug("Found original file: {}", fv.getGeneralMetadata().getFileReference().getAbsolutePath());
 		}
 		catch (Exception x) {}
 		if (fn.indexOf("GMAF_TMP_") >= 0) {
 			fn = fn.substring(9, fn.length());
 			fn = fn.substring(0, fn.indexOf("_"));
-			System.out.println("found temp file for: " + fn);
+			log.debug("Found temp file for: {}", fn);
 		}
 		String s = "<gmaf-data>\n"
 				+ "<file>" + fn + "</file>\n"
@@ -45,7 +49,7 @@ public class DetectionExporter implements Flattener, Unflattener {
 		for (TechnicalAttribute ta : n.getTechnicalAttributes()) {
 			if (ta.getRelative_x() != 0 || ta.getRelative_y() != 0 || ta.getWidth() != 0 || ta.getHeight() != 0) {
 				bbox = ta;
-				System.out.println("found bounding box");
+				log.debug("Found bounding box");
 			}
 		}
 		String s = "	<object>\n"

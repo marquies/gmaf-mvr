@@ -15,9 +15,12 @@ import javax.imageio.ImageIO;
 import de.swa.mmfg.MMFG;
 import de.swa.mmfg.Node;
 import de.swa.mmfg.TechnicalAttribute;
+import org.slf4j.LoggerFactory;
 
 /** utility class **/
 public class Tools {
+	private static final org.slf4j.Logger log = LoggerFactory.getLogger(Tools.class);
+
 	/** returns a scaled image instance including bounding boxes **/
 	public static Image getScaledInstance(String name, Image srcImg, int w, boolean showBoundingBox){
 		String bb = "";
@@ -99,7 +102,7 @@ public class Tools {
 		if (painted.contains(s)) return;
 		g.setColor(box);
 		if (s == null || s.equals("")) return;
-		System.out.println("BB: " + s + ": " + x + ", " + y + ", " + w + ", " + h);
+		log.debug("BB: {}: {}, {}, {}, {}", s, x, y, w, h);
     	g.drawRect(x, y, w, h);
     	g.fillRect(x,y,w,14);
     	g.setColor(Color.WHITE);
