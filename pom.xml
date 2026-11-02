@@ -156,6 +156,13 @@
 			<version>2.25.3</version>
 		</dependency>
 
+		<!-- required by log4j-slf4j2-impl, transitive dependencies would resolve to 1.7.x, which disables all logging -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>2.0.17</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>
