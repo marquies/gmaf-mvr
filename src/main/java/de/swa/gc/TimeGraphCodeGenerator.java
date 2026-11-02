@@ -144,7 +144,7 @@ public class TimeGraphCodeGenerator {
 				try {
 					Node relatedNode = cr.getRelatedObject();
 
-					if (!cr.getTimeRange().isEmpty()) {
+					if (cr.getTimeRange() != null && !cr.getTimeRange().isEmpty()) {
 						// Composition relationship has its own timeranges
 						for (Timerange tr : cr.getTimeRange()) {
 							if (n.getTimerange() != null) {
@@ -313,6 +313,7 @@ public class TimeGraphCodeGenerator {
 
 		// Check composition relationships
 		for (CompositionRelationship cr : node.getCompositionRelationships()) {
+			if (cr.getTimeRange() == null) continue;
 			for (Timerange tr : cr.getTimeRange()) {
 				if (tr.getEnd().after(maxDate)) {
 					maxDate = tr.getEnd();
@@ -323,6 +324,7 @@ public class TimeGraphCodeGenerator {
 
 		// Check semantic relationships
 		for (SemanticRelationship sr : node.getSemanticRelationships()) {
+			if (sr.getTimeRange() == null) continue;
 			for (Timerange tr : sr.getTimeRange()) {
 				if (tr.getEnd().after(maxDate)) {
 					maxDate = tr.getEnd();
@@ -381,6 +383,7 @@ public class TimeGraphCodeGenerator {
 
 		// Check composition relationships
 		for (CompositionRelationship cr : node.getCompositionRelationships()) {
+			if (cr.getTimeRange() == null) continue;
 			for (Timerange tr : cr.getTimeRange()) {
 				if (tr.getBegin().before(minDate)) {
 					minDate = tr.getBegin();
@@ -391,6 +394,7 @@ public class TimeGraphCodeGenerator {
 
 		// Check semantic relationships
 		for (SemanticRelationship sr : node.getSemanticRelationships()) {
+			if (sr.getTimeRange() == null) continue;
 			for (Timerange tr : sr.getTimeRange()) {
 				if (tr.getBegin().before(minDate)) {
 					minDate = tr.getBegin();

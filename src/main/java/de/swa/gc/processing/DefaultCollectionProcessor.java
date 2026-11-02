@@ -11,6 +11,7 @@ import java.util.concurrent.CountDownLatch;
 import de.swa.gc.GraphCodeMetric;
 import de.swa.gc.GraphCodeStrategy;
 import de.swa.gc.DefaultGraphCodeStrategy;
+import de.swa.ui.Configuration;
 
 /**
  * Default implementation of the CollectionProcessor interface.
@@ -29,7 +30,20 @@ public class DefaultCollectionProcessor extends CollectionProcessor {
      */
     public DefaultCollectionProcessor() {
         // Default to the standard GraphCodeStrategy if none is provided
-        this.graphCodeStrategy = new DefaultGraphCodeStrategy();
+        String strategyClassName = Configuration.getInstance().getGraphCodeStrategyClass();
+        if (strategyClassName != null && !strategyClassName.isEmpty()) {
+            try {
+                Class<?> strategyClass = Class.forName(strategyClassName);
+                this.graphCodeStrategy = (GraphCodeStrategy) strategyClass.getDeclaredConstructor().newInstance();
+                System.out.println("Using GraphCodeStrategy from configuration: " + strategyClassName);
+            } catch (Exception e) {
+                System.err.println("Error initializing GraphCodeStrategy from configuration: " + e.getMessage());
+                this.graphCodeStrategy = new DefaultGraphCodeStrategy();
+            }
+        } else {
+            // Fall back to default if not specified in configuration
+            this.graphCodeStrategy = new DefaultGraphCodeStrategy();
+        }
     }
 
     /**

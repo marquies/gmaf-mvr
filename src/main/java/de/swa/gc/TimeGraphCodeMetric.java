@@ -1,5 +1,7 @@
 package de.swa.gc;
 
+import de.swa.ui.Configuration;
+
 import java.util.Vector;
 
 /**
@@ -241,7 +243,7 @@ public class TimeGraphCodeMetric {
 		double coveragePenalty = Math.sqrt(averageCoverage); // Square root penalty for gentler reduction
 		
 		// Early return with low similarity if coverage is too low (less than 20%)
-		if (averageCoverage < 0.2) {
+		if (Configuration.getInstance().lowCoverageEarlyReturn() && averageCoverage < 0.2) {
 			return coveragePenalty * 0.1; // Maximum 2% similarity for very low coverage
 		}
 		

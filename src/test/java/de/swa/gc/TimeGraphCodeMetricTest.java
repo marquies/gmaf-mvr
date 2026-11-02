@@ -4,8 +4,10 @@ import de.swa.mmfg.MMFG;
 import de.swa.mmfg.Node;
 import de.swa.mmfg.CompositionRelationship;
 import de.swa.mmfg.Timerange;
+import de.swa.ui.Configuration;
 import de.swa.ui.MMFGCollection;
 import junit.framework.Assert;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
@@ -20,6 +22,51 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  * Created by Patrick Steinert on 15.04.25.
  */
 public class TimeGraphCodeMetricTest {
+	@AfterEach
+	public void restoreLowCoverageEarlyReturn() {
+		Configuration.getInstance().lowCoverageEarlyReturn(true);
+	}
+
+	/**
+	 * creates a TimeGraphCode whose dictionary has only the term "common" in
+	 * common with other TimeGraphCodes of a different prefix, which results in
+	 * a coverage of 10%
+	 */
+	private static TimeGraphCode lowCoverageTimeGraphCode(String prefix) {
+		Vector<String> dictionary = new Vector<>();
+		dictionary.add("root-asset");
+		dictionary.add("common");
+		for (int i = 0; i < 9; i++) dictionary.add(prefix + i);
+
+		TimeGraphCode tgc = new TimeGraphCode(10);
+		tgc.setDictionary(dictionary);
+		return tgc;
+	}
+
+	/**
+	 * with the toggle enabled, low coverage returns the capped similarity
+	 */
+	@Test
+	public void testLowCoverageEarlyReturnEnabled() {
+		Configuration.getInstance().lowCoverageEarlyReturn(true);
+
+		double similarity = TimeGraphCodeMetric.computeMatchingDTW(lowCoverageTimeGraphCode("a"), lowCoverageTimeGraphCode("b"));
+
+		assertEquals(Math.sqrt(0.1) * 0.1, similarity, 0.0001);
+	}
+
+	/**
+	 * with the toggle disabled, low coverage is only reduced by the coverage penalty
+	 */
+	@Test
+	public void testLowCoverageEarlyReturnDisabled() {
+		Configuration.getInstance().lowCoverageEarlyReturn(false);
+
+		double similarity = TimeGraphCodeMetric.computeMatchingDTW(lowCoverageTimeGraphCode("a"), lowCoverageTimeGraphCode("b"));
+
+		assertEquals(Math.sqrt(0.1), similarity, 0.0001);
+	}
+
 	@Test
 	public void testSimilarityByTime() {
 
