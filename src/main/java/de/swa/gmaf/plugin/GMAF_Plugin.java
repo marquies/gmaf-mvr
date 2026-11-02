@@ -47,7 +47,7 @@ public interface GMAF_Plugin {
 	 */
 	public boolean canProcess(String extension);
 
-	default File prepareRecursiveProcessing(URL url, File f, byte[] bytes, MMFG fv) {
+	default File[] prepareRecursiveProcessing(URL url, File f, byte[] bytes, MMFG fv) {
 		return null;
 	}
 }

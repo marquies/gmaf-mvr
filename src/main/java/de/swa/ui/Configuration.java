@@ -34,6 +34,8 @@ public class Configuration {
 	private String serverName;
 	private String context;
 	private boolean showBoundingBox = true;
+	private String graphCodeStrategyClass = "de.swa.gc.DefaultGraphCodeStrategy";
+	private boolean lowCoverageEarlyReturn = true;
 
 	private String collectionManager = "de.swa.ui.DefaultMMFGCollection";
 
@@ -109,6 +111,8 @@ public class Configuration {
 			String password = "";
 			String restServicePort = "8242";
 			String collectionManager = "de.swa.ui.DefaultMMFGCollection";
+			String graphCodeStrategyClass = "de.swa.gc.DefaultGraphCodeStrategy";
+			String lowCoverageEarlyReturn = "true";
 
 			while ((line = rf.readLine()) != null) {
 				if (line.equals("")) continue;
@@ -194,18 +198,27 @@ public class Configuration {
 					else if (line.startsWith("collectionManager")) {
 						collectionManager = line.substring(line.indexOf("=") + 1, line.length()).trim();
 					}
+					else if (line.startsWith("graphCodeStrategy")) {
+						String strategyClass = line.substring(line.indexOf("=") + 1, line.length()).trim();
+						if (strategyClass != null && !strategyClass.isEmpty()) {
+							graphCodeStrategyClass = strategyClass;
+						}
+					}
+					else if (line.startsWith("lowCoverageEarlyReturn")) {
+						lowCoverageEarlyReturn = line.substring(line.indexOf("=") + 1, line.length()).trim();
+					}
  				}
 				catch (Exception x) {}
 			}
 			
-			Configuration.getInstance().setConfig(collectionName, collectionPaths, graphCodeRepo, exportFolder, fileEx, mmfgRepository, uimode, maxNodes, maxRecursions, thumbNails, autoProcess, semExt, launchServer, collectionProc, collectionConf, queryEx, rdfRepo, serverPort, flows, srv, ctx, password, restServicePort, collectionManager);
+			Configuration.getInstance().setConfig(collectionName, collectionPaths, graphCodeRepo, exportFolder, fileEx, mmfgRepository, uimode, maxNodes, maxRecursions, thumbNails, autoProcess, semExt, launchServer, collectionProc, collectionConf, queryEx, rdfRepo, serverPort, flows, srv, ctx, password, restServicePort, collectionManager, graphCodeStrategyClass, lowCoverageEarlyReturn);
 		}
 		catch (Exception x) {
 			x.printStackTrace();
 		}
 	}
 	
-	public void setConfig(String name, Vector<String> paths, String gcRepo, String export, Vector<String> fileEx, String mmfgRepo, String ui, String nodes, String recursions, String thumbNail, String auto, String semFact, String launch, String collectionProc, String collectionConf, String queryUI, String rdf, String serverPort, String flows, String serverName, String context, String password, String restServicePort, String collectionManager) {
+	public void setConfig(String name, Vector<String> paths, String gcRepo, String export, Vector<String> fileEx, String mmfgRepo, String ui, String nodes, String recursions, String thumbNail, String auto, String semFact, String launch, String collectionProc, String collectionConf, String queryUI, String rdf, String serverPort, String flows, String serverName, String context, String password, String restServicePort, String collectionManager, String graphCodeStrategyClass, String lowCoverageEarlyReturn) {
 		try {
 			collectionName = name;
 			collectionPaths = paths;
@@ -230,6 +243,8 @@ public class Configuration {
 			this.context = context;
 			this.restServicePort = Integer.parseInt(restServicePort);
 			this.collectionManager = collectionManager;
+			this.graphCodeStrategyClass = graphCodeStrategyClass;
+			this.lowCoverageEarlyReturn = lowCoverageEarlyReturn.equals("true");
 			GMAF_SessionFactory.API_KEY = password;
 		}
 		catch (Exception x) {
@@ -352,5 +367,17 @@ public class Configuration {
 
 	public String getCollectionManager() {
 		return collectionManager;
+	}
+
+	public String getGraphCodeStrategyClass() {
+		return graphCodeStrategyClass;
+	}
+
+	public boolean lowCoverageEarlyReturn() {
+		return lowCoverageEarlyReturn;
+	}
+
+	public void lowCoverageEarlyReturn(boolean b) {
+		lowCoverageEarlyReturn = b;
 	}
 }
