@@ -17,11 +17,14 @@ import org.apache.jena.riot.RDFDataMgr;
 
 import java.io.*;
 import java.util.*;
+import org.slf4j.LoggerFactory;
 
 /**
  * Created by Patrick Steinert on 27.12.23.
  */
 public class MvMMFGCollection extends MMFGCollection {
+    private static final org.slf4j.Logger log = LoggerFactory.getLogger(MvMMFGCollection.class);
+
     private Vector<MMFG> collection = new Vector<MMFG>();
     private Hashtable<File, MMFG> fileMap = new Hashtable<File, MMFG>();
     private Hashtable<MMFG, GraphCode> graphCodeCache = new Hashtable<MMFG, GraphCode>();
@@ -93,7 +96,7 @@ public class MvMMFGCollection extends MMFGCollection {
                             count++;
                             int progress = 100 * count / fs.length;
                             String txt = "loading " + path + " > " + fi.getName() + " (" + count + " / " + fs.length + ")";
-                            System.out.println(progress + " -> " + txt);
+                            log.info("{} -> {}", progress, txt);
                             for (ProgressListener pl : this.progressListeners) {
                                 pl.log(progress, txt);
                             }
@@ -319,7 +322,7 @@ public class MvMMFGCollection extends MMFGCollection {
 //            // setGraphCodeStrategy(strategy);
 //            return;
 //        }
-        System.out.println("MvMMFGCollection: Loading graph codes using " + graphCodeStrategy.getClass().getSimpleName());
+        log.info("Loading graph codes using {}", graphCodeStrategy.getClass().getSimpleName());
         // Iterate MvMMFGCollection's own collection
         for (MMFG mmfg : this.collection) { 
             if (mmfg != null) {
@@ -328,7 +331,7 @@ public class MvMMFGCollection extends MMFGCollection {
                 getOrGenerateGraphCode(mmfg);
             }
         }
-        System.out.println("MvMMFGCollection: Finished loading graph codes. Cache size: " + this.graphCodeCache.size());
+        log.info("Finished loading graph codes. Cache size: {}", this.graphCodeCache.size());
     }
 
     @Override
@@ -356,7 +359,7 @@ public class MvMMFGCollection extends MMFGCollection {
             Class<?> c = Class.forName(collectionProcessorClass);
             cp = (CollectionProcessor) c.getDeclaredConstructor().newInstance();
         } catch (Exception ex) {
-            System.out.println("MvMMFGCollection: No collection processor defined. Using " + cp.getClass() + " instead");
+            log.warn("No collection processor defined. Using {} instead", cp.getClass());
         }
         cp.setOperation(type);
 
@@ -430,7 +433,7 @@ public class MvMMFGCollection extends MMFGCollection {
     @Override
     public void recalculateGraphCodes() {
 
-        System.out.println("MvMMFGCollection: Recalculating all graph codes...");
+        log.info("Recalculating all graph codes...");
         this.graphCodeCache.clear(); // Clear MvMMFGCollection's graphCodeCache
         
         File gcRepoDir = new File(Configuration.getInstance().getGraphCodeRepository());
@@ -456,7 +459,7 @@ public class MvMMFGCollection extends MMFGCollection {
                 if (baseFileName != null) {
                     File f_gc = new File(gcRepoDir, baseFileName + graphCodeStrategy.getGraphCodeFileExtension());
                     if (f_gc.exists()) {
-                        System.out.println("MvMMFGCollection: Deleting old graph code file: " + f_gc.getName());
+                        log.info("Deleting old graph code file: {}", f_gc.getName());
                         f_gc.delete();
                     }
                 }
@@ -471,7 +474,7 @@ public class MvMMFGCollection extends MMFGCollection {
                 getOrGenerateGraphCode(mmfg); 
             }
         }
-        System.out.println("MvMMFGCollection: Finished recalculating graph codes. Cache size: " + this.graphCodeCache.size());
+        log.info("Finished recalculating graph codes. Cache size: {}", this.graphCodeCache.size());
     }
 
 //    @Override

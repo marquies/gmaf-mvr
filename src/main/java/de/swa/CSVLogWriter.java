@@ -3,11 +3,15 @@ package de.swa;
 import java.io.RandomAccessFile;
 import java.text.DateFormat;
 import java.util.Date;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * writes the GMAF log to a CSV file
  **/
 public class CSVLogWriter {
+	private static final Logger log = LoggerFactory.getLogger(CSVLogWriter.class);
+
 	private static String folder = "sigir/log";
 	private static CSVLogWriter instance;
 	private RandomAccessFile logFile;
@@ -38,9 +42,9 @@ public class CSVLogWriter {
 
 		try {
 			logFile.writeBytes(logText + "\r\n");
-			System.out.println(logText);
+			log.info(logText);
 		} catch (Exception x) {
-			System.out.println("Exception in Logger " + x);
+			log.error("Could not write to log file", x);
 		}
 	}
 }

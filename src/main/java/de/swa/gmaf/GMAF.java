@@ -10,9 +10,13 @@ import de.swa.mmfg.Location;
 import de.swa.mmfg.MMFG;
 import de.swa.mmfg.Node;
 import de.swa.mmfg.Security;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /** main Framework class of the GMAF **/
 public class GMAF {
+	private static final Logger log = LoggerFactory.getLogger(GMAF.class);
+
 	/** process a Multimedia file **/
 	public MMFG processAsset(File f) throws Exception {
 		FileInputStream fs = new FileInputStream(f);
@@ -76,7 +80,7 @@ public class GMAF {
 					plugins.add(line);
 				}
 				catch (Exception x) {
-					System.out.println("Class not found " + line);
+					log.warn("Class not found {}", line);
 				}
 			}
 			rf.close();
