@@ -2,6 +2,7 @@ package de.swa.gc;
 
 import java.io.File;
 import java.io.RandomAccessFile;
+import java.nio.charset.StandardCharsets;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -47,7 +48,7 @@ public class GraphCodeIO implements Flattener {
 			RandomAccessFile rf = new RandomAccessFile(f, "r");
 			byte[] b = new byte[(int)rf.length()];
 			rf.read(b);
-			s = new String(b);
+			s = new String(b, StandardCharsets.UTF_8);
 			rf.close();
 		} catch (Exception x) {
 			x.printStackTrace();
@@ -80,7 +81,7 @@ public class GraphCodeIO implements Flattener {
 		try {
 			RandomAccessFile rf = new RandomAccessFile(f, "rw");
 			rf.setLength(0);
-			rf.writeBytes(s);
+			rf.write(s.getBytes(StandardCharsets.UTF_8));
 			rf.close();
 		} catch (Exception x) {
 			x.printStackTrace();

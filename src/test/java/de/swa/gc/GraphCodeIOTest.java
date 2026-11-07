@@ -4,7 +4,6 @@ import com.google.gson.Gson;
 import de.swa.mmfg.MMFG;
 import de.swa.mmfg.Node;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.Disabled;
 
 import java.io.File;
 
@@ -109,7 +108,6 @@ public class GraphCodeIOTest {
 		assertEquals(graphCode("straße", "größe").getDictionary(), GraphCodeIO.read(temp).getDictionary());
 	}
 
-	@Disabled("Known bug: RandomAccessFile.writeBytes drops the high byte of each character")
 	@Test
 	public void writeAndRead_keepsTermsOutsideLatin1() throws Exception {
 		File temp = tempFile();

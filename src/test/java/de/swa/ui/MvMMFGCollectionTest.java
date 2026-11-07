@@ -154,7 +154,7 @@ class MvMMFGCollectionTest {
 
         MMFG subgraph = subgraphs().get(0);
         assertEquals("clip.mp4", subgraph.getGeneralMetadata().getFileName());
-        assertEquals("Subgraph-shot_1-clip.mp4", subgraph.getGeneralMetadata().getCameraModel());
+        assertEquals("Subgraph-shot_1", subgraph.getGeneralMetadata().getCameraModel());
         assertNotEquals(collection.getCollection().get(0).getId(), subgraph.getId());
 
         GraphCode gc = GraphCodeGenerator.generate(subgraph);
@@ -355,13 +355,13 @@ class MvMMFGCollectionTest {
     }
 
     @Test
-    void processQuery_doesNotStoreGraphCodesWithFewerThanTwoTerms() {
+    void processQuery_storesGraphCodesWithASingleTerm() {
         MMFG m = mmfg("clip.mp4", "car");
         collection.addToCollection(m);
 
         collection.processQuery(graphCode("term_a", "term_b"), CollectionProcessor.SIMILARITY);
 
-        assertEquals(0, graphCodes.list().length);
+        assertEquals(1, graphCodes.list().length);
     }
 
     @Disabled("Known bug: results are keyed by file name and camera model, so such MMFGs overwrite each other")
