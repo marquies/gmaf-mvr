@@ -1,6 +1,7 @@
 package de.swa.mmfg;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.util.Vector;
 
 /** data type to represent Composition Relationships **/
 
@@ -20,11 +21,16 @@ public class CompositionRelationship {
 	private int type;
 	@JsonIgnore
 	private transient Node relatedObject;
+	private Vector<Timerange> timeRange;
 	
-	public CompositionRelationship() {}
+	public CompositionRelationship() {
+		timeRange = new Vector<>();
+	}
+	
 	public CompositionRelationship(int type, Node n) {
 		this.type = type;
 		relatedObject = n;
+		timeRange = new Vector<>();
 	}
 	
 	public int getType() {
@@ -38,5 +44,13 @@ public class CompositionRelationship {
 	}
 	public void setRelatedObject(Node relatedObject) {
 		this.relatedObject = relatedObject;
+	}
+	
+	public Vector<Timerange> getTimeRange() {
+		return timeRange;
+	}
+	
+	public void setTimeRange(Vector<Timerange> timeRange) {
+		this.timeRange = timeRange;
 	}
 }

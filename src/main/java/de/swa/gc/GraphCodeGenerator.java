@@ -7,12 +7,16 @@ import de.swa.mmfg.MMFG;
 import de.swa.mmfg.Node;
 import de.swa.mmfg.SemanticRelationship;
 import de.swa.mmfg.builder.Flattener;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /** Graph Code Generator to calculate Graph Codes out of MMFGs
  * 
  * @author stefan_wagenpfeil
  */
 public class GraphCodeGenerator  {
+	private static final Logger log = LoggerFactory.getLogger(GraphCodeGenerator.class);
+
 	private static final int LEAF_TYPE = 2;
 	private static final int NODE_TYPE = 1;
 	private static final int CHILD_RELATIONSHIP = 1;
@@ -84,7 +88,7 @@ public class GraphCodeGenerator  {
 			}
 		}
 		catch (Exception x) {
-			System.out.println("GraphCodeGenerator " + x);
+			log.error("Could not add graph codes of collection elements", x);
 		}
 				
 		return gc;
