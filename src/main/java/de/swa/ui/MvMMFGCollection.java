@@ -38,6 +38,8 @@ public class MvMMFGCollection extends MMFGCollection {
 
     protected MvMMFGCollection() {
         super();
+        // init() is overridden, so the inherited strategy setup would never run
+        initGraphCodeStrategy();
     }
 
     private Hashtable<UUID, MMFG> idMap = new Hashtable<UUID, MMFG>();
@@ -220,6 +222,23 @@ public class MvMMFGCollection extends MMFGCollection {
     @Override
     public MMFG getMMFGForFile(File f) {
         return this.fileMap.get(f);
+    }
+
+    // this class keeps its own collection, name and model, so the inherited
+    // accessors would read the empty fields of MMFGCollection
+    @Override
+    public String getName() {
+        return name;
+    }
+
+    @Override
+    public Model getRDFModel() {
+        return model;
+    }
+
+    @Override
+    public int getIndexForAsset(MMFG m) {
+        return collection.indexOf(m);
     }
 
     @Override

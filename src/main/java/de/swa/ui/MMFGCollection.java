@@ -99,12 +99,8 @@ public class MMFGCollection {
         for (RefreshListener re : refreshListeners) re.refresh();
     }
 
-    public synchronized void init() {
-        if (instanceInited)
-            return;
-
-        log.info("Initializing MMFG Collection");
-        // Initialize the GraphCodeStrategy
+    /** sets the GraphCodeStrategy from the configuration, falling back to the default **/
+    protected void initGraphCodeStrategy() {
         try {
             // First try to get the strategy class from Configuration
             String strategyClassName = Configuration.getInstance().getGraphCodeStrategyClass();
@@ -125,6 +121,14 @@ public class MMFGCollection {
             // Ensure we always have a strategy
             this.graphCodeStrategy = new DefaultGraphCodeStrategy();
         }
+    }
+
+    public synchronized void init() {
+        if (instanceInited)
+            return;
+
+        log.info("Initializing MMFG Collection");
+        initGraphCodeStrategy();
 
         GMAF gmaf = new GMAF();
         name = Configuration.getInstance().getCollectionName();
