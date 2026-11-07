@@ -19,9 +19,13 @@ import com.rometools.rome.feed.synd.SyndEntry;
 import com.rometools.rome.feed.synd.SyndFeed;
 import com.rometools.rome.io.SyndFeedInput;
 import com.rometools.rome.io.XmlReader;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /** class to import RSS feeds **/
 public class RSSImporter { 
+	private static final Logger log = LoggerFactory.getLogger(RSSImporter.class);
+
 	public RSSImporter(URL url, String collectionFolder) {
 		try {
 			SyndFeedInput input = new SyndFeedInput();
@@ -33,10 +37,10 @@ public class RSSImporter {
 				String descr = item.getDescription().getValue();
 				
 				URI uri = URI.create(uriId);
-				System.out.println("LINK : " + uri);
-				System.out.println("URI  : " + uriId);
-				System.out.println("TITLE: " + title);
-				System.out.println("DESCR: " + descr);
+				log.info("LINK : {}", uri);
+				log.info("URI  : {}", uriId);
+				log.info("TITLE: {}", title);
+				log.info("DESCR: {}", descr);
 				HttpRequest request = HttpRequest.newBuilder(uri).build();
 				String content = HttpClient.newHttpClient().send(request, BodyHandlers.ofString()).body();
 				
@@ -63,7 +67,7 @@ public class RSSImporter {
 				String plainText = sb.toString();			
 				if (plainText.indexOf("Site Index") > 0) plainText = plainText.substring(0, plainText.indexOf("Site Index"));
 				if (plainText.indexOf("Sections") > 0) plainText = plainText.substring(plainText.indexOf("Sections"), plainText.length());
-				System.out.println("TXT: " + plainText);
+				log.info("TXT: {}", plainText);
 				
 				RssItem ri = new RssItem();
 				ri.setTitle(title);

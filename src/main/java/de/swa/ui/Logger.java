@@ -1,8 +1,11 @@
 package de.swa.ui;
 
 import java.util.Vector;
+import org.slf4j.LoggerFactory;
 
 public class Logger {
+	private static final org.slf4j.Logger log = LoggerFactory.getLogger(Logger.class);
+
 	private static Logger instance = null;
 	public static Logger getInstance() {
 		if (instance == null) instance = new Logger();
@@ -15,7 +18,7 @@ public class Logger {
 	}
 	
 	public void log(String msg) {
-		System.out.println("Log: " + msg);
+		log.info(msg);
 		for (LogListener ll : listeners) ll.log(msg);
 	}
 }
