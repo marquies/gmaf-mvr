@@ -1,7 +1,6 @@
 package de.swa.gc;
 
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
@@ -13,6 +12,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  * Checks GraphCodeMetric against the worked example of Wagenpfeil et al., "Graph Codes - 2D
  * Projections of Multimedia Feature Graphs for Fast and Effective Retrieval", ICIVR 2021, which
  * gives M_GC(GC_ex, GC_ex2) = (0.5, 0.33, 0.16).
+ *
+ * M_F follows the paper. M_FR and M_RT deliberately keep the definitions of the code: in the VOC
+ * retrieval experiment with query by example Graph Codes, the paper's definitions ranked no better
+ * (relations mAP 0.9191 vs 0.9188), and the paper's M_RT is a distance that needs an ascending order.
+ * The query GC_ex has five edges: Person -> Head, Person -> Human Being, Person -> Individual,
+ * Head -> Hat and Hat -> above. GC_ex2 has two of them, Head -> Hat with the same type 3 and
+ * Hat -> above with type 6 instead of 5.
  */
 class GraphCodeMetricPaperConformanceTest {
 	private float[] similarity;
@@ -41,15 +47,15 @@ class GraphCodeMetricPaperConformanceTest {
 		assertEquals(0.5f, similarity[0], 0.01f);
 	}
 
-	@Disabled("Known deviation: the code divides by the query's edges (2/5), the paper by all off-diagonal fields of the intersection (2/6)")
+	/** the paper divides by the n * n - n non diagonal fields of the intersection, 2 / 6 = 0.33 **/
 	@Test
-	void featureRelationshipMetric_matchesPaper() {
-		assertEquals(0.33f, similarity[1], 0.01f);
+	void featureRelationshipMetric_isTheShareOfTheQueryEdgesFoundInTheOtherGraphCode() {
+		assertEquals(2f / 5f, similarity[1], 0.0001f);
 	}
 
-	@Disabled("Known deviation: the code gives the share of shared edges with equal types (1/2), the paper the share of differing fields (1/6)")
+	/** the paper sums the absolute differences of the fields as a distance, 1 / 6 = 0.16 **/
 	@Test
-	void relationshipTypeMetric_matchesPaper() {
-		assertEquals(0.16f, similarity[2], 0.01f);
+	void relationshipTypeMetric_isTheShareOfTheFoundEdgesWithAnEqualType() {
+		assertEquals(1f / 2f, similarity[2], 0.0001f);
 	}
 }
