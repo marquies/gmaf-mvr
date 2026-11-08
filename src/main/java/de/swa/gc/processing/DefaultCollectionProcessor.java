@@ -139,24 +139,25 @@ public class DefaultCollectionProcessor extends CollectionProcessor {
 //              System.out.println("A: " + metric_a[0] + " " + metric_a[1] + " " + metric_a[2]);
 //              System.out.println("B: " + metric_b[0] + " " + metric_b[1] + " " + metric_b[2]);
 
+                // compare the metric values in order of priority, a combined score truncated to int
+                // treated differences below 1 as equal and made the comparison non transitive
                 if (operation == SIMILARITY) {
-                    // calculate numeric values to support java-compatible comparison
-                    float a = metric_a[0] * 100000 + metric_a[1] * 100 + metric_a[2];
-                    float b = metric_b[0] * 100000 + metric_b[1] * 100 + metric_b[2];
-//                  System.out.println("-> S " + (b-a));
-                    return (int) (b - a);
+                    return compareInOrder(metric_a, metric_b, 0, 1, 2);
                 } else if (operation == RECOMMENDATION) {
-                    // calculate numeric values to support java-compatible comparison
-                    float a = metric_a[1] * 100000 + metric_a[0] * 100 + metric_a[2];
-                    float b = metric_b[1] * 100000 + metric_b[0] * 100 + metric_b[2];
-//                  System.out.println("-> R " + (b-a));
-
-                    return (int) (b - a);
-
+                    return compareInOrder(metric_a, metric_b, 1, 0, 2);
                 }
                 return 0;
             };
         });
         return collection;
+    }
+
+    /** descending by the metric values at the given positions, the first position deciding first **/
+    private static int compareInOrder(float[] metric_a, float[] metric_b, int... positions) {
+        for (int i : positions) {
+            int c = Float.compare(metric_b[i], metric_a[i]);
+            if (c != 0) return c;
+        }
+        return 0;
     }
 }
