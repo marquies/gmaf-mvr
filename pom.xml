@@ -11,6 +11,8 @@
 		<maven.compiler.source>14</maven.compiler.source>
 		<maven.compiler.target>14</maven.compiler.target>
 		<jackson.version>2.18.2</jackson.version>
+		<!-- set by jacoco prepare-agent; empty default keeps surefire working when jacoco is skipped -->
+		<argLine></argLine>
 	</properties>
 
 	<dependencyManagement>
@@ -203,7 +205,7 @@
 				<artifactId>maven-surefire-plugin</artifactId>
 				<version>3.2.5</version>
 				<configuration>
-					<argLine>--add-opens java.desktop/java.awt=ALL-UNNAMED --add-opens java.desktop/java.awt.color=ALL-UNNAMED</argLine>
+					<argLine>@{argLine} --add-opens java.desktop/java.awt=ALL-UNNAMED --add-opens java.desktop/java.awt.color=ALL-UNNAMED</argLine>
 				</configuration>
 			</plugin>
 
