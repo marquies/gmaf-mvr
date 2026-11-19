@@ -47,6 +47,35 @@ public class PluginChain {
 	}
 
 	/**
+	 * Processes an asset with this chain: creates its MMFG with a root node and
+	 * runs the plugins on it. Sub-assets returned by a plugin's
+	 * prepareRecursiveProcessing go through this same chain, one level deeper.
+	 **/
+	public MMFG processAsset(byte[] bytes, String assetName, String userId, int maxRecursions, int maxNodes, String original_file, File original) {
+		String suffix = ".jpg";
+		if (assetName.indexOf(".") > 0) suffix = assetName.substring(assetName.lastIndexOf("."), assetName.length());
+
+		URL location = null;
+//		URL location = TempURLProvider.provideTempUrl(bytes, suffix);
+		File file = TempFileProvider.provideTempFile(bytes, suffix, original_file);
+		if (original != null && original.exists()) file = original;
+
+		MMFG fv = new MMFG();
+		Node n = new Node("Root-Asset", fv);
+		fv.addNode(n);
+		fv.setCurrentNode(n);
+		Location loc = new Location(Location.TYPE_ORIGINAL, null, assetName);
+		fv.addLocation(loc);
+
+		process(location, file, bytes, fv, maxRecursions, maxNodes, suffix);
+		Security sec = new Security();
+		sec.setAcl("private");
+		sec.setOwner_id(userId);
+		sec.setGroup_id("");
+		return fv;
+	}
+
+	/**
 	 * processes a given asset
 	 **/
 	public void process(URL url, File f, byte[] bytes, MMFG fv, int depth, int max, String extension) {
@@ -95,7 +124,8 @@ public class PluginChain {
 								try {
 									FileInputStream fs = new FileInputStream(file);
 									byte[] subBytes = fs.readAllBytes();
-									newImg = new GMAF().processAsset(subBytes, file.getName(), "tmp", depth--,
+									// same chain, so a session's own plugins also apply to sub-assets
+									newImg = processAsset(subBytes, file.getName(), "tmp", depth - 1,
 											max, file.getName(), null);
 								} catch (Exception e) {
 									throw new RuntimeException(e);

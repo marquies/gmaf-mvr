@@ -1,8 +1,12 @@
 package de.swa.gmaf;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.UncheckedIOException;
+import java.nio.file.Files;
 import java.net.URL;
 import java.util.Vector;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -75,5 +79,69 @@ public class GMAFProcessingPluginsTest {
 		session.setProcessingPlugins(new Vector<String>());
 		process(session);
 		assertEquals(0, calls.get());
+	}
+
+	// ---- recursive processing ---------------------------------------------
+
+	/** names of the files the session's plugins were run on, in order */
+	static final Vector<String> processed = new Vector<String>();
+
+	public static class RecordingPlugin extends CountingPlugin {
+		public void process(URL url, File f, byte[] bytes, MMFG fv) { processed.add(f.getName()); }
+	}
+
+	/** hands one sub-asset back to the framework, but only for the top-level ".bin" asset */
+	public static class OneSubAssetPlugin extends CountingPlugin {
+		public void process(URL url, File f, byte[] bytes, MMFG fv) {}
+		public boolean providesRecoursiveData() { return true; }
+		public boolean canProcess(String extension) { return extension.equals(".bin"); }
+		public File[] prepareRecursiveProcessing(URL url, File f, byte[] bytes, MMFG fv) {
+			return new File[] { subAsset(".sub") };
+		}
+	}
+
+	/** hands a sub-asset back for every asset, so only the depth limit stops it */
+	public static class EndlessSubAssetPlugin extends OneSubAssetPlugin {
+		public boolean canProcess(String extension) { return true; }
+	}
+
+	static File subAsset(String suffix) {
+		try {
+			File f = File.createTempFile("gmaf_sub_", suffix);
+			f.deleteOnExit();
+			Files.write(f.toPath(), new byte[] { 4, 5, 6 });
+			return f;
+		} catch (IOException x) {
+			throw new UncheckedIOException(x);
+		}
+	}
+
+	private static Vector<String> plugins(Class<?>... classes) {
+		Vector<String> v = new Vector<String>();
+		for (Class<?> c : classes) v.add(c.getName());
+		return v;
+	}
+
+	@Test
+	void subAssets_areProcessedWithTheSessionsPlugins() {
+		processed.clear();
+		GMAF session = new GMAF();
+		session.setProcessingPlugins(plugins(RecordingPlugin.class, OneSubAssetPlugin.class));
+		process(session);
+
+		assertEquals(2, processed.size(), "parent and sub-asset, got " + processed);
+		assertTrue(processed.get(0).endsWith(".bin"));
+		assertTrue(processed.get(1).endsWith(".sub"));
+	}
+
+	@Test
+	void subAssets_goOneLevelDeeper_untilMaxRecursions() {
+		processed.clear();
+		GMAF session = new GMAF();
+		session.setProcessingPlugins(plugins(RecordingPlugin.class, EndlessSubAssetPlugin.class));
+		session.processAsset(new byte[] { 1, 2, 3 }, "asset.bin", "test", 2, 10, "asset.bin", null);
+
+		// depth 2 (the asset), 1 and 0 (sub-assets); depth -1 is not processed
+		assertEquals(3, processed.size(), "got " + processed);
 	}
 }
