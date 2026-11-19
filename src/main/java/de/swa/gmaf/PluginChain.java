@@ -3,7 +3,6 @@ package de.swa.gmaf;
 import de.swa.gmaf.plugin.GMAF_Plugin;
 import de.swa.gmaf.plugin.fusion.SpacialFeatureFusion;
 import de.swa.mmfg.*;
-import de.swa.mmfg.builder.FeatureVectorBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -131,7 +130,7 @@ public class PluginChain {
 									throw new RuntimeException(e);
 								}
 
-								FeatureVectorBuilder.mergeIntoFeatureVector(fv, newImg);
+								fvp.mergeRecursiveResult(file, newImg, fv);
 							}
 
 						} else {
