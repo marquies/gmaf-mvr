@@ -8,6 +8,10 @@ import java.io.FileOutputStream;
 
 /**
  * this class provides temporary files based on byte arrays, useful if a plugin can only process files
+ * <p>
+ * PluginChain only uses it for assets that arrive as bytes without a file on disk.
+ * The temp file then is the asset's file (GeneralMetadata.fileReference) and is
+ * not deleted, as previews and downloads read it later.
  **/
 public class TempFileProvider {
 	static Logger logger = LoggerFactory.getLogger(TempFileProvider.class);

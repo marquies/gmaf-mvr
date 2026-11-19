@@ -56,8 +56,12 @@ public class PluginChain {
 
 		URL location = null;
 //		URL location = TempURLProvider.provideTempUrl(bytes, suffix);
-		File file = TempFileProvider.provideTempFile(bytes, suffix, original_file);
-		if (original != null && original.exists()) file = original;
+		// Only write the bytes to a temp file when there is no file on disk. That
+		// temp file then becomes the asset's file (GeneralMetadata.fileReference,
+		// used for previews and downloads), so it is kept.
+		File file = (original != null && original.exists())
+				? original
+				: TempFileProvider.provideTempFile(bytes, suffix, original_file);
 
 		MMFG fv = new MMFG();
 		Node n = new Node("Root-Asset", fv);
@@ -124,8 +128,9 @@ public class PluginChain {
 									FileInputStream fs = new FileInputStream(file);
 									byte[] subBytes = fs.readAllBytes();
 									// same chain, so a session's own plugins also apply to sub-assets
+									// the sub-asset is already a file, so no temp copy is needed
 									newImg = processAsset(subBytes, file.getName(), "tmp", depth - 1,
-											max, file.getName(), null);
+											max, file.getName(), file);
 								} catch (Exception e) {
 									throw new RuntimeException(e);
 								}
