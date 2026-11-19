@@ -3,12 +3,10 @@ package de.swa.gmaf.plugin;
 import java.io.*;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Vector;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
 import de.swa.mmfg.MMFG;
-import de.swa.mmfg.Node;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -19,7 +17,6 @@ import org.slf4j.LoggerFactory;
 public class ContainerExtractorPlugin implements GMAF_Plugin {
 	private static final Logger log = LoggerFactory.getLogger(ContainerExtractorPlugin.class);
 
-	private final Vector<Node> detectedNodes = new Vector<>();
 	private static final String TEMP_DIR = System.getProperty("java.io.tmpdir") + File.separator + "container" + File.separator;
 
 	@Override
@@ -106,10 +103,5 @@ public class ContainerExtractorPlugin implements GMAF_Plugin {
 	@Override
 	public boolean isGeneralPlugin() {
 		return false;
-	}
-
-	@Override
-	public Vector<Node> getDetectedNodes() {
-		return detectedNodes;
 	}
 }
