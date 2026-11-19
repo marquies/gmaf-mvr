@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.net.URL;
 import java.net.URLConnection;
-import java.util.Vector;
 
 import de.swa.gmaf.GMAF;
 import de.swa.mmfg.MMFG;
@@ -75,21 +74,13 @@ public class VideoSplitter implements GMAF_Plugin {
 					Node tcNode = new Node(timecode, fv);
 					for (Node n : sceneMMFG.getNodes()) {
 						tcNode.addChildNode(n);
-						nodes.add(n);
 					}
 					fv.addNode(tcNode);
-					nodes.add(tcNode);
 				}
 			} catch (Exception x) {
 				x.printStackTrace();
 			}
 		}
-	}
-
-	Vector<Node> nodes = new Vector<Node>();
-
-	public Vector<Node> getDetectedNodes() {
-		return nodes;
 	}
 
 	public boolean isGeneralPlugin() {

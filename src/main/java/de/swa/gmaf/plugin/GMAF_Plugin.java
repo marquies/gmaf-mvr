@@ -35,10 +35,25 @@ public interface GMAF_Plugin {
 	public boolean isGeneralPlugin();
 
 	/**
-	 * this method is called by the GMAF to receive the results of this plugin and to fuse it into the MMFG
-	 * @return a vector of MMFG nodes
+	 * Not called by the framework: PluginChain never reads this list, so nodes
+	 * returned here do not end up in any MMFG.
+	 * <p>
+	 * Write results into the MMFG passed to {@link #process} instead, e.g. as
+	 * children of {@code fv.getCurrentNode()}. For assets that should be
+	 * analysed again (crops, frames, extracted files), return them from
+	 * {@link #prepareRecursiveProcessing}; the framework processes them and
+	 * merges the results into the MMFG.
+	 * <p>
+	 * Note that one plugin instance is shared by all requests, so collecting
+	 * results in a field is not thread-safe either.
+	 *
+	 * @return an empty vector
+	 * @deprecated unused by the framework; will be removed in a future major release
 	 */
-	public Vector<Node> getDetectedNodes();
+	@Deprecated
+	default Vector<Node> getDetectedNodes() {
+		return new Vector<Node>();
+	}
 
 	/**
 	 * this method returns, if the plugin is able to process files with a given extension

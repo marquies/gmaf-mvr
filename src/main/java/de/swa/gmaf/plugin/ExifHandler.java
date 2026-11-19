@@ -7,7 +7,6 @@ import java.io.FileOutputStream;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Vector;
 
 import org.apache.commons.imaging.Imaging;
 import org.apache.commons.imaging.common.ImageMetadata;
@@ -23,7 +22,6 @@ import org.apache.commons.imaging.formats.tiff.write.TiffOutputSet;
 
 import de.swa.mmfg.GeneralMetadata;
 import de.swa.mmfg.MMFG;
-import de.swa.mmfg.Node;
 import de.swa.mmfg.builder.FeatureVectorBuilder;
 import de.swa.mmfg.builder.JsonFlattener;
 import org.slf4j.Logger;
@@ -165,9 +163,5 @@ public class ExifHandler implements GMAF_Plugin {
 	/** returns always false, as exif is not recursive **/
 	public boolean providesRecoursiveData() {
 		return false;
-	}
-
-	public Vector<Node> getDetectedNodes() {
-		return null;
 	}
 }
