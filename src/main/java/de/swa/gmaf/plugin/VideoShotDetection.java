@@ -1,89 +1,92 @@
 package de.swa.gmaf.plugin;
 
 import java.io.File;
-import java.io.FileOutputStream;
+import java.io.IOException;
 import java.net.URL;
-import java.net.URLConnection;
+import java.nio.file.Files;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
-import de.swa.gmaf.GMAF;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import de.swa.mmfg.MMFG;
-import de.swa.mmfg.Node;
 
-/** automated scene detection based on FFMPEG **/
+/**
+ * Detects shot changes in a video with ffmpeg and hands one still frame per
+ * shot back to the framework, which analyses each frame with the same plugins
+ * and attaches the results below a timecode node per shot.
+ * Requires ffmpeg on the PATH.
+ */
 public class VideoShotDetection implements GMAF_Plugin {
+	private static final Logger log = LoggerFactory.getLogger(VideoShotDetection.class);
+
+	/** ffmpeg scene score (0..1) above which a frame counts as the start of a new shot */
+	static final String SCENE_THRESHOLD = "0.4";
+
+	private static final Pattern PTS_TIME = Pattern.compile("pts_time:\\s*([0-9.]+)");
+
 	public boolean canProcess(String extension) {
-		String[] extensions = {"mpg", "mpeg", "mov", "flv", "mp4", "mxf", "qt", "m4v"};
-		for (String ext : extensions) {
-			if (ext.equalsIgnoreCase(extension)) return true;
-		}
-		return false;
+		return FfmpegSupport.isVideo(extension);
 	}
 
+	/** nothing to do here: the frames are produced in prepareRecursiveProcessing */
 	public void process(URL url, File f, byte[] bytes, MMFG fv) {
-		if (!f.exists()) {
-			// Download the video
-			try {
-				URLConnection uc = url.openConnection();
-				String extension = url.toString();
-				extension = extension.substring(extension.lastIndexOf("."), extension.length());
-				f = new File("temp/" + System.currentTimeMillis() + extension);
-				FileOutputStream fout = new FileOutputStream(f);
-				fout.write(uc.getInputStream().readAllBytes());
-				fout.close();
+	}
+
+	public boolean providesRecoursiveData() {
+		return true;
+	}
+
+	/**
+	 * @return one PNG per shot, named {@code shot_<start millis>.png}; the first
+	 *         frame of the video always starts a shot. Null if none were found.
+	 */
+	public File[] prepareRecursiveProcessing(URL url, File f, byte[] bytes, MMFG fv) {
+		try {
+			File video = FfmpegSupport.videoFile(f, bytes);
+			File dir = Files.createTempDirectory("gmaf_shots_").toFile();
+			// showinfo logs pts_time for every selected frame, in output order.
+			// -vsync vfr writes only the selected frames instead of repeating them.
+			List<String> out = FfmpegSupport.run(Arrays.asList(
+					"-hide_banner", "-i", video.getAbsolutePath(),
+					"-vf", "select='eq(n,0)+gt(scene," + SCENE_THRESHOLD + ")',showinfo",
+					"-vsync", "vfr",
+					new File(dir, "frame_%04d.png").getAbsolutePath()));
+
+			List<Long> startMillis = new ArrayList<Long>();
+			for (String line : out) {
+				if (!line.contains("Parsed_showinfo")) continue;
+				Matcher m = PTS_TIME.matcher(line);
+				if (m.find()) startMillis.add(Math.round(Double.parseDouble(m.group(1)) * 1000));
 			}
-			catch (Exception x) {
-				x.printStackTrace();
+
+			List<File> shots = new ArrayList<File>();
+			for (int i = 0; i < startMillis.size(); i++) {
+				File frame = new File(dir, String.format("frame_%04d.png", i + 1));
+				if (frame.exists()) shots.add(FfmpegSupport.renameWithMillis(frame, "shot", startMillis.get(i)));
 			}
+			if (shots.isEmpty()) {
+				dir.delete();
+				return null;
+			}
+			log.info("VideoShotDetection: {} -> {} shots", f.getName(), shots.size());
+			return shots.toArray(new File[0]);
+		} catch (IOException | RuntimeException x) {
+			log.warn("VideoShotDetection could not process {}: {}", f.getName(), x.getMessage());
+			return null;
 		}
-		if (!f.exists()) {
-			// create the video out of the bytes
-			try {
-				f = new File("temp/" + System.currentTimeMillis() + ".mp4");
-				FileOutputStream fout = new FileOutputStream(f);
-				fout.write(bytes);
-				fout.close();
-			}
-			catch (Exception x) {
-				x.printStackTrace();
-			}
-		}
-		if (f.exists()) {
-			// create folder for the scene screenshots
-			File scene_screenshots = new File("temp/" + f.getName() + "_Scenes");
-			scene_screenshots.mkdirs();
-			String[] cmd = {"ffmpeg", "-i", 
-					f.getAbsolutePath(), 
-					"-vf", "select='gt(scene\\,0,4)'", 
-					"-vsync", "vfr", 
-					"temp/" + f.getName() + "_Scenes/frame_%d.png"};
-			try {
-				Runtime.getRuntime().exec(cmd);
-				
-				File[] fs = new File("temp/" + f.getName() + "_Scenes").listFiles();
-				GMAF gmaf = new GMAF();
-				for (File fi : fs) {
-					MMFG sceneMMFG = gmaf.processAsset(fi);
-					String name = fi.getName();
-					String timecode = name.substring(name.indexOf("_"), name.indexOf("."));
-					Node tcNode = new Node(timecode, fv);
-					for (Node n : sceneMMFG.getNodes()) {
-						tcNode.addChildNode(n);
-					}
-					fv.addNode(tcNode);
-				}
-			}
-			catch (Exception x) {
-				x.printStackTrace();
-			}
-		}
+	}
+
+	public void mergeRecursiveResult(File subAsset, MMFG sub, MMFG parent) {
+		FfmpegSupport.mergeUnderTimecode(subAsset, sub, parent);
+		FfmpegSupport.deleteWithEmptyParent(subAsset);
 	}
 
 	public boolean isGeneralPlugin() {
-		return false;
-	}
-
-
-	public boolean providesRecoursiveData() {
 		return false;
 	}
 }

@@ -6,6 +6,7 @@ import java.util.Vector;
 
 import de.swa.mmfg.MMFG;
 import de.swa.mmfg.Node;
+import de.swa.mmfg.builder.FeatureVectorBuilder;
 
 /** 
  * @author stefan_wagenpfeil 
@@ -62,7 +63,29 @@ public interface GMAF_Plugin {
 	 */
 	public boolean canProcess(String extension);
 
+	/**
+	 * Called after {@link #process} when {@link #providesRecoursiveData()} is true.
+	 * Returns assets derived from this one (crops, frames, segments, extracted
+	 * files) that the framework should analyse with the same plugins, one
+	 * recursion level deeper. Each result is passed to {@link #mergeRecursiveResult}.
+	 *
+	 * @return the derived assets, or null if there are none
+	 */
 	default File[] prepareRecursiveProcessing(URL url, File f, byte[] bytes, MMFG fv) {
 		return null;
+	}
+
+	/**
+	 * Merges the MMFG of a sub-asset returned by {@link #prepareRecursiveProcessing}
+	 * into the MMFG of the asset it was derived from. The default attaches the
+	 * sub-asset's nodes below the parent's current node; override it to add
+	 * structure, e.g. a timecode node per video segment.
+	 *
+	 * @param subAsset the file as returned by prepareRecursiveProcessing
+	 * @param sub the MMFG computed for subAsset
+	 * @param parent the MMFG of the asset subAsset was derived from
+	 */
+	default void mergeRecursiveResult(File subAsset, MMFG sub, MMFG parent) {
+		FeatureVectorBuilder.mergeIntoFeatureVector(parent, sub);
 	}
 }
