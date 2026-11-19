@@ -38,6 +38,8 @@ public class Configuration {
 	private boolean lowCoverageEarlyReturn = true;
 
 	private String collectionManager = "de.swa.ui.DefaultMMFGCollection";
+	private String jobRepository = "jobs";
+	private int processingThreads = 2;
 
 	public static synchronized Configuration getInstance() {
 		if (instance == null) {
@@ -78,6 +80,8 @@ public class Configuration {
 		f = new File(exportFolder);
 		if (!f.exists()) f.mkdirs();
 		f = new File(flowFolder);
+		if (!f.exists()) f.mkdirs();
+		f = new File(jobRepository);
 		if (!f.exists()) f.mkdirs();
 		f = new File("temp");
 		if (!f.exists()) f.mkdirs();
@@ -203,6 +207,12 @@ public class Configuration {
 						if (strategyClass != null && !strategyClass.isEmpty()) {
 							graphCodeStrategyClass = strategyClass;
 						}
+					}
+					else if (line.startsWith("jobRepository")) {
+						jobRepository = line.substring(line.indexOf("=") + 1, line.length()).trim();
+					}
+					else if (line.startsWith("processingThreads")) {
+						processingThreads = Math.max(1, Integer.parseInt(line.substring(line.indexOf("=") + 1, line.length()).trim()));
 					}
 					else if (line.startsWith("lowCoverageEarlyReturn")) {
 						lowCoverageEarlyReturn = line.substring(line.indexOf("=") + 1, line.length()).trim();
@@ -341,6 +351,16 @@ public class Configuration {
 		return queryInformationUI;
 	}
 	
+	/** folder of the background processing jobs' states (default: jobs) */
+	public String getJobRepository() {
+		return jobRepository;
+	}
+
+	/** number of background processing workers (default: 2) */
+	public int getProcessingThreads() {
+		return processingThreads;
+	}
+
 	public String getRDFRepo() {
 		return rdfRepository;
 	}
