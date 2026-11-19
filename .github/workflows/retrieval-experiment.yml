@@ -1,0 +1,86 @@
+name: Retrieval experiment
+
+on:
+  workflow_dispatch:
+  pull_request:
+    branches: [ "master" ]
+    types: [ opened, synchronize, reopened, labeled, unlabeled ]
+    paths:
+      - 'src/main/java/de/swa/gc/**'
+      - 'src/main/java/de/swa/gmaf/plugin/fusion/**'
+      - 'src/main/java/de/swa/mmfg/**'
+      - 'src/test/java/de/swa/experiment/**'
+      - 'experiments/**'
+      - '.github/scripts/compare_experiment.py'
+      - '.github/workflows/retrieval-experiment.yml'
+
+permissions:
+  contents: read
+
+env:
+  VOC_URL: https://pjreddie.com/media/files/VOCtrainval_06-Nov-2007.tar
+  VOC_SHA256: 7d8cd951101b0957ddfd7a530bdc8a94f06121cfc1e511bb5937e973020c7508
+  VOC_ANNOTATIONS: ${{ github.workspace }}/../voc/VOCdevkit/VOC2007/Annotations
+
+jobs:
+  experiment:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v6
+      with:
+        fetch-depth: 0
+    - name: Set up JDK 21
+      uses: actions/setup-java@v6
+      with:
+        java-version: '21'
+        distribution: 'temurin'
+        cache: maven
+    - name: Restore VOC annotations
+      id: voc
+      uses: actions/cache@v4
+      with:
+        path: ${{ env.VOC_ANNOTATIONS }}
+        key: voc2007-annotations-${{ env.VOC_SHA256 }}
+    - name: Download VOC annotations
+      if: steps.voc.outputs.cache-hit != 'true'
+      run: |
+        mkdir -p ../voc
+        curl -fsSL --retry 3 "$VOC_URL" -o ../voc/voc.tar
+        echo "$VOC_SHA256  ../voc/voc.tar" | sha256sum -c -
+        tar xf ../voc/voc.tar -C ../voc VOCdevkit/VOC2007/Annotations
+        rm ../voc/voc.tar
+    - name: Run experiment on this revision
+      run: >
+        mvn -B -q test -Dtest=VocRetrievalExperimentTest,PaperMetricTest,RankingMeasuresTest
+        -Dvoc.annotations="$VOC_ANNOTATIONS" -Dvoc.report="$PWD/head-report.json"
+    - name: Run experiment on the base revision
+      if: github.event_name == 'pull_request'
+      run: |
+        git worktree add ../base "${{ github.event.pull_request.base.sha }}"
+        # the base keeps its production code and gets this revision's experiment
+        mkdir -p ../base/src/test/java/de/swa
+        rm -rf ../base/src/test/java/de/swa/experiment
+        cp -R src/test/java/de/swa/experiment ../base/src/test/java/de/swa/
+        cd ../base
+        mvn -B -q test -Dtest=VocRetrievalExperimentTest \
+          -Dvoc.annotations="$VOC_ANNOTATIONS" -Dvoc.report="$GITHUB_WORKSPACE/base-report.json"
+    - name: Compare results
+      run: |
+        base=""
+        [ -f base-report.json ] && base=base-report.json
+        status=0
+        python3 .github/scripts/compare_experiment.py head-report.json "$base" 0.01 >> "$GITHUB_STEP_SUMMARY" || status=$?
+        if [ "$status" -ne 0 ] && [ "$ACCEPTED" = "true" ]; then
+          echo "The experiment-accepted label accepts this drop." >> "$GITHUB_STEP_SUMMARY"
+          status=0
+        fi
+        exit "$status"
+      env:
+        ACCEPTED: ${{ contains(github.event.pull_request.labels.*.name, 'experiment-accepted') }}
+    - name: Upload reports
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: retrieval-experiment
+        path: '*-report.json'
