@@ -13,6 +13,8 @@
 		<jackson.version>2.18.2</jackson.version>
 		<!-- set by jacoco prepare-agent; empty default keeps surefire working when jacoco is skipped -->
 		<argLine></argLine>
+		<!-- -DskipUTs=true runs only the integration tests (*IT, failsafe), e.g. in the CI integration job -->
+		<skipUTs>false</skipUTs>
 	</properties>
 
 	<dependencyManagement>
@@ -206,7 +208,26 @@
 				<version>3.2.5</version>
 				<configuration>
 					<argLine>@{argLine} --add-opens java.desktop/java.awt=ALL-UNNAMED --add-opens java.desktop/java.awt.color=ALL-UNNAMED</argLine>
+					<skipTests>${skipUTs}</skipTests>
 				</configuration>
+			</plugin>
+
+			<!-- integration tests (*IT): need external tools such as ffmpeg; run by `mvn verify` -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-failsafe-plugin</artifactId>
+				<version>3.2.5</version>
+				<configuration>
+					<argLine>@{argLine} --add-opens java.desktop/java.awt=ALL-UNNAMED --add-opens java.desktop/java.awt.color=ALL-UNNAMED</argLine>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>integration-test</goal>
+							<goal>verify</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 
 			<plugin>
