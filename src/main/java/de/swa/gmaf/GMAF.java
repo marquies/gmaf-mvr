@@ -27,7 +27,7 @@ public class GMAF {
 	
 	/** process an array of bytes **/
 	public MMFG processAsset(byte[] bytes, String assetName, String userId, int maxRecursions, int maxNodes, String original_file, File original) {
-		if (filterChain == null) filterChain = new PluginChain(getProcessingPlugins());
+		PluginChain filterChain = getFilterChain();
 		String suffix = ".jpg";
 		if (assetName.indexOf(".") > 0) suffix = assetName.substring(assetName.lastIndexOf("."), assetName.length());
 
@@ -51,16 +51,33 @@ public class GMAF {
 		return fv;
 	}
 	
-	private static PluginChain filterChain = null;
-	private Vector<String> processingPlugins = new Vector<String>();
-	private Vector<String> getProcessingPlugins() {
-		if (processingPlugins.size() == 0) processingPlugins = getPlugins();
-		return processingPlugins;
+	/**
+	 * Chain built from conf/plugin.config. Shared by every instance that has not
+	 * set its own plugins, because GMAF is instantiated per collection load,
+	 * recursive sub-asset and video segment, and plugins may be costly to create.
+	 */
+	private static PluginChain defaultChain = null;
+
+	/** Chain of the plugins set via {@link #setProcessingPlugins}; null means "use the default". */
+	private volatile PluginChain customChain = null;
+
+	private PluginChain getFilterChain() {
+		PluginChain custom = customChain;
+		if (custom != null) return custom;
+		synchronized (GMAF.class) {
+			if (defaultChain == null) defaultChain = new PluginChain(getPlugins());
+			return defaultChain;
+		}
 	}
-	
-	/** set the processing plugins **/
+
+	/**
+	 * Sets the processing plugins for this instance only (e.g. one API session).
+	 * Takes effect for the next processAsset call, also after assets have been
+	 * processed. Null or an empty list reverts to the plugins in conf/plugin.config.
+	 * Assets processed recursively (e.g. video segments) use the default plugins.
+	 **/
 	public void setProcessingPlugins(Vector<String> p) {
-		processingPlugins = p;
+		customChain = (p == null || p.isEmpty()) ? null : new PluginChain(p);
 	}
 
 	/** returns the configured plugins in GMAF-conf **/
